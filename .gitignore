@@ -1,5 +1,6 @@
 # Data folder
 data/
+secrets.toml
 
 # config and credentials files
 config.py
