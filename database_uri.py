@@ -1,30 +1,23 @@
-import configparser
+import tomllib
 from pathlib import Path
 
 
-def get_db_uri(user_type):
-    config = configparser.ConfigParser()
-    config.read(Path("config.ini"))
+def get_db_uri():
+    secrets_path = Path("secrets.toml")
+
+    with open(secrets_path, "rb") as f:
+        secrets = tomllib.load(f)
 
     # database and root user credentials
-    host = config["DATABASE"]["HOST"]
-    port = config["DATABASE"]["PORT"]
-    db = config["DATABASE"]["DB"]
+    host = secrets["DATABASE"]["HOST"]
+    port = secrets["DATABASE"]["PORT"]
+    db = secrets["DATABASE"]["DB"]
 
-    if user_type == "root":
-        # root user credentials
-        root_user = config["ROOT"]["USERNAME"]
-        root_pwd = config["ROOT"]["USERNAME"]
+    # user credentials
+    user = secrets["USER"]["USERNAME"]
+    pwd = secrets["USER"]["PASSWORD"]
 
-        # root user db uri
-        db_uri = f"postgresql://{root_user}:{root_pwd}@{host}:{port}/{db}"
+    # user db url
+    db_url = f"postgresql://{user}:{pwd}@{host}:{port}/{db}"
 
-    elif user_type == "user":
-        # user credentials
-        user = config["USER"]["USERNAME"]
-        pwd = config["USER"]["PASSWORD"]
-
-        # user db uri
-        db_uri = f"postgresql://{user}:{pwd}@{host}:{port}/{db}"
-
-    return db_uri
+    return db_url
