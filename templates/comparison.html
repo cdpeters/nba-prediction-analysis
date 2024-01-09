@@ -2,51 +2,47 @@
 
 <!--------------------------------- HEAD -------------------------------------->
 {% block head %}
-<title>CHAMPIONS VS. CURRENT TEAMS </title>
-    <script type="module" src="https://public.tableau.com/javascripts/api/tableau.embedding.3.latest.min.js"></script>
-{% endblock %}
-
+<title>COMPARISON</title>
+<script type="module" src="https://public.tableau.com/javascripts/api/tableau.embedding.3.latest.min.js"></script>
+{% endblock head %}
 
 <!--------------------------------- BODY -------------------------------------->
 {% block body %}
-{{ super() }}
-<tableau-viz id="tableauViz"       
-src= "https://public.tableau.com/views/PASTCHAMPIONSVS_CURRENTPLAYOFFTEAMS/PASTCHAMPIONSVS_CURRENTSEASON?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link"     
-device="desktop" toolbar="bottom" hide-tabs>
+<tableau-viz id="tableauViz"
+            src= "https://public.tableau.com/views/PASTCHAMPIONSVS_CURRENTPLAYOFFTEAMS/PASTCHAMPIONSVS_CURRENTSEASON?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link"
+         device="desktop"
+        toolbar="bottom"
+      hide-tabs>
 </tableau-viz>
-
 <main>
-    <div class="container px-4 py-5" id="featured-3"> 
-      <h2 class="pb-2 border-bottom text-white" style="font-family: Aileron">Analysis</h2>
-      <p class="pb-2 text-white" style="font-family: Aileron">
-        Past Champions vs. Current Playoff Teams compares the regular season stats of historical NBA champions and how they compare to the regular season stats of the teams currently playing in the 2022 Playoffs. 
-       </p>
-       <ul class="text-white" style="font-family: Aileron"  > Offensive vs. Defensive Rating
-            <li>  Past champions have historically grouped between the 1st and 3rd quadrants. <br>
-                This past season shows a rough distribution between quadrants. <br>
-                Will be interesting to see if the champion team will remain between these two quadrants. <br>
-            </li>
-        </ul>
-        <ul class="text-white" style="font-family: Aileron"  > Assist% vs. Turnover%
-            <li>  Past champions have historically grouped between the 1st and 3rd quadrants. <br>
-                This past season shows a somwhat similar distribution between the 1st and 3rd quadrants. <br>
-                Will be interesting to see if the champion team will remain between these two quadrants.  <br>
-
-            </li>
-        </ul>
-        <ul class="text-white" style="font-family: Aileron"  > Effective Field Goal% vs. True Shooting%
-            <li>  Past champions have historically grouped between the 1st and 3rd quadrants in a linear fashion with more recent teams in the first quadrant. <br>
-                This past season shows a similar linear trend. <br>
-                The champion team may be found in the first quadrant. <br>
-
-            </li>
-        </ul>
-        
-    
+  <div class="px-5 pt-5 pb-3 mx-5" id="featured-3">
+    <div class="pb-2">
+      <h2 class="pb-1 border-bottom text-white">Analysis</h2>
     </div>
-    
+    <p class="pb-2 text-white">
+      Past Champions vs. Current Playoff Teams compares the regular season stats of historical NBA champions and how they compare to the regular season stats of the teams currently playing in the 2022 Playoffs.
+    </p>
+    <ul class="text-white"Offensive vs. Defensive Rating
+      <li>
+        Past champions have historically grouped between the 1st and 3rd quadrants. <br>
+        This past season shows a rough distribution between quadrants. <br>
+        Will be interesting to see if the champion team will remain between these two quadrants. <br>
+      </li>
+    </ul>
+    <ul class="text-white"Assist% vs. Turnover%
+      <li>
+        Past champions have historically grouped between the 1st and 3rd quadrants.<br>
+        This past season shows a somwhat similar distribution between the 1st and 3rd quadrants.<br>
+        Will be interesting to see if the champion team will remain between these two quadrants.<br>
+      </li>
+    </ul>
+    <ul class="text-white"Effective Field Goal% vs. True Shooting%
+      <li>
+        Past champions have historically grouped between the 1st and 3rd quadrants in a linear fashion with more recent teams in the first quadrant. <br>
+        This past season shows a similar linear trend. <br>
+        The champion team may be found in the first quadrant. <br>
+      </li>
+    </ul>
+  </div>
 </main>
-
-<!-- <script type="text/javascript"
-        src="{{ url_for('static', filename='js/comparison_tableau.js') }}"></script> -->
-{% endblock %}
+{% endblock body %}
