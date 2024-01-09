@@ -2,22 +2,23 @@ import tomllib
 from pathlib import Path
 
 
-def get_db_uri():
-    secrets_path = Path("secrets.toml")
+def get_db_uri() -> str:
+    """Build database uri from secrets file."""
+    secrets_path = Path.cwd() / "secrets.toml"
 
     with open(secrets_path, "rb") as f:
         secrets = tomllib.load(f)
 
-    # database and root user credentials
+    # Host, port and database values.
     host = secrets["DATABASE"]["HOST"]
     port = secrets["DATABASE"]["PORT"]
     db = secrets["DATABASE"]["DB"]
 
-    # user credentials
+    # User credentials.
     user = secrets["USER"]["USERNAME"]
     pwd = secrets["USER"]["PASSWORD"]
 
-    # user db url
-    db_url = f"postgresql://{user}:{pwd}@{host}:{port}/{db}"
+    # Build database URI.
+    db_uri = f"postgresql://{user}:{pwd}@{host}:{port}/{db}"
 
-    return db_url
+    return db_uri
