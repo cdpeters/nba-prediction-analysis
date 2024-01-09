@@ -1,0 +1,112 @@
+teams
+-
+TEAM varchar PK
+
+seasons
+-
+SEASON int PK
+
+season_records
+-
+SEASON int PK FK >- seasons.SEASON
+TEAM varchar PK FK >- teams.TEAM
+GP int
+W int
+L int
+MIN double
+PLAYOFFS bool
+CHAMPION bool
+
+# Regular season tables -----------
+teams_traditional
+-
+SEASON int PK FK >- seasons.SEASON
+TEAM varchar PK FK >- teams.TEAM
+WIN% double
+PTS double
+FGM double
+FGA double
+FG% double
+3PM double
+3PA double
+3P% double
+FTM double
+FTA double
+FT% double
+OREB double
+DREB double
+REB double
+AST double
+TOV double
+STL double
+BLK double
+BLKA double
+PF double
+PFD double
+PLUS_MINUS double
+
+teams_advanced
+-
+SEASON int PK FK >- seasons.SEASON
+TEAM varchar PK FK >- teams.TEAM
+OFFRTG double
+DEFRTG double
+NETRTG double
+AST% double
+AST/TO double
+ASTRATIO double
+OREB% double
+DREB% double
+REB% double
+TOV% double
+EFG% double
+TS% double
+PACE double
+PIE double
+POSS int
+
+teams_misc
+-
+SEASON int PK FK >- seasons.SEASON
+TEAM varchar PK FK >- teams.TEAM
+PTSOFF_TO double
+2NDPTS double
+FBPS double
+PITP double
+OPP_PTSOFF_TO double
+OPP2ND_PTS double
+OPPFBPS double
+OPPPITP double
+
+teams_clutch
+-
+SEASON int PK FK >- seasons.SEASON
+TEAM varchar PK FK >- teams.TEAM
+GP int
+W int
+L int
+WIN% double
+MIN double
+PTS double
+FGM double
+FGA double
+FG% double
+3PM double
+3PA double
+3P% double
+FTM double
+FTA double
+FT% double
+OREB double
+DREB double
+REB double
+AST double
+TOV double
+STL double
+BLK double
+BLKA double
+PF double
+PFD double
+PLUS_MINUS double
+PLAYOFFS bool
+CHAMPION bool
