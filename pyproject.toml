@@ -43,7 +43,7 @@ profile = "black"
 
 [tool.nbqa.addopts]
 flake8 = [
-    "--extend-ignore=D100,E501"
+    "--max-line-length=88"
 ]
 
 [build-system]
