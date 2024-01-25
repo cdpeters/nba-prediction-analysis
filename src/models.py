@@ -10,7 +10,7 @@ from flask_sqlalchemy import SQLAlchemy
 class Models:
     """Container class containing ORM models."""
 
-    def __init__(self, db: SQLAlchemy):
+    def __init__(self, db: SQLAlchemy) -> None:
         """Create ORM models using a database object's metadata attribute.
 
         Parameters
