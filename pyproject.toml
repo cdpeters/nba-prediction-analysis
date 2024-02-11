@@ -16,6 +16,7 @@ sqlalchemy = "^2.0.22"
 psycopg2 = "^2.9.9"
 tomli = "^2.0.1"
 gunicorn = "^21.2.0"
+selectolax = "^0.3.19"
 
 [tool.poetry.group.dev.dependencies]
 python-dotenv = "^1.0.0"
