@@ -63,7 +63,7 @@
       below shows a Pearson correlation coefficient heatmap for our dataset:
     </p>
     <figure class="d-flex flex-column align-items-center">
-      <img src="{{ url_for('static', filename='images/correlation_heatmap_all_stats.png') }}"
+      <img src="{{ url_for('static', filename='images/machine_learning/correlation_heatmap_all_features.png') }}"
             alt="correlation heatmap for all stats"
           style="width: 854px;" />
       <figcaption class="pt-1 text-white">Fig 1. Correlation coefficient heatmap for all stats</figcaption>
@@ -83,8 +83,9 @@
       percentile values of correlation coefficient:
     </p>
     <figure class="d-flex flex-column align-items-center">
-      <img src="{{ url_for('static', filename='images/correlation_max.png') }}"
-           alt="confusion matrix" />
+      <img src="{{ url_for('static', filename='images/machine_learning/max_correlation_coefficients.png') }}"
+           alt="max correlation coefficients"
+         style="width: 654px;" />
       <figcaption class="pt-1 text-white">Fig 2. Stats having a maximum correlation coefficient < 0.8</figcaption>
     </figure>
     <br>
@@ -99,8 +100,9 @@
       stat). Thus we have the following chart:
     </p>
     <figure class="d-flex flex-column align-items-center">
-      <img src="{{ url_for('static', filename='images/correlation_80_percentile.png') }}"
-           alt="confusion matrix" />
+      <img src="{{ url_for('static', filename='images/machine_learning/percentile_correlation_coefficients.png') }}"
+           alt="percentile correlation coefficients"
+         style="width: 654px;" />
       <figcaption class="pt-1 text-white">Fig 3. Stats with 80% of their correlation coefficients < 0.35</figcaption>
     </figure>
     <br>
@@ -117,8 +119,8 @@
       the feature set:
     </p>
     <figure class="d-flex flex-column align-items-center">
-      <img src="{{ url_for('static', filename='images/correlation_heatmap_final_stats.png') }}"
-           alt="confusion matrix"
+      <img src="{{ url_for('static', filename='images/machine_learning/correlation_heatmap_selected_features.png') }}"
+           alt="correlation heatmap for selected features"
          style="width: 654px;" />
       <figcaption class="pt-1 text-white">Fig 4. The final selection of stats to be used as features in our model</figcaption>
     </figure>
@@ -131,8 +133,9 @@
       process.
     </p>
     <figure class="d-flex flex-column align-items-center">
-      <img src="{{ url_for('static', filename='images/cumulative_explained_variance.png') }}"
-           alt="confusion matrix" />
+      <img src="{{ url_for('static', filename='images/machine_learning/cumulative_explained_variance_all_features.png') }}"
+           alt="cumulative explained variance for all features"
+         style="width: 654px;" />
       <figcaption class="pt-1 text-white">Fig 5. Cumulative explained variance</figcaption>
     </figure>
     <br>
@@ -145,8 +148,9 @@
       confusion matrix shows the performance of our model:
     </p>
     <figure class="d-flex flex-column align-items-center">
-      <img src="{{ url_for('static', filename='images/confusion_matrix_final.png') }}"
-           alt="confusion matrix" />
+      <img src="{{ url_for('static', filename='images/machine_learning/confusion_matrix.png') }}"
+           alt="confusion matrix"
+         style="width: 654px;" />
       <figcaption class="pt-1 text-white">Fig 6. Model results: confusion matrix</figcaption>
     </figure>
     <br>
@@ -158,11 +162,11 @@
       as having the highest probability of winning the championship in 2022. See
       below the resulting probabilities for all playoff teams.
     </p>
-    <figure class="d-flex flex-column align-items-center">
-      <img src="{{ url_for('static', filename='images/prediction_probabilities.png') }}"
-           alt="confusion matrix" />
-      <figcaption class="pt-1 text-white">Fig 7. Model results: resulting champion/not-champion probabilities for all playoff teams</figcaption>
-    </figure>
+		<div class="container">
+			<div class="table-responsive" style="height:300px; width: 700px; overflow-y:scroll">
+				{{ proba_est_table_html|safe }}
+			</div>
+		</div>
     <br>
   </div>
   <br>
@@ -178,16 +182,17 @@
       using the final feature set:
     </p>
     <figure class="d-flex flex-column align-items-center">
-      <img src="{{ url_for('static', filename='images/relative_feature_importance_bar_chart.png') }}"
-           alt="confusion matrix" />
+      <img src="{{ url_for('static', filename='images/machine_learning/feature_importance.png') }}"
+           alt="feature importance"
+         style="width: 654px;" />
       <figcaption class="pt-1 text-white">Fig 8. Relative feature importance</figcaption>
     </figure>
     <br>
-    <figure class="d-flex flex-column align-items-center">
-      <img src="{{ url_for('static', filename='images/relative_feature_importance.png') }}"
-           alt="confusion matrix" />
-      <figcaption class="pt-1 text-white">Fig 9. Relative feature importance values</figcaption>
-    </figure>
+		<div class="container">
+			<div class="table-responsive" style="width: 300px;">
+				{{ feat_imp_table_html|safe }}
+			</div>
+		</div>
     <br>
     <p class="text-white w-100">
       We can see here that assist to turnover ratio is the most important to

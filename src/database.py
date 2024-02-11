@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 
 import pandas as pd
 from flask_sqlalchemy import SQLAlchemy
@@ -6,6 +7,7 @@ from sqlalchemy import and_
 from sqlalchemy.orm import aliased
 
 from models import Models
+from utils import convert_frame_to_html
 
 
 def get_db_uri() -> str:
@@ -14,7 +16,7 @@ def get_db_uri() -> str:
     Returns
     -------
     str
-        Database uri string.
+        Database URI string.
     """
     # Host, port and database values.
     db = os.environ.get("PGDATABASE")
@@ -50,8 +52,9 @@ def get_teams_traditional_table_html(db: SQLAlchemy, models: Models) -> str:
     tt = aliased(models.TeamsTraditional)
     sr = aliased(models.SeasonRecords)
 
-    # In the `join` call below, the `target` argument represents the right table in the
-    # join. The left table is inferred from the first table in the `select` call.
+    # Build the query statement. In the `join` call below, the `target` argument
+    # represents the right table in the join. The left table is inferred from the first
+    # table in the `select` call.
     query = (
         db.select(sr, tt)
         .join(
@@ -61,14 +64,59 @@ def get_teams_traditional_table_html(db: SQLAlchemy, models: Models) -> str:
         .where(sr.SEASON <= 2022)
     )
 
-    # Execute the query statement using pandas `read_sql`.
+    # Execute the query statement.
     teams_traditional = pd.read_sql(sql=query, con=db.engine)
     # Drop redundant columns from the join.
     teams_traditional = teams_traditional.drop(columns=["SEASON_1", "TEAM_1"])
 
-    return teams_traditional.to_html(
-        justify="left",
+    return convert_frame_to_html(
+        df=teams_traditional,
         border=0,
         classes=["table", "table-dark", "table-striped"],
         index=False,
+    )
+
+
+def get_probability_estimates_table_html(path: Path) -> str:
+    """Create the html for the probability estimates table from a csv.
+
+    Parameters
+    ----------
+    path : Path
+        Path to csv file with probability estimates.
+
+    Returns
+    -------
+    str
+        Table html string.
+    """
+    probability_estimates = pd.read_csv(path)
+
+    return convert_frame_to_html(
+        df=probability_estimates,
+        border=0,
+        classes=["table", "table-dark", "table-striped"],
+        index=False,
+    )
+
+
+def get_feature_importance_table_html(path: Path) -> str:
+    """Create the html for the feature importance table from a csv.
+
+    Parameters
+    ----------
+    path : Path
+        Path to csv file with feature importance data.
+
+    Returns
+    -------
+    str
+        Table html string.
+    """
+    feature_importance = pd.read_csv(path, index_col=0)
+
+    return convert_frame_to_html(
+        df=feature_importance,
+        border=0,
+        classes=["table", "table-dark", "table-striped"],
     )

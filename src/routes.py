@@ -1,7 +1,13 @@
+from pathlib import Path
+
 from flask import Blueprint, render_template
 from flask_sqlalchemy import SQLAlchemy
 
-from database import get_teams_traditional_table_html
+from database import (
+    get_feature_importance_table_html,
+    get_probability_estimates_table_html,
+    get_teams_traditional_table_html,
+)
 from models import Models
 
 
@@ -34,8 +40,10 @@ def create_router(db: SQLAlchemy, models: Models) -> Blueprint:
     @router.route("/game_evolution")
     def game_evolution():
         """Render page containing analysis of the modern game."""
-        table_html = get_teams_traditional_table_html(db, models)
-        return render_template("game_evolution.html", table_html=table_html)
+        team_trad_table_html = get_teams_traditional_table_html(db, models)
+        return render_template(
+            "game_evolution.html", team_trad_table_html=team_trad_table_html
+        )
 
     @router.route("/defense_offense")
     def defense_offense():
@@ -50,7 +58,18 @@ def create_router(db: SQLAlchemy, models: Models) -> Blueprint:
     @router.route("/prediction")
     def prediction():
         """Render page with machine learning analysis and final champion prediction."""
-        return render_template("prediction.html")
+        DATA_DIR = Path.cwd() / "data"
+        proba_est_table_html = get_probability_estimates_table_html(
+            DATA_DIR / "probability_estimates.csv"
+        )
+        feat_imp_table_html = get_feature_importance_table_html(
+            DATA_DIR / "feature_importance.csv"
+        )
+        return render_template(
+            "prediction.html",
+            proba_est_table_html=proba_est_table_html,
+            feat_imp_table_html=feat_imp_table_html,
+        )
 
     @router.route("/people")
     def people():
