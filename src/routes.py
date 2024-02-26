@@ -35,17 +35,15 @@ def create_router(db: SQLAlchemy, models: Models) -> Blueprint:
     @router.route("/")
     def index():
         """Render landing page with the overview of the project."""
-        return render_template("index.html")
+        team_trad_table_html = get_teams_traditional_table_html(db, models)
+        return render_template("index.html", team_trad_table_html=team_trad_table_html)
 
-    @router.route("/game_evolution")
+    @router.route("/game-evolution")
     def game_evolution():
         """Render page containing analysis of the modern game."""
-        team_trad_table_html = get_teams_traditional_table_html(db, models)
-        return render_template(
-            "game_evolution.html", team_trad_table_html=team_trad_table_html
-        )
+        return render_template("game_evolution.html")
 
-    @router.route("/defense_offense")
+    @router.route("/defense-offense")
     def defense_offense():
         """Render overview of offensive/defensive stats for current teams."""
         return render_template("defense_offense.html")
