@@ -66,13 +66,24 @@ def get_teams_traditional_table_html(db: SQLAlchemy, models: Models) -> str:
 
     # Execute the query statement.
     teams_traditional = pd.read_sql(sql=query, con=db.engine)
+    # Convert "CHAMPION" column to a nullable boolean type in order to set the 2022
+    # values for this column to `pd.NA`.
+    teams_traditional["CHAMPION"] = teams_traditional["CHAMPION"].astype("boolean")
+    teams_traditional.loc[teams_traditional["SEASON"] == 2022, "CHAMPION"] = pd.NA
     # Drop redundant columns from the join.
     teams_traditional = teams_traditional.drop(columns=["SEASON_1", "TEAM_1"])
 
     return convert_frame_to_html(
         df=teams_traditional,
         border=0,
-        classes=["table", "table-dark", "table-striped"],
+        classes=[
+            "table",
+            "table-dark",
+            "table-striped",
+            "table-borderless",
+            "sticky-header",
+            "mb-0",
+        ],
         index=False,
     )
 
@@ -95,7 +106,14 @@ def get_probability_estimates_table_html(path: Path) -> str:
     return convert_frame_to_html(
         df=probability_estimates,
         border=0,
-        classes=["table", "table-dark", "table-striped"],
+        classes=[
+            "table",
+            "table-dark",
+            "table-striped",
+            "table-borderless",
+            "sticky-header",
+            "mb-0",
+        ],
         index=False,
     )
 
@@ -118,5 +136,12 @@ def get_feature_importance_table_html(path: Path) -> str:
     return convert_frame_to_html(
         df=feature_importance,
         border=0,
-        classes=["table", "table-dark", "table-striped"],
+        classes=[
+            "table",
+            "table-dark",
+            "table-striped",
+            "table-borderless",
+            "sticky-header",
+            "mb-0",
+        ],
     )
