@@ -2,47 +2,82 @@
 
 <!--------------------------------- HEAD -------------------------------------->
 {% block head %}
-<title>COMPARISON</title>
-<script type="module" src="https://public.tableau.com/javascripts/api/tableau.embedding.3.latest.min.js"></script>
+<title>Comparison</title>
 {% endblock head %}
 
 <!--------------------------------- BODY -------------------------------------->
 {% block body %}
-<tableau-viz id="tableauViz"
-            src= "https://public.tableau.com/views/PASTCHAMPIONSVS_CURRENTPLAYOFFTEAMS/PASTCHAMPIONSVS_CURRENTSEASON?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link"
-         device="desktop"
-        toolbar="bottom"
-      hide-tabs>
-</tableau-viz>
-<main>
-  <div class="px-5 pt-5 pb-3 mx-5" id="featured-3">
-    <div class="pb-2">
-      <h2 class="pb-1 border-bottom text-white">Analysis</h2>
-    </div>
-    <p class="pb-2 text-white">
-      Past Champions vs. Current Playoff Teams compares the regular season stats of historical NBA champions and how they compare to the regular season stats of the teams currently playing in the 2022 Playoffs.
-    </p>
-    <ul class="text-white"Offensive vs. Defensive Rating
-      <li>
-        Past champions have historically grouped between the 1st and 3rd quadrants. <br>
-        This past season shows a rough distribution between quadrants. <br>
-        Will be interesting to see if the champion team will remain between these two quadrants. <br>
-      </li>
-    </ul>
-    <ul class="text-white"Assist% vs. Turnover%
-      <li>
-        Past champions have historically grouped between the 1st and 3rd quadrants.<br>
-        This past season shows a somwhat similar distribution between the 1st and 3rd quadrants.<br>
-        Will be interesting to see if the champion team will remain between these two quadrants.<br>
-      </li>
-    </ul>
-    <ul class="text-white"Effective Field Goal% vs. True Shooting%
-      <li>
-        Past champions have historically grouped between the 1st and 3rd quadrants in a linear fashion with more recent teams in the first quadrant. <br>
-        This past season shows a similar linear trend. <br>
-        The champion team may be found in the first quadrant. <br>
-      </li>
-    </ul>
-  </div>
-</main>
+<!-- Tableau Viz -->
+<section class="tableau-center pt-5">
+    <div class='tableauPlaceholder' id='viz1708374127140' style='position: relative'><noscript><a href='#'><img alt='PAST CHAMPIONS VS. CURRENT PLAYOFF TEAMS ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;PA&#47;PASTCHAMPIONSVS_CURRENTPLAYOFFTEAMS&#47;PASTCHAMPIONSVS_CURRENTSEASON&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='PASTCHAMPIONSVS_CURRENTPLAYOFFTEAMS&#47;PASTCHAMPIONSVS_CURRENTSEASON' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;PA&#47;PASTCHAMPIONSVS_CURRENTPLAYOFFTEAMS&#47;PASTCHAMPIONSVS_CURRENTSEASON&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1708374127140');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
+</section>
+<section class="py-5 prose-w mx-auto">
+    <section class="d-flex flex-column">
+        <h3 class="pb-1 border-bottom mb-3">
+            Analysis
+        </h3>
+        <p>
+            Past Champions vs. Current Playoff Teams compares the regular season
+            stats of historical NBA champions and how they compare to the
+            regular season stats of the teams currently playing in the 2022
+            Playoffs.
+        </p>
+        <div class="pb-2">
+            <h5 class="fw-bold">
+                Offensive vs. Defensive Rating
+            </h5>
+            <ul>
+                <li>
+                    Past champions have historically grouped between the 1st and
+                    3rd quadrants.
+                </li>
+                <li>
+                    This past season shows a rough distribution between
+                    quadrants.
+                </li>
+                <li>
+                    Will be interesting to see if the champion team will remain
+                    between these two quadrants.
+                </li>
+            </ul>
+        </div>
+        <div class="pb-2">
+            <h5 class="fw-bold">
+                Assist% vs. Turnover%
+            </h5>
+            <ul>
+                <li>
+                    Past champions have historically grouped between the 1st and
+                    3rd quadrants.
+                </li>
+                <li>
+                    This past season shows a somewhat similar distribution
+                    between the 1st and 3rd quadrants.
+                </li>
+                <li>
+                    Will be interesting to see if the champion team will remain
+                    between these two quadrants.
+                </li>
+            </ul>
+        </div>
+        <div>
+            <h5 class="fw-bold">
+                Effective Field Goal% vs. True Shooting%
+            </h5>
+            <ul>
+                <li>
+                    Past champions have historically grouped between the 1st and
+                    3rd quadrants in a linear fashion with more recent teams in
+                    the first quadrant.
+                </li>
+                <li>
+                    This past season shows a similar linear trend.
+                </li>
+                <li>
+                    The champion team may be found in the first quadrant.
+                </li>
+            </ul>
+        </div>
+    </section>
+</section>
 {% endblock body %}

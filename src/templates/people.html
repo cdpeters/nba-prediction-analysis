@@ -2,85 +2,121 @@
 
 <!--------------------------------- HEAD -------------------------------------->
 {% block head %}
-<title>PEOPLE</title>
+<title>People</title>
 {% endblock head %}
 
 <!--------------------------------- BODY -------------------------------------->
 {% block body %}
-<main>
-  <div class="px-5 pt-5 pb-3 mx-5" id="featured-3">
-    <h2 class="pb-2 border-bottom text-white">Meet the Team 👋</h2>
-    <p class="pb-2 text-white">
-      Hello and welcome to our website!<br> Our team name is the One-Hot-Entoaders, we hope you enjoy diving into our NBA Analysis. <br>
-      We're excited to see just how well our machine learning model iss able to predict the 2022 NBA champion team and are open to discuss any questions you may have about our analysis. <br>
-      May the odds be ever in our favor!
-    </p>
-    <div class="container px-4 py-5" id="custom-cards">
-      <h2 class="pb-2 border-bottom">Custom cards</h2>
-        <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
-          <div class="col">
-            <div class="card card-cover h-100 overflow-hidden text-white bg-success rounded-5 shadow-lg" style="background-image: url('unsplash-photo-1.jpg');">
-              <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-                <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Pascale Geday</h2>
-                <ul class="d-flex list-unstyled mt-auto">
-                  <li class="me-auto">
-                    <img src="https://cdn.shopify.com/s/files/1/1061/1924/products/Nerd_with_Glasses_Emoji_2a8485bc-f136-4156-9af6-297d8522d8d1_large.png?v=1571606036" alt="Bootstrap" width="32" height="32" class="rounded-circle border border-white">
-                  </li>
-                  <li class="d-flex align-items-center me-3">
-                    <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#geo-fill"></use></svg>
-                    <small>Data Analyst</small>
-                  </li>
-                  <li class="d-flex align-items-center">
-                    <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#calendar3"></use></svg>
-                    <small>CA</small>
-                  </li>
-                </ul>
-              </div>
+<section class="py-5">
+    <section class="d-flex flex-column prose-w mx-auto pb-4">
+        <h3 class="pb-1 border-bottom mb-3">
+            Meet the Team 👋
+        </h3>
+        <p>
+            Hello and welcome to our website!
+            <br><br>
+            Our team name is the One-Hot-Entoaders, we hope you enjoy diving
+            into our NBA Analysis. We're excited to see just how well our
+            machine learning model is able to predict the 2022 NBA champion team
+            and are open to discuss any questions you may have about our
+            analysis.
+            <br><br>
+            May the odds be ever in our favor!
+        </p>
+    </section>
+    <section class="px-4 mx-4">
+        <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 pb-5">
+            <div class="col">
+                <div class="card card-cover h-100 overflow-hidden bg-success rounded-5 shadow-lg">
+                    <div class="d-flex flex-column h-100 p-5 pb-3 text-shadow-1">
+                        <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">
+                            Pascale Geday
+                        </h2>
+                        <ul class="d-flex list-unstyled mt-auto">
+                            <li class="me-auto">
+                                <img class="rounded-circle border border-white"
+                                        src="https://cdn.shopify.com/s/files/1/1061/1924/products/Nerd_with_Glasses_Emoji_2a8485bc-f136-4156-9af6-297d8522d8d1_large.png?v=1571606036"
+                                        alt="Bootstrap"
+                                        width="32"
+                                        height="32">
+                            </li>
+                            <li class="d-flex align-items-center me-3">
+                                <svg class="bi me-2" width="1em" height="1em">
+                                    <use xlink:href="#geo-fill"></use>
+                                </svg>
+                                <small>Data Analyst</small>
+                            </li>
+                            <li class="d-flex align-items-center">
+                                <svg class="bi me-2" width="1em" height="1em">
+                                    <use xlink:href="#calendar3"></use>
+                                </svg>
+                                <small>CA</small>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-          </div>
-          <div class="col">
-            <div class="card card-cover h-100 overflow-hidden text-white bg-info rounded-5 shadow-lg" style="background-image: url('unsplash-photo-2.jpg');">
-              <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-                <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Chris Peterson</h2>
-                <ul class="d-flex list-unstyled mt-auto">
-                  <li class="me-auto">
-                    <img src="https://cdn.shopify.com/s/files/1/1061/1924/products/Sunglasses_Emoji_be26cc0a-eef9-49e5-8da2-169bb417cc0b_large.png?v=1571606036" alt="Bootstrap" width="32" height="32" class="rounded-circle border border-white">
-                  </li>
-                  <li class="d-flex align-items-center me-3">
-                    <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#geo-fill"></use></svg>
-                    <small>Data Analyst</small>
-                  </li>
-                  <li class="d-flex align-items-center">
-                    <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#calendar3"></use></svg>
-                    <small>CA</small>
-                  </li>
-                </ul>
-              </div>
+            <div class="col">
+                <div class="card card-cover h-100 overflow-hidden bg-info rounded-5 shadow-lg">
+                    <div class="d-flex flex-column h-100 p-5 pb-3 text-shadow-1">
+                        <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">
+                            Chris Peterson
+                        </h2>
+                        <ul class="d-flex list-unstyled mt-auto">
+                            <li class="me-auto">
+                                <img class="rounded-circle border border-white"
+                                     src="https://cdn.shopify.com/s/files/1/1061/1924/products/Sunglasses_Emoji_be26cc0a-eef9-49e5-8da2-169bb417cc0b_large.png?v=1571606036"
+                                     alt="Bootstrap"
+                                     width="32"
+                                     height="32">
+                            </li>
+                            <li class="d-flex align-items-center me-3">
+                                <svg class="bi me-2" width="1em" height="1em">
+                                    <use xlink:href="#geo-fill"></use>
+                                </svg>
+                                <small>Data Analyst</small>
+                            </li>
+                            <li class="d-flex align-items-center">
+                                <svg class="bi me-2" width="1em" height="1em">
+                                    <use xlink:href="#calendar3"></use>
+                                </svg>
+                                <small>CA</small>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-          </div>
-          <div class="col">
-            <div class="card card-cover h-100 overflow-hidden text-white bg-primary rounded-5 shadow-lg" style="background-image: url('unsplash-photo-3.jpg');">
-              <div class="d-flex flex-column h-100 p-5 pb-3 text-shadow-1">
-                <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Lauren Hess</h2>
-                <ul class="d-flex list-unstyled mt-auto">
-                  <li class="me-auto">
-                    <img src="https://cdn.shopify.com/s/files/1/1061/1924/products/First_quarter_moon_emoji_icon_png_large.png?v=1571606088" alt="Bootstrap" width="32" height="32" class="rounded-circle border border-white">
-                  </li>
-                  <li class="d-flex align-items-center me-3">
-                    <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#geo-fill"></use></svg>
-                    <small>Data Analyst</small>
-                  </li>
-                  <li class="d-flex align-items-center">
-                    <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#calendar3"></use></svg>
-                    <small>CA</small>
-                  </li>
-                </ul>
-              </div>
+            <div class="col">
+                <div class="card card-cover h-100 overflow-hidden bg-primary rounded-5 shadow-lg">
+                    <div class="d-flex flex-column h-100 p-5 pb-3 text-shadow-1">
+                        <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">
+                            Lauren Hess
+                        </h2>
+                        <ul class="d-flex list-unstyled mt-auto">
+                            <li class="me-auto">
+                                <img class="rounded-circle border border-white"
+                                        src="https://cdn.shopify.com/s/files/1/1061/1924/products/First_quarter_moon_emoji_icon_png_large.png?v=1571606088"
+                                        alt="Bootstrap"
+                                        width="32"
+                                        height="32">
+                            </li>
+                            <li class="d-flex align-items-center me-3">
+                                <svg class="bi me-2" width="1em" height="1em">
+                                    <use xlink:href="#geo-fill"></use>
+                                </svg>
+                                <small>Data Analyst</small>
+                            </li>
+                            <li class="d-flex align-items-center">
+                                <svg class="bi me-2" width="1em" height="1em">
+                                    <use xlink:href="#calendar3"></use>
+                                </svg>
+                                <small>CA</small>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
-    </div>
-  </div>
-</main>
+    </section>
+</section>
 {% endblock body %}

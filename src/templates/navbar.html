@@ -2,30 +2,79 @@
 
 <!-------------------------------- HEADER ------------------------------------->
 {% block header %}
-<div class="text-center">
-  <a class="text-decoration-none link-light fs-5 fw-bold" href="/">NBA Champion Analysis</a>
-</div>
-<div class="d-flex flex-row align-items-center" style="gap: 1.5rem;">
-  <div class="text-center">
-    <a class="text-decoration-none link-secondary text-center" href="/">Home</a>
-  </div>
-  <div class="text-center">
-    <a class="text-decoration-none link-secondary" href="/game_evolution">Game Evolution</a>
-  </div>
-  <div class="text-center">
-    <a class="text-decoration-none link-secondary" href="/defense_offense">Defensive & Offensive Stats</a>
-  </div>
-  <div class="text-center">
-    <a class="text-decoration-none link-secondary" href="/comparison">Comparison</a>
-  </div>
-  <div class="text-center">
-    <a class="text-decoration-none link-secondary" href="/prediction">Prediction</a>
-  </div>
-  <div class="text-center">
-    <a class="text-decoration-none link-secondary" href="/people">People</a>
-  </div>
-  <div class="text-center">
-    <a class="text-decoration-none link-secondary" href="/glossary">Glossary</a>
-  </div>
-</div>
+<nav class="d-flex flex-row align-items-center justify-content-between navbar fixed-top navbar-expand-lg navbar-dark bg-dark py-0">
+    <h5 class="d-flex flex-row align-items-center nav-brand-mb ps-3">
+        NBA Champion Analysis
+    </h5>
+    <button id="navbar-button"
+            class="navbar-toggler py-0 ms-1 me-3"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div id="navbarSupportedContent"
+         class="collapse navbar-collapse bg-dark">
+        <ul class="navbar-nav ms-auto navbar-nav-scroll">
+            <li class="nav-item nav-margin"
+                style="{% if request.endpoint == 'router.index' %}background-color: var(--bs-gray-800);{% endif %}">
+                <a class="nav-link nav-link-color-custom nav-anchor {% if request.endpoint == 'router.index' %}active{% endif %}"
+                   href="/">
+                    Home
+                </a>
+            </li>
+            <li class="nav-item nav-margin"
+                style="{% if request.endpoint == 'router.game_evolution' %}background-color: var(--bs-gray-800);{% endif %}">
+                <a class="nav-link nav-link-color-custom nav-anchor {% if request.endpoint == 'router.game_evolution' %}active{% endif %}"
+                   href="/game-evolution">
+                    Game Evolution
+                </a>
+            </li>
+            <li class="nav-item nav-margin"
+                style="{% if request.endpoint == 'router.defense_offense' %}background-color: var(--bs-gray-800);{% endif %}">
+                <a class="nav-link nav-link-color-custom nav-anchor {% if request.endpoint == 'router.defense_offense' %}active{% endif %}"
+                   href="/defense-offense">
+                    Defense/Offense
+                </a>
+            </li>
+            <li class="nav-item nav-margin"
+                style="{% if request.endpoint == 'router.comparison' %}background-color: var(--bs-gray-800);{% endif %}">
+                <a class="nav-link nav-link-color-custom nav-anchor {% if request.endpoint == 'router.comparison' %}active{% endif %}"
+                   href="/comparison">
+                    Comparison
+                </a>
+            </li>
+            <li class="nav-item nav-margin"
+                style="{% if request.endpoint == 'router.prediction' %}background-color: var(--bs-gray-800);{% endif %}">
+                <a class="nav-link nav-link-color-custom nav-anchor {% if request.endpoint == 'router.prediction' %}active{% endif %}"
+                   href="/prediction">
+                    Prediction
+                </a>
+            </li>
+            <li class="nav-item nav-margin"
+                style="{% if request.endpoint == 'router.glossary' %}background-color: var(--bs-gray-800);{% endif %}">
+                <a class="nav-link nav-link-color-custom nav-anchor {% if request.endpoint == 'router.glossary' %}active{% endif %}"
+                   href="/glossary">
+                    Glossary
+                </a>
+            </li>
+            <li class="nav-item nav-margin"
+                style="{% if request.endpoint == 'router.people' %}background-color: var(--bs-gray-800);{% endif %}">
+                <a class="nav-link nav-link-color-custom nav-anchor {% if request.endpoint == 'router.people' %}active{% endif %}"
+                   href="/people">
+                    People
+                </a>
+            </li>
+            <li class="nav-item nav-margin pe-2">
+                <a class="nav-link nav-link-color-custom nav-anchor"
+                   href="https://github.com/cdpeters/nba-prediction-analysis"
+                   target="_blank">
+                    <img id="github-logo"
+                         src="{{ url_for('static', filename='images/github_light.svg') }}"
+                         alt="github logo">
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
 {% endblock header %}

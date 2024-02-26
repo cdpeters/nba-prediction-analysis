@@ -1,9 +1,285 @@
-thead {
-   position: -webkit-sticky;
-   position: sticky;
-   top: 0;
+.main-mt {
+    margin-top: 50px;
+ }
+
+.table {
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+table.sticky-header thead th {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    border-bottom: 2px solid var(--bs-white);
+}
+
+.table-border-custom {
+    border: 3px solid var(--bs-gray-700);
+    border-radius: 8px;
+}
+
+#table-team-trad-stats {
+    height: 280px;
+}
+
+#fig-infrastructure,
+#fig-erd-season,
+#fig-erd-playoffs,
+#table-team-trad-stats-container,
+#correlation-heatmap-all-features,
+.chart {
+    width: 100%;
+}
+
+#fig-infrastructure {
+    max-width: 580px;
+}
+
+.chart {
+    max-width: 520px;
+}
+
+.img-border-custom {
+    border-radius: 8px;
+}
+
+.nav-link-color-custom {
+    color: var(--bs-gray-500);
+}
+
+.nav-link-color-custom:hover, .nav-link-color-custom:focus {
+    color: var(--bs-white);
+}
+
+nav {
+    box-sizing: content-box;
+    border-bottom: 1px solid var(--bs-info);
+    height: 50px;
+}
+
+#github-logo {
+    height: 20px;
+    width: 20px;
 }
 
 .no-bullets {
    list-style-type: none;
+   padding-top: 8px;
+}
+
+.no-bullets > li {
+    padding-bottom: 24px;
+}
+
+.prose-w, .tableau-placeholder {
+   width: 280px;
+}
+
+.tableau-viz {
+    display: none;
+}
+
+.tableau-placeholder {
+    display: flex;
+    flex-direction: column;
+}
+
+#navbar-button {
+    box-sizing: content-box;
+    border: none;
+}
+
+#navbar-button:focus {
+    box-shadow: none;
+}
+
+#navbar-button:hover {
+    /* border: var(--bs-border-width) solid var(--bs-gray-500); */
+    box-shadow: 0 0 0 0.2rem var(--bs-gray-500);
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28173, 181, 189, 1.0%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+/* Scrollbar styles */
+::-webkit-scrollbar {
+    width: .4rem;
+    height: .4rem;
+}
+
+::-webkit-scrollbar-track {
+    background-color: var(--bs-gray-400);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--bs-gray-600);
+}
+
+/* Properties based on viewport width */
+@media (max-width: 991px) {
+    nav > h5 {
+        height: 100%;
+        margin-bottom: 0px;
+    }
+
+    #navbarSupportedContent {
+        border-bottom: 1px solid var(--bs-info);
+    }
+
+    #navbarSupportedContent ul li {
+        padding-left: 32px;
+    }
+
+    #navbarSupportedContent ul li:last-child {
+        padding-bottom: 8px;
+    }
+}
+
+@media (min-width: 375px) {
+    .prose-w, .tableau-placeholder {
+        width: 320px;
+    }
+}
+
+@media (min-width: 425px) {
+    .prose-w, .tableau-placeholder {
+        width: 360px;
+    }
+}
+
+@media (min-width: 576px) {
+    .prose-w, .tableau-placeholder {
+        width: 480px;
+    }
+}
+
+@media (min-width: 768px) {
+    .prose-w {
+        width: 620px;
+    }
+
+    #fig-erd-season {
+        width: 660px;
+    }
+
+    #fig-erd-playoffs, .tableau-placeholder {
+        width: 660px;
+    }
+
+    #table-team-trad-stats-container {
+        width: 660px;
+    }
+
+    #correlation-heatmap-all-features {
+        width: 690px;
+    }
+}
+
+@media (min-width: 992px) {
+    .prose-w {
+        width: 690px;
+    }
+
+    #navbarSupportedContent {
+        padding-bottom: 0px;
+        padding-left: 16px;
+        height: 50px;
+    }
+
+    #navbarSupportedContent > ul {
+        height: 100%;
+    }
+
+    #navbarSupportedContent li {
+        height: 100%;
+    }
+
+    #navbarSupportedContent a {
+        height: 100%;
+    }
+
+    .nav-margin {
+        padding-left: 2px;
+        padding-right: 2px;
+    }
+
+    .nav-anchor {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .nav-brand-mb {
+        margin-bottom: 0px;
+    }
+
+    #fig-erd-season {
+        width: 800px;
+    }
+
+    #fig-erd-playoffs {
+        width: 800px;
+    }
+
+    #table-team-trad-stats-container {
+        width: 800px;
+    }
+
+    #correlation-heatmap-all-features {
+        width: 860px;
+    }
+
+    .tableau-viz {
+        display: block;
+        width: 885px;
+    }
+
+    .tableau-placeholder {
+        display: none;
+    }
+}
+
+@media (min-width: 1200px) {
+    #fig-erd-season {
+        width: 810px;
+    }
+
+    #fig-erd-playoffs {
+        width: 900px;
+    }
+
+    #table-team-trad-stats-container {
+        width: 950px;
+    }
+
+    #correlation-heatmap-all-features {
+        width: 860px;
+    }
+
+    .tableau-viz {
+        width: 1070px;
+    }
+}
+
+@media (min-width: 1400px) {
+    .prose-w {
+        width: 730px;
+    }
+
+    #table-team-trad-stats-container {
+        width: 1100px;
+    }
+
+    .tableau-viz {
+        width: 1270px;
+    }
+}
+
+/* Properties based on viewport height */
+@media(min-height: 500px) {
+    #table-team-trad-stats {
+        height: 460px;
+    }
 }

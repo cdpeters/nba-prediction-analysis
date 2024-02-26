@@ -2,82 +2,119 @@
 
 <!--------------------------------- HEAD -------------------------------------->
 {% block head %}
-<title>GAME EVOLUTION</title>
-<script type="module" src="https://public.tableau.com/javascripts/api/tableau.embedding.3.latest.min.js"></script>
-<!-- <link rel="stylesheet" href="style.css"> -->
+<title>Game Evolution</title>
 {% endblock head %}
 
 <!--------------------------------- BODY -------------------------------------->
 {% block body %}
-<tableau-viz id="tableauViz"
-            src= "https://public.tableau.com/views/GAMEEVOLUTION/GAMEEVOLUTION?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link"
-         device="desktop"
-        toolbar="bottom"
-      hide-tabs>
-</tableau-viz>
-<main>
-	<div class="px-5 pt-5 pb-3 mx-5" id="featured-3">
-    <div class="pb-2">
-      <h2 class="pb-1 border-bottom text-white">Analysis</h2>
+<!-- Tableau Viz -->
+<section class="pt-5 d-flex flex-column align-items-center">
+    <div class="tableau-viz">
+        <div class='tableauPlaceholder' id='viz1708373438562' style='position: relative'><noscript><a href='#'><img alt='GAME EVOLUTION ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;GA&#47;GAMEEVOLUTION&#47;GAMEEVOLUTION&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='GAMEEVOLUTION&#47;GAMEEVOLUTION' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;GA&#47;GAMEEVOLUTION&#47;GAMEEVOLUTION&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1708373438562');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);</script>
     </div>
-		<p class="pb-2 text-white">
-		  The Evolution of the NBA game has come a long way since 1997 (where our data dates back). We have seen a slow and steady change in how the style of the game is played.
-		</p>
-		<h6 class="fw-bold text-white">3 Point Shots</h6>
-		<ul class="text-white">
-			<li>
-        		The first two visuals show an evolution of how teams have evolved from playing a paint-dominant game to players now expected to stretch the floor. <br>
-				Using 3-Point shot statistics such as Attempted, Made, and Percentage we can see the shift and increase in 3-Point shots made in more recent years. <br>
-				From roughly the 2016 & 2017 season, the style of 3-point shots used shifted dramatically. We can assume that using seasons from 2016 to present in our analysis may show a more accurate presentation of how teams are playing.
-			</li>
-		</ul>
-		<h6 class="fw-bold text-white">Defensive Stats</h6>
-		<ul class="text-white">
-			<li>
-				The Defensive Stats visual shows historical trends for average Blocks, Steals, Defensive Rebounds, and Defensive Rating. <br>
-				Blocks: Shows a slight decrease in recent years in the average blocks by teams <br>
-				Steals: Shows a slight increase in recent years in the average steals by teams <br>
-				Defensive Rebounds: Shows a gradual increase in recent years in the average defensive rebounds by teams <br>
-				Defensive Rating: Shows a slight increase in recent years in the average defensive rating by teams
-			</li>
-		</ul>
-		<h6 class="fw-bold text-white">Offensive Stats</h6>
-		<ul class="text-white">
-			<li>
-				The Offensive Stats visual shows historical trends for average Effective Field Goal%, Free Throw Percentage, Points Off Turnovers, and Offensive Rebounds. <br>
-				Effective Field Goal%: Shows a gradual increase in recent years in the average Effective Field Goal% by teams <br>
-				Free Throw Percentage: Shows an apparent increase in recent years in the average Free Throw Percentage by teams <br>
-				Points Off Turnovers: Shows an even distribution without much change in recent years in the average Points Off Turnovers by teams <br>
-				Offensive Rebounds: Shows an apparent decrease in recent years in the average Offensive Rebounds by teams
-			</li>
-		</ul>
-		<br>
-    <div class="pb-2">
-      <h2 class="pb-1 border-bottom text-white">Database Tables</h2>
+    <div class="tableau-placeholder">
+        <figure class="align-self-center">
+            <img src="{{ url_for('static', filename='images/tableau_previews/game_evolution.png') }}"
+                 class="img-fluid img-border-custom"
+                 alt="entity relationship diagram for playoff stats">
+            <figcaption class="pt-2 text-center small">
+                Fig 1. Tableau preview: game evolution
+            </figcaption>
+        </figure>
     </div>
-		<p class="pb-2 text-white">
-			The following table is retrieved from our PostgreSQL database via SQLAlchemy and serves as an example of the types of tables used in this project.
-		</p>
-		<ul class="text-white">Additional Notes About Database Tables
-			<li>
-				Stat types include:
-				<ul>
-					<li>traditional (shown here)</li>
-					<li>advanced</li>
-					<li>miscellaneous</li>
-					<li>clutch</li>
-				</ul>
-			</li>
-			<li>Both regular season and playoff stats were collected</li>
-			<li>Years range from the 1996-97 season up to the current 2021-22 season.</li>
-		</ul>
-		<div class="container">
-			<div class="table-responsive" style="height:500px; overflow:scroll">
-				{{ team_trad_table_html|safe }}
-			</div>
-		</div>
-	</div>
-</main>
+</section>
+<section class="py-5 prose-w mx-auto">
+    <section class="d-flex flex-column">
+        <h3 class="pb-1 border-bottom mb-3">
+            Analysis
+        </h3>
+        <p>
+            The Evolution of the NBA game has come a long way since 1997 (where
+            our data dates back). We have seen a slow and steady change in how
+            the style of the game is played.
+        </p>
+        <div class="pb-2">
+            <h5 class="fw-bold">
+                3 Point Shots
+            </h5>
+            <ul>
+                <li>
+                    The first two visuals show an evolution of how teams have
+                    evolved from playing a paint-dominant game to players now
+                    expected to stretch the floor.
+                </li>
+                <li>
+                    Using 3-Point shot statistics such as Attempted, Made, and
+                    Percentage we can see the shift and increase in 3-Point
+                    shots made in more recent years.
+                </li>
+                <li>
+                    From roughly the 2016 & 2017 season, the style of 3-point
+                    shots used shifted dramatically. We can assume that using
+                    seasons from 2016 to present in our analysis may show a more
+                    accurate presentation of how teams are playing.
+                </li>
+            </ul>
+        </div>
+        <div class="pb-2">
+            <h5 class="fw-bold">
+                Defensive Stats
+            </h5>
+            <ul>
+                <li>
+                    The Defensive Stats visual shows historical trends for
+                    average Blocks, Steals, Defensive Rebounds, and Defensive
+                    Rating.
+                </li>
+                <li>
+                    Blocks: Shows a slight decrease in recent years in the
+                    average blocks by teams
+                </li>
+                <li>
+                    Steals: Shows a slight increase in recent years in the
+                    average steals by teams
+                </li>
+                <li>
+                    Defensive Rebounds: Shows a gradual increase in recent years
+                    in the average defensive rebounds by teams
+                </li>
+                <li>
+                    Defensive Rating: Shows a slight increase in recent years in
+                    the average defensive rating by teams
+                </li>
+            </ul>
+        </div>
+        <div>
+            <h5 class="fw-bold">
+                Offensive Stats
+            </h5>
+            <ul>
+                <li>
+                    The Offensive Stats visual shows historical trends for
+                    average Effective Field Goal%, Free Throw Percentage, Points
+                    Off Turnovers, and Offensive Rebounds.
+                </li>
+                <li>
+                    Effective Field Goal%: Shows a gradual increase in recent
+                    years in the average Effective Field Goal% by teams
+                </li>
+                <li>
+                    Free Throw Percentage: Shows an apparent increase in recent
+                    years in the average Free Throw Percentage by teams
+                </li>
+                <li>
+                    Points Off Turnovers: Shows an even distribution without
+                    much change in recent years in the average Points Off
+                    Turnovers by teams
+                </li>
+                <li>
+                    Offensive Rebounds: Shows an apparent decrease in recent
+                    years in the average Offensive Rebounds by teams
+                </li>
+            </ul>
+        </div>
+    </section>
+</section>
 <script type="text/javascript"
          src="{{ url_for('static', filename='js/game_evolution_tableau.js') }}">
 </script>

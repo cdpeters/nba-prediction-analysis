@@ -2,164 +2,251 @@
 
 <!--------------------------------- HEAD -------------------------------------->
 {% block head %}
-<title>OVERVIEW</title>
+<title>Overview</title>
 <!-- <link rel="stylesheet" href="style.css"> -->
 {% endblock head %}
 
 <!--------------------------------- BODY -------------------------------------->
 {% block body %}
-<!-- Background image -->
-<div
-  class="p-5 text-center bg-image"
-  style="
-    background-image: url('https://lh3.googleusercontent.com/_V5R92uH2r1eubIqPIKUGpcitGxqNaUnHQ73RfwnSXPv8QhYEJp1TKc8XJCsmQpEaT5GhbW-yc3hPEs4BcVjGl8V-yhqwRqQBK4d3jZ3MZH1QXWXgd7Wbc-LhDWrC3Dfxg4t7xeQQ5Y=w2400');
-    height: 300px;
-    background-color: #499195;
-    background-size: cover;
-    background-position: 50% 10%;
-    opacity:0.9">
-  <div class="mask" style="background-color: rgba(2, 3, 16, 0.438);">
-    <div class="d-flex justify-content-center align-items-center h-100">
-      <div class="text-white">
-        <h1 class="mb-3">NBA CHAMPION ANALYSIS</h1>
-        <h4 class="mb-3">Who will be our 2022 Champion?</h4>
-        <a class="btn btn-outline-light btn-lg" href="/prediction" role="button">Prediction</a>
-      </div>
+<!-- Banner -->
+<div class="d-flex flex-column justify-content-center px-0 text-center bg-image position-relative"
+     style="background-image: url('{{ url_for('static', filename='images/nba_banner.png') }}');
+            height: 250px;
+            background-color: var(--bs-info);
+            background-size: cover;
+            background-position: 50% 10%;">
+    <div style="background-color: rgba(33, 37, 41, 0.91);">
+        <div class="d-flex flex-column justify-content-center align-items-center pt-2 pb-3">
+            <h1 class="pb-1 fw-bold px-3">
+                NBA Champion Analysis
+            </h1>
+            <h5 class="pb-2 px-3" style="color: var(--bs-gray-500);">
+                <i>Who will be our 2022 Champion?</i>
+            </h5>
+            <a class="btn btn-outline-light btn-lg fw-bold"
+               href="/prediction"
+               role="button">
+                Prediction
+            </a>
+        </div>
     </div>
-  </div>
+    <!-- Image Attribution -->
+    <div class="position-absolute bottom-0 start-0 ps-1 pe-2"
+         style="background-color:rgba(33, 37, 41, 0.91);
+                font-size: 0.75rem;
+                color: var(--bs-gray-500);
+                border-top-right-radius: 4px;">
+        <i>Image Credit: Michael Weinstein</i>
+    </div>
 </div>
-<!-- Background image -->
-<div class="px-5 pt-5 pb-3 mx-5">
-  <div class="pb-2">
-    <h2 class="pb-1 border-bottom text-white">Overview</h2>
-  </div>
-  <div>
-    <p class="text-white">
-      &nbsp; &nbsp;&nbsp; &nbsp;“The National Basketball Association (NBA) is a professional basketball league in North America. The league is composed of 30 teams (29 in the United States and 1 in Canada) and is one of the major professional sports leagues in the United States and Canada. It is the premier men's professional basketball league in the world.” <br> <br>
-      &nbsp; &nbsp;&nbsp; &nbsp;Aware of the huge impact this sport has worldwide and the data available to us, our final project will focus on learning how historical team statistics/data can help us predict the 2022 NBA champion using machine learning models. Additionally, we will analyze important team statistics to help us come to a consensus about why our machine learning predicted certain teams as being the most probable choice for NBA Champion.
-    </p>
-  </div>
-  <br>
-  <div class="pb-2">
-    <h2 class="pb-1 border-bottom text-white">Overarching Analysis Questions</h2>
-  </div>
-  <div>
-    <ol class="text-white" type="I">
-      <li>Can we create a machine learning model to predict this year's NBA Champion?</li>
-      <li>Which team statistics give the most insight into what a champion team looks like?</li>
-      <li>What features does the machine learning model weight most heavily, and can these provide insight into our analysis?</li>
-    </ol>
-  </div>
-  <br>
-  <div class="pb-2">
-    <h2 class="pb-1 border-bottom text-white">Resources</h2>
-  </div>
-  <div>
-    <p class="text-white">
-      <a href="https://www.nba.com/stats/teams/traditional/?sort=W_PCT&dir=-1" target="_blank">Official Team Stats for NBA</a>
-    </p>
-  </div>
-  <br>
-  <div class="pb-2">
-    <h2 class="pb-1 border-bottom text-white">Design Map and Entity Relationship Diagrams</h2>
-  </div>
-  <div>
-    <div style="text-align:center; font-family: Aileron;">
-      <img src="https://lh3.googleusercontent.com/NvAai5xNvwSE7NnQ3Fwn_nWHMiqOOGlZCJrL4QnuMFkpYJt7aIgExEse1gPjwVPI_yIREOrCpd2M14vg0K40WuIsGng-Yi8UQfLrIcAA9UNlg5cDfTz_Dkgjncnb3gx4_7JEzeE1WSA=w2400" class="img-fluid" alt="..."
-      style = "width: 700px;
-      height: 500px;
-      opacity:0.9">
-    </div>
-    <p class="text-center text-white">Project Design Map</p>
-    <br>
-    <div style="text-align:center; font-family: Aileron;">
-            <img src="{{ url_for('static', filename='images/erd_season.png') }}" class="img-fluid" alt="..."
-            style = "width: 700px;
-            height: 700px;
-            opacity:0.9">
-    </div>
-    <p class="text-center text-white">ERD: Regular Season Tables</p>
-    <br>
-    <div style="text-align:center; font-family: Aileron;">
-      <img src="{{ url_for('static', filename='images/erd_playoffs.png') }}" class="img-fluid" alt="..."
-      style = "width: 700px;
-      height: 700px;
-      opacity:0.9">
-    </div>
-    <p class="text-center text-white">ERD: Playoff Tables</p>
-    <br>
-  </div>
-  <br>
-  <div class="pb-2">
-    <h2 class="pb-1 border-bottom text-white">Exploratory Data Analysis & Visualizations</h2>
-  </div>
-  <div>
-    <h6 class="fw-bold text-white">Tableau Visualizations</h6>
-    <ol class="text-white">
-      <li>
-        The Evolution of the NBA: How teams have evolved from playing a paint-dominant game to players now expected to stretch the floor.
-        3-point data using attempted, made, and percentage of 3-points made
-      </li>
-      <li>Offensive Stats:
+<!-- Content -->
+<section class="pt-5 pb-2 prose-w mx-auto">
+    <section class="d-flex flex-column pb-4">
+        <h3 class="pb-1 border-bottom mb-3">
+            Overview
+        </h3>
+        <p>
+            “The National Basketball Association (NBA) is a professional
+            basketball league in North America. The league is composed of 30
+            teams (29 in the United States and 1 in Canada) and is one of the
+            major professional sports leagues in the United States and Canada.
+            It is the premier men's professional basketball league in the
+            world.”
+            <br><br>
+            Aware of the huge impact this sport has worldwide and the data
+            available to us, our final project will focus on learning how
+            historical team statistics/data can help us predict the 2022 NBA
+            champion using machine learning models. Additionally, we will
+            analyze important team statistics to help us come to a consensus
+            about why our machine learning predicted certain teams as being the
+            most probable choice for NBA Champion.
+        </p>
+    </section>
+    <section class="d-flex flex-column pb-4">
+        <h3 class="pb-1 border-bottom mb-3">
+            Overarching Analysis Questions
+        </h3>
+        <ol type="I">
+            <li>
+                Can we create a machine learning model to predict this year's
+                NBA Champion?
+            </li>
+            <li>
+                Which team statistics give the most insight into what a champion
+                team looks like?
+            </li>
+            <li>
+                What features does the machine learning model weight most
+                heavily, and can these provide insight into our analysis?
+            </li>
+        </ol>
+    </section>
+    <section class="d-flex flex-column pb-4">
+        <h3 class="pb-1 border-bottom mb-3">
+            Resources
+        </h3>
+        <div class="pb-4">
+            <a class="link-info mb-3"
+               href="https://www.nba.com/stats/teams/traditional/?sort=W_PCT&dir=-1"
+               target="_blank">
+                Official Team Stats for NBA
+            </a>
+        </div>
+    </section>
+    <section class="d-flex flex-column pb-4">
+        <h3 class="pb-1 border-bottom mb-3">
+            Design Map and Entity Relationship Diagrams
+        </h3>
+        <figure id="fig-infrastructure" class="pt-2 align-self-center">
+            <img src="{{ url_for('static', filename='images/project_infrastructure.png') }}"
+                 class="img-fluid img-border-custom"
+                 alt="project infrastructure">
+            <figcaption class="pt-2 text-center small">
+                Fig 1. Project infrastructure
+            </figcaption>
+        </figure>
+        <figure id="fig-erd-season" class="pt-2 align-self-center">
+            <img src="{{ url_for('static', filename='images/erd_season.png') }}"
+                 class="img-fluid img-border-custom"
+                 alt="entity relationship diagram for regular season stats">
+            <figcaption class="pt-2 text-center small">
+                Fig 2. Entity relationship diagram: regular season stats
+            </figcaption>
+        </figure>
+        <figure id="fig-erd-playoffs" class="pt-2 align-self-center">
+            <img src="{{ url_for('static', filename='images/erd_playoffs.png') }}"
+                 class="img-fluid img-border-custom"
+                 alt="entity relationship diagram for playoff stats">
+            <figcaption class="pt-2 text-center small">
+                Fig 3. Entity relationship diagram: playoff stats
+            </figcaption>
+        </figure>
+    </section>
+    <section class="d-flex flex-column pb-4">
+        <h3 class="pb-1 border-bottom mb-3">
+            Exploratory Data Analysis & Visualizations
+        </h3>
+        <div class="pb-2">
+            <h5 class="fw-bold">
+                Tableau Visualizations
+            </h5>
+            <ol>
+                <li>
+                    <b>The Evolution of the NBA:</b> How teams have evolved from
+                    playing a paint-dominant game to players now expected to
+                    stretch the floor. 3-point data using attempted, made, and
+                    percentage of 3-points made
+                </li>
+                <li><b>Offensive Stats:</b>
+                    <ul>
+                        <li>EFG%</li>
+                        <li>Free Throws Percentage</li>
+                        <li>Points off turnovers</li>
+                        <li>Offensive Rebounds</li>
+                    </ul>
+                </li>
+                <li><b>Defensive Stats:</b>
+                    <ul>
+                        <li>Blocks</li>
+                        <li>Steals</li>
+                        <li>Defensive Rebounds</li>
+                        <li>Defensive Rating</li>
+                    </ul>
+                </li>
+                <li><b>Comparing Past Champions to Current Season:</b>
+                    <ul>
+                        <li>Offensive vs. Defensive Rating</li>
+                        <li>Assists vs Turnovers</li>
+                        <li>Effective vs True Shooting Percentages</li>
+                    </ul>
+                </li>
+                <li><b>Results from our Machine Learning Model:</b>
+                    <ul>
+                        <li>Stats on Predicted Champion</li>
+                        <li>Feature Importance</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+        <div class="pb-2">
+            <h5 class="fw-bold">
+                Flask App
+            </h5>
+            <ol>
+                <li>
+                    We have structured a Flask app that will hold our final
+                    dashboard. HTML templates were created with a base file that
+                    has bootstrap and our own additional css file loaded as well
+                    as the structure for any other html file to inherit from
+                    this base file.
+                </li>
+                <li>
+                    We have included our Tableau visuals in our Flask app by
+                    writing code to embed visuals directly from Tableau and
+                    produce a cohesive app.
+                </li>
+            </ol>
+        </div>
+        <div>
+            <h5 class="fw-bold">
+                Machine Learning Model: Logistic Regression
+            </h5>
+            <ol>
+                <li>
+                    We used a Logistic Regression Model to best fit for our goal
+                    of predicting a champion.
+                    <ul>
+                        <li>
+                            <b>Predicted Champion: Memphis Grizzlies</b>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    We also analyzed feature importance of our model in order to
+                    see which statistics our champion prediction is most heavily
+                    dependent on.
+                </li>
+            </ol>
+        </div>
+    </section>
+    <section class="d-flex flex-column">
+        <h3 class="pb-1 border-bottom mb-3">
+            Database Tables
+        </h3>
+        <p>
+            The following table is retrieved from our PostgreSQL database via
+            SQLAlchemy and serves as an example of the types of tables used in
+            this project.
+        </p>
+        <h5 class="fw-bold">
+            Additional Notes About Database Tables
+        </h5>
         <ul>
-          <li>EFG%</li>
-          <li>Free Throws Percentage</li>
-          <li>Points off turnovers</li>
-          <li>Offensive Rebounds</li>
+            <li>
+                Stat types include:
+                <ul>
+                    <li>traditional (shown here)</li>
+                    <li>advanced</li>
+                    <li>miscellaneous</li>
+                    <li>clutch</li>
+                </ul>
+            </li>
+            <li>Both regular season and playoff stats were collected</li>
+            <li>
+                Years range from the 1996-97 season up to the current 2021-22
+                season.
+            </li>
         </ul>
-      </li>
-      <li>Defensive Stats:
-        <ul>
-          <li>Blocks</li>
-          <li>Steals</li>
-          <li>Defensive Rebounds</li>
-          <li>Defensive Rating</li>
-        </ul>
-      </li>
-      <li>Comparing Past Champions to Current Season:
-        <ul>
-          <li>Offensive vs. Defensive Rating</li>
-          <li>Assists vs Turnovers</li>
-          <li>Effective vs True Shooting Percentages</li>
-        </ul>
-      </li>
-      <li>Results from our Machine Learning Model:
-        <ul>
-          <li>Stats on Predicted Champion</li>
-          <li>Feature Importance</li>
-        </ul>
-      </li>
-    </ol>
-  </div>
-  <br>
-  <div>
-    <h6 class="fw-bold text-white">Flask App</h6>
-    <ol class="text-white">
-      <li>
-        We have structured a Flask app that will hold our final dashboard.
-        HTML templates were created with a base file that has bootstrap and our own additional css file loaded as well as the structure for any other html file to inherit from this base file.
-      </li>
-      <li>
-        We have included our Tableau visuals in our flask app by writing code to embed visuals directly from Tableau and produce a cohesive app
-      </li>
-    </ol>
-  </div>
-  <br>
-  <div>
-    <h6 class="fw-bold text-white">Machine Learning Model: Logistic Regression</h6>
-    <ol class="text-white">
-      <li>
-        We used a Logistic Regression Model to best fit for our goal of predicting a champion.
-        <ul>
-          <li>
-            <strong>Predicted Champion: Memphis Grizzlies</strong>
-          </li>
-        </ul>
-      </li>
-      <li>
-        We also analyzed feature importance of our model in order to see which statistics our champion prediction is most heavily dependent on.
-      </li>
-    </ol>
-  </div>
-</div>
+        <figure id="table-team-trad-stats-container"
+                class="pt-2 align-self-center">
+            <div id="table-team-trad-stats"
+                    class="table-responsive table-border-custom overflow-auto">
+                {{ team_trad_table_html|safe }}
+            </div>
+            <figcaption class="pt-2 text-center small">
+                Fig 4. Teams traditional stats table
+            </figcaption>
+        </figure>
+    </section>
+</section>
 {% endblock body %}
