@@ -2,230 +2,288 @@
 
 <!--------------------------------- HEAD -------------------------------------->
 {% block head %}
-<title>PREDICTION</title>
-<script type="module" src="https://public.tableau.com/javascripts/api/tableau.embedding.3.latest.min.js"></script>
+<title>Prediction</title>
+<!-- <script type="module"
+        src="https://public.tableau.com/javascripts/api/tableau.embedding.3.latest.min.js">
+</script> -->
 <!-- <link rel="stylesheet" href="style.css"> -->
 {% endblock head %}
 
 <!--------------------------------- BODY -------------------------------------->
 {% block body %}
-<div
-  class="bg-image"
-  style="
-   width: 100%;
-   height: 250px;
-   background: url('https://ftw.usatoday.com/wp-content/uploads/sites/90/2016/10/usatsi_9349706-copy.jpg?w=1000&h=600&crop=1');
-   background-size: cover;
-   background-position: 100% 20%;
-   opacity:0.9;">
-</div>
-<div class="px-5 pt-5 pb-3 mx-5">
-  <div class="pb-2">
-    <h2 class="pb-1 border-bottom text-white">Machine Learning Model: Logistic Regression</h2>
-  </div>
-  <br>
-  <div class="d-flex flex-column align-items-center">
-    <h4 class="align-self-start text-white">Formulation</h4>
-    <p class="text-white w-100">
-      The goal of predicting an NBA champion can be formulated as a binary
-      classification problem where the two classes are <strong>champion</strong>
-      and <strong>non-champion</strong>. Using historical NBA data, we know both
-      classes exactly for all past seasons and thus the use of a supervised
-      learning model is a fitting approach for our problem. Because we have
-      formulated champion prediction as a binary classification problem, we
-      chose logistic regression as the appropriate model for the job.
-    </p>
-    <p class="text-white w-100">
-      The data collected during the web scraping process included both regular
-      season and playoff data. Due to the fact that playoff data involves a
-      smaller number of games per team and, crucially, an unequal number of
-      games played per team (based on how far a team goes in the elimination
-      tournament), it was decided to only use regular season data as the input
-      for our model.
-    </p>
-  </div>
-  <br>
-  <div class="d-flex flex-column align-items-center">
-    <h4 class="align-self-start text-white">Pre-Processing and Exploratory Analysis</h4>
-    <p class="text-white w-100">
-      We began pre-processing by filtering out the non-playoff teams and
-      selecting the range of seasons identified in previous sections as
-      representative of the style of the modern game (2016-2021). After a few
-      transformations, all three stats tables (traditional, advanced, and
-      miscellaneous) were merged together into one table containing our complete
-      set of stats ready for exploratory analysis. Note that clutch stats were
-      excluded from our dataset for the same reasons that playoff stats were
-      excluded (low and unequal number of games per team).
-    </p>
-    <p class="text-white w-100">
-      To begin exploring the data, we investigated the relationships between the
-      stats to see the degree of linear dependence in our dataset. The chart
-      below shows a Pearson correlation coefficient heatmap for our dataset:
-    </p>
-    <figure class="d-flex flex-column align-items-center">
-      <img src="{{ url_for('static', filename='images/machine_learning/correlation_heatmap_all_features.png') }}"
-            alt="correlation heatmap for all stats"
-          style="width: 854px;" />
-      <figcaption class="pt-1 text-white">Fig 1. Correlation coefficient heatmap for all stats</figcaption>
-    </figure>
-    <br>
-    <p class="text-white w-100">
-      The heat map reveals several statistics that have strong dependence on one
-      or more of the other statistics. As an example, looking at the horizontal
-      rows for effective field goal percentage (EFG%) and true shooting
-      percentage (TS%), the correlation coefficient between them is high and
-      thus their entire row of correlations look very similar. It is important
-      to exclude one of these stats in pairings like this when moving forward,
-      as they essentially represent the same information.
-    </p>
-    <p class="text-white w-100">
-      Below are two charts that take a closer look at maximum and 80th
-      percentile values of correlation coefficient:
-    </p>
-    <figure class="d-flex flex-column align-items-center">
-      <img src="{{ url_for('static', filename='images/machine_learning/max_correlation_coefficients.png') }}"
-           alt="max correlation coefficients"
-         style="width: 654px;" />
-      <figcaption class="pt-1 text-white">Fig 2. Stats having a maximum correlation coefficient < 0.8</figcaption>
-    </figure>
-    <br>
-    <p class="text-white w-100">
-      These are the stats with maximum correlations under 0.8. This was used as
-      a first attempt at identifying stat types that are more independent,
-      carrying unique information. It is observed that there are only 16 out of
-      45 (35%) of stats that have maximum correlations under 0.8. A correlation
-      of 0.8 is still strong and thus not ideal. It was important to explore
-      this further to see if the entire row of correlations for a given stat
-      were also high (we needed a sense of the distribution of correlations per
-      stat). Thus we have the following chart:
-    </p>
-    <figure class="d-flex flex-column align-items-center">
-      <img src="{{ url_for('static', filename='images/machine_learning/percentile_correlation_coefficients.png') }}"
-           alt="percentile correlation coefficients"
-         style="width: 654px;" />
-      <figcaption class="pt-1 text-white">Fig 3. Stats with 80% of their correlation coefficients < 0.35</figcaption>
-    </figure>
-    <br>
-    <p class="text-white w-100">
-      Here, we're looking at the 80th percentile correlation value for each stat
-      that is filtered to leave only the stats where 80% of their correlations
-      were below 0.35. This gives us a sense per stat of how independent it is
-      from other stats on average. Starting with the important stats revealed by
-      the previous sections, we can now add in stats that on average are
-      independent and thus provide unique information to the model. The
-      following chart shows the heatmap for the final selection of features
-      based on an iterative process of running the machine learning model,
-      viewing the feature importance, and deciding to add or subtract stats from
-      the feature set:
-    </p>
-    <figure class="d-flex flex-column align-items-center">
-      <img src="{{ url_for('static', filename='images/machine_learning/correlation_heatmap_selected_features.png') }}"
-           alt="correlation heatmap for selected features"
-         style="width: 654px;" />
-      <figcaption class="pt-1 text-white">Fig 4. The final selection of stats to be used as features in our model</figcaption>
-    </figure>
-    <br>
-    <p class="text-white w-100">
-      Principal Component Analysis was also completed using the full set of
-      stats to investigate the amount of components needed to explain most of
-      the variance in the data. This helped us in identifying the number of
-      components to shoot for by the end of the feature engineering iterative
-      process.
-    </p>
-    <figure class="d-flex flex-column align-items-center">
-      <img src="{{ url_for('static', filename='images/machine_learning/cumulative_explained_variance_all_features.png') }}"
-           alt="cumulative explained variance for all features"
-         style="width: 654px;" />
-      <figcaption class="pt-1 text-white">Fig 5. Cumulative explained variance</figcaption>
-    </figure>
-    <br>
-  </div>
-  <br>
-  <div class="d-flex flex-column align-items-center">
-    <h4 class="align-self-start text-white">Results</h4>
-    <p class="text-white w-100">
-      After running the model and predicting the test dataset, the following
-      confusion matrix shows the performance of our model:
-    </p>
-    <figure class="d-flex flex-column align-items-center">
-      <img src="{{ url_for('static', filename='images/machine_learning/confusion_matrix.png') }}"
-           alt="confusion matrix"
-         style="width: 654px;" />
-      <figcaption class="pt-1 text-white">Fig 6. Model results: confusion matrix</figcaption>
-    </figure>
-    <br>
-    <p class="text-white w-100">
-      We can see that we predicted champions correctly at a rate of 50%. This is
-      less than ideal and may be due to a lack of data when limiting the input
-      data to the year 2016, and only reaching a total 7 features used. Moving
-      on to the goal of the project, our model predicted the Memphis Grizzlies
-      as having the highest probability of winning the championship in 2022. See
-      below the resulting probabilities for all playoff teams.
-    </p>
-		<div class="container">
-			<div class="table-responsive" style="height:300px; width: 700px; overflow-y:scroll">
-				{{ proba_est_table_html|safe }}
-			</div>
-		</div>
-    <br>
-  </div>
-  <br>
-  <div class="d-flex flex-column align-items-center">
-    <h4 class="align-self-start text-white">Feature Importance</h4>
-    <p class="text-white w-100">
-      It was important in developing an iterative process to refine our model to
-      have some sense of the most important features at the end of each run.
-      Feature importance helped us achieve this. We used the coefficients from
-      the logistic regression model as our measure and we created a relative
-      scale based on the stat with the largest coefficient (the most important
-      stat). Below is the visual showcasing the results for our final iteration
-      using the final feature set:
-    </p>
-    <figure class="d-flex flex-column align-items-center">
-      <img src="{{ url_for('static', filename='images/machine_learning/feature_importance.png') }}"
-           alt="feature importance"
-         style="width: 654px;" />
-      <figcaption class="pt-1 text-white">Fig 8. Relative feature importance</figcaption>
-    </figure>
-    <br>
-		<div class="container">
-			<div class="table-responsive" style="width: 300px;">
-				{{ feat_imp_table_html|safe }}
-			</div>
-		</div>
-    <br>
-    <p class="text-white w-100">
-      We can see here that assist to turnover ratio is the most important to
-      predicting our champions. Other stats that proved to be strong
-      indicators of champion likely teams were defensive and offensive rating
-      as well as blocks and steals.
-    </p>
-  </div>
-  <br>
-  <tableau-viz id="tableauViz"
-              src="https://public.tableau.com/views/NBATeamStats_16516195895630/MemphisGrizzlies_1?:language=en-US&:display_count=n&:origin=viz_share_link"
-           device="desktop"
-          toolbar="bottom"
-        hide-tabs>
-  </tableau-viz>
-  <div class="pt-5" id="featured-3">
-    <div class="pb-2">
-      <h2 class="pb-1 border-bottom text-white">Analysis</h2>
+<!-- Banner -->
+<div class="d-flex flex-column justify-content-center px-0 text-center bg-image position-relative"
+     style="background-image: url('{{ url_for('static', filename='images/champion_banner.png') }}');
+            height: 250px;
+            background-color: var(--bs-info);
+            background-size: cover;
+            background-position: 100% 20%;">
+    <div style="background-color: rgba(33, 37, 41, 0.91);">
+        <div class="d-flex flex-column justify-content-center align-items-center py-2">
+            <h1 class="pb-1 fw-bold">
+                Machine Learning Prediction
+            </h1>
+            <h5 style="color: var(--bs-gray-500);">
+                <i>Binary Classification Using Logistic Regression</i>
+            </h5>
+        </div>
     </div>
-    <ul class="text-white">Memphis Grizzlies
-      <li>
-        Our machine learning model predicted that the Memphis Grizzlies will
-        be the 2022 NBA Finals Champions. After we ran our machine learning
-        model, we wanted to see the highest weighted relative importance of
-        each of the stats that were accounted for in predicting the 2022
-        champion. The top four features were Assist to Turnover Ratio (100),
-        Defensive Rating (86.02), Offensive Rating (50.12), and Blocks (45.9).
-        In the graph above, you can see the seasonal trends over the last few
-        decades for these four features. If we look at the other dashboards in
-        the story, we can see how the Grizzlies compare to other playoff teams
-        in each of the four features.
-      </li>
-    </ul>
-  </div>
+    <!-- Image Attribution -->
+    <div class="position-absolute bottom-0 start-0 ps-1 pe-2"
+         style="background-color:rgba(33, 37, 41, 0.91);
+                font-size: 0.75rem;
+                color: var(--bs-gray-500);
+                border-top-right-radius: 4px;">
+        <i>Image Credit: Bob Donnan-USA TODAY Sports</i>
+    </div>
 </div>
+<!-- Content -->
+<section class="pt-5 pb-2 prose-w mx-auto">
+    <section class="d-flex flex-column pb-4">
+        <h3 class="pb-1 border-bottom mb-3">
+            Formulation
+        </h3>
+        <p>
+            The goal of predicting an NBA champion can be formulated as a binary
+            classification problem where the two classes are <b>champion</b>
+            and <b>non-champion</b>. Using historical NBA data, we know both
+            classes exactly for all past seasons and thus the use of a
+            supervised learning model is a fitting approach for our problem.
+            Because we have formulated champion prediction as a binary
+            classification problem, we chose logistic regression as the
+            appropriate model for the job.
+            <br><br>
+            The data collected during the web scraping process included both
+            regular season and playoff data. Due to the fact that playoff data
+            involves a smaller number of games per team and, crucially, an
+            unequal number of games played per team (based on how far a team
+            goes in the elimination tournament), it was decided to only use
+            regular season data as the input for our model.
+        </p>
+    </section>
+    <section class="d-flex flex-column pb-4">
+        <h3 class="pb-1 border-bottom mb-3">
+            Pre-Processing and Exploratory Analysis
+        </h3>
+        <p>
+            Principal Component Analysis was also completed using the full set
+            of stats to investigate the amount of components needed to explain
+            most of the variance in the data. This helped us in identifying the
+            number of components to shoot for by the end of the feature
+            engineering iterative process.
+        </p>
+        <figure class="pt-2 align-self-center">
+            <img src="{{ url_for('static', filename='images/machine_learning/cumulative_explained_variance_all_features.png') }}"
+                 class="img-fluid img-border-custom chart"
+                 alt="cumulative explained variance for all features">
+            <figcaption class="pt-2 text-center small">
+                Fig 1. Cumulative explained variance
+            </figcaption>
+        </figure>
+        <p>
+            We began pre-processing by filtering out the non-playoff teams and
+            selecting the range of seasons identified in previous sections as
+            representative of the style of the modern game (2016-2021). After a
+            few transformations, all three stats tables (traditional, advanced,
+            and miscellaneous) were merged together into one table containing
+            our complete set of stats ready for exploratory analysis. Note that
+            clutch stats were excluded from our dataset for the same reasons
+            that playoff stats were excluded (low and unequal number of games
+            per team).
+            <br><br>
+            To begin exploring the data, we investigated the relationships
+            between the stats to see the degree of linear dependence in our
+            dataset. The chart below shows a Pearson correlation coefficient
+            heatmap for our dataset:
+        </p>
+        <figure id="correlation-heatmap-all-features"
+                class="pt-2 align-self-center">
+            <img src="{{ url_for('static', filename='images/machine_learning/correlation_heatmap_all_features.png') }}"
+                 class="img-fluid img-border-custom"
+                 alt="correlation heatmap for all stats">
+            <figcaption class="pt-2 text-center small">
+                Fig 2. Correlation coefficient heatmap for all stats
+            </figcaption>
+        </figure>
+        <p>
+            The heat map reveals several statistics that have strong dependence
+            on one or more of the other statistics. As an example, looking at
+            the horizontal rows for effective field goal percentage (EFG%) and
+            true shooting percentage (TS%), the correlation coefficient between
+            them is high and thus their entire row of correlations look very
+            similar. It is important to exclude one of these stats in pairings
+            like this when moving forward, as they essentially represent the
+            same information.
+            <br><br>
+            Below are two charts that take a closer look at maximum and 80th
+            percentile values of correlation coefficient:
+        </p>
+        <figure class="pt-2 align-self-center">
+            <img src="{{ url_for('static', filename='images/machine_learning/max_correlation_coefficients_all_features.png') }}"
+                 class="img-fluid img-border-custom chart"
+                 alt="max correlation coefficients">
+            <figcaption class="pt-2 text-center small">
+                Fig 3. Stats having a maximum correlation coefficient < 0.8
+            </figcaption>
+        </figure>
+        <p>
+            These are the stats with maximum correlations under 0.8. This was
+            used as a first attempt at identifying stat types that are more
+            independent, carrying unique information. It is observed that there
+            are only 16 out of 45 (35%) of stats that have maximum correlations
+            under 0.8. A correlation of 0.8 is still strong and thus not ideal.
+            It was important to explore this further to see if the entire row of
+            correlations for a given stat were also high (we needed a sense of
+            the distribution of correlations per stat). Thus we have the
+            following chart:
+        </p>
+        <figure class="pt-2 align-self-center">
+            <img src="{{ url_for('static', filename='images/machine_learning/percentile_correlation_coefficients_all_features.png') }}"
+                 class="img-fluid img-border-custom chart"
+                 alt="percentile correlation coefficients">
+            <figcaption class="pt-2 text-center small">
+                Fig 4. Stats with 80% of their correlation coefficients < 0.35
+            </figcaption>
+        </figure>
+        <figure class="pt-2 align-self-center">
+            <img src="{{ url_for('static', filename='images/machine_learning/cumulative_explained_variance_selected_features.png') }}"
+                 class="img-fluid img-border-custom chart"
+                 alt="cumulative explained variance for selected features">
+            <figcaption class="pt-2 text-center small">
+                Fig 5. The final selection of stats to be used as features in
+                our model
+            </figcaption>
+        </figure>
+        <p>
+            Here, we're looking at the 80th percentile correlation value for
+            each stat that is filtered to leave only the stats where 80% of
+            their correlations were below 0.35. This gives us a sense per stat
+            of how independent it is from other stats on average. Starting with
+            the important stats revealed by the previous sections, we can now
+            add in stats that on average are independent and thus provide unique
+            information to the model. The following chart shows the heatmap for
+            the final selection of features based on an iterative process of
+            running the machine learning model, viewing the feature importance,
+            and deciding to add or subtract stats from the feature set:
+        </p>
+        <figure class="pt-2 align-self-center">
+            <img src="{{ url_for('static', filename='images/machine_learning/correlation_heatmap_selected_features.png') }}"
+                 class="img-fluid img-border-custom chart"
+                 alt="correlation heatmap for selected features">
+            <figcaption class="pt-2 text-center small">
+                Fig 6. The final selection of stats to be used as features in
+                our model
+            </figcaption>
+        </figure>
+        <figure class="pt-2 align-self-center">
+            <img src="{{ url_for('static', filename='images/machine_learning/max_correlation_coefficients_selected_features.png') }}"
+                 class="img-fluid img-border-custom chart"
+                 alt="correlation heatmap for selected features">
+            <figcaption class="pt-2 text-center small">
+                Fig 7. The final selection of stats to be used as features in
+                our model
+            </figcaption>
+        </figure>
+    </section>
+    <section class="d-flex flex-column pb-4">
+        <h5 class="fw-bold">
+            Results
+        </h5>
+        <p>
+            After running the model and predicting the test dataset, the
+            following confusion matrix shows the performance of our model:
+        </p>
+        <figure class="pt-2 align-self-center">
+            <img src="{{ url_for('static', filename='images/machine_learning/confusion_matrix.png') }}"
+                class="img-fluid img-border-custom chart"
+                alt="confusion matrix">
+            <figcaption class="pt-2 text-center small">
+                Fig 8. Model results: confusion matrix
+            </figcaption>
+        </figure>
+        <p>
+            We can see that we predicted champions correctly at a rate of 50%.
+            This is less than ideal and may be due to a lack of data when
+            limiting the input data to the year 2016, and only reaching a total
+            7 features used. Moving on to the goal of the project, our model
+            predicted the Memphis Grizzlies as having the highest probability of
+            winning the championship in 2022. See below the resulting
+            probabilities for all playoff teams.
+        </p>
+        <figure class="pt-2 align-self-center">
+            <div class="table-responsive table-border-custom"
+                style="height: 400px; overflow: auto;">
+                {{ proba_est_table_html|safe }}
+            </div>
+            <figcaption class="pt-2 text-center small">
+                Fig 9. Probability estimates table
+            </figcaption>
+        </figure>
+    </section>
+    <section class="d-flex flex-column pb-4">
+        <h5 class="fw-bold">
+            Feature Importance
+        </h5>
+        <p>
+            It was important in developing an iterative process to refine our
+            model to have some sense of the most important features at the end
+            of each run. Feature importance helped us achieve this. We used the
+            coefficients from the logistic regression model as our measure and
+            we created a relative scale based on the stat with the largest
+            coefficient (the most important stat). Below is the visual
+            showcasing the results for our final iteration using the final
+            feature set:
+        </p>
+        <figure class="pt-2 align-self-center">
+            <div class="table-responsive table-border-custom" style="width: 300px;">
+                {{ feat_imp_table_html|safe }}
+            </div>
+            <figcaption class="pt-2 text-center small">
+                Fig 10. Relative feature importance table
+            </figcaption>
+        </figure>
+        <figure class="pt-2 align-self-center">
+            <img src="{{ url_for('static', filename='images/machine_learning/feature_importance.png') }}"
+                class="img-fluid img-border-custom chart"
+                alt="feature importance"
+                style="width: 654px;">
+            <figcaption class="pt-2 text-center small">
+                Fig 11. Relative feature importance
+            </figcaption>
+        </figure>
+        <p>
+            We can see here that assist to turnover ratio is the most important
+            to predicting our champions. Other stats that proved to be strong
+            indicators of champion likely teams were defensive and offensive
+            rating as well as blocks and steals.
+        </p>
+    </section>
+</section>
+<!-- Tableau Viz -->
+<section class="tableau-center pt-5">
+    <div class='tableauPlaceholder' id='viz1708374242915' style='position: relative'><noscript><a href='#'><img alt='Predicted Champion ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;NB&#47;NBATeamStats_16516195895630&#47;MemphisGrizzlies_1&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='NBATeamStats_16516195895630&#47;MemphisGrizzlies_1' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;NB&#47;NBATeamStats_16516195895630&#47;MemphisGrizzlies_1&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1708374242915');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
+</section>
+<section class="pb-5 prose-w mx-auto">
+    <section class="d-flex flex-column">
+        <h3 class="pb-1 border-bottom mb-3">
+            Analysis
+        </h3>
+        <h5 class="fw-bold">
+            Predicted Champion: Memphis Grizzlies
+        </h5>
+        <p>
+            Our machine learning model predicted that the Memphis Grizzlies
+            will be the 2022 NBA Finals Champions. After we ran our machine
+            learning model, we wanted to see the highest weighted relative
+            importance of each of the stats that were accounted for in
+            predicting the 2022 champion. The top four features were Assist
+            to Turnover Ratio (100), Defensive Rating (86.02), Offensive
+            Rating (50.12), and Blocks (45.9). In the graph above, you can
+            see the seasonal trends over the last few decades for these four
+            features. If we look at the other dashboards in the story, we
+            can see how the Grizzlies compare to other playoff teams in each
+            of the four features.
+        </p>
+    </section>
+</section>
 {% endblock body %}

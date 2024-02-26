@@ -2,54 +2,116 @@
 
 <!--------------------------------- HEAD -------------------------------------->
 {% block head %}
-<title>DEFENSE/OFFENSE</title>
-<script type="module" src="https://public.tableau.com/javascripts/api/tableau.embedding.3.latest.min.js"></script>
+<title>Defense/Offense</title>
 {% endblock head %}
 
 <!--------------------------------- BODY -------------------------------------->
 {% block body %}
-<tableau-viz id="tableauViz"
-            src= "https://public.tableau.com/views/NBATeamStats_16516195895630/TeamStatsStory?:language=en-US&:display_count=n&:origin=viz_share_link"
-         device="desktop"
-        toolbar="bottom"
-      hide-tabs>
-</tableau-viz>
-<main>
-  <div class="px-5 pt-5 pb-3 mx-5" id="featured-3">
-    <div class="pb-2">
-      <h2 class="pb-1 border-bottom text-white">Analysis</h2>
-    </div>
-    <ul class="text-white">Offensive Stats
-      <li>
-        This dashboard visualizes the Average Effective Field Goal %, Offensive Rebound %, Turnover %, and Free Throw %. You can view the average for each team and filter the graph season. Currently, we can see the averages of these four metrics for the 2022 season. We chose these metrics for the most relevant offensive statistics because they are most heavily correlated to a successful offense in the NBA.<br>
-        Effective FG% adjusts field goal percentage to account for the fact that three-point field goals count for three points while field goals only count for two points.<br>
-        Offensive Rebound % is the percentage of available offensive rebounds a player or team obtains while on the floor.<br>
-        Turnover % is the percentage of plays that end in a player or team’s turnover.<br>
-        Free Throw % is the percentage of free throw attempts that a player or team has made.<br>
-      </li>
-    </ul>
-    <ul class="text-white">Defensive Stats
-      <li>
-        This dashboard visualizes the Average Blocks, Steals, Defensive Rebound %, and Opponents Points Off Turnovers. You can view the average for each team and filter the graph by season. <br>
-        Currently, we can see the averages of these four metrics for the 2022 season. We chose these metrics for the most relevant defensive statistics because they are most strongly correlated to a strong defensive team in the NBA. <br>
-        Blocks occur when an offensive player attempts a shot, and the defense player tips the ball, blocking their chance to score. <br>
-        Steals are the number of times a defensive player or team takes the ball from a player on offense, causing a turnover. <br>
-        Defensive Rebound % is the percentage of available defensive rebounds a player or team obtains while on the floor. <br>
-        Opponents Points Off Turnovers is the number of points scored by an opposing player or team following a turnover. <br>
-      </li>
-    </ul>
-    <ul class="text-white">Offensive vs. Defensive Rating
-      <li>
-        Offensive rating measures a team's points scored per 100 possessions. <br>
-        Defensive rating is the number of points allowed per 100 possessions by a team. <br>
-        From the offensive and defensive ratings, we can calculate the net rating, which measures a team's point differential per 100 possessions. These ratings can help us understand the offensive and defensive efficiency of teams compared to each other. However, these ratings do not determine who the predicted champion will be since there are several other statistical factors we accounted for. <br>
-      </li>
-    </ul>
-  </div>
-</main>
-
+<!-- Tableau Viz -->
+<section class="tableau-center pt-5">
+    <div class='tableauPlaceholder' id='viz1708373996613' style='position: relative'><noscript><a href='#'><img alt='Team Statistics by Season ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;5C&#47;5CZWBM28W&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='path' value='shared&#47;5CZWBM28W' /> <param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;5C&#47;5CZWBM28W&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1708373996613');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.minWidth='100px';vizElement.style.maxWidth='9999px';vizElement.style.width='100%';vizElement.style.height='1027px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
+</section>
+<section class="py-5 prose-w mx-auto">
+    <section class="d-flex flex-column">
+        <h3 class="pb-1 border-bottom mb-3">
+            Analysis
+        </h3>
+        <div class="pb-2">
+            <h5 class="fw-bold">
+                Offensive Stats
+            </h5>
+            <ul>
+                <li>
+                    This dashboard visualizes the Average Effective Field Goal
+                    %, Offensive Rebound %, Turnover %, and Free Throw %. You
+                    can view the average for each team and filter the graph
+                    season. Currently, we can see the averages of these four
+                    metrics for the 2022 season. We chose these metrics for the
+                    most relevant offensive statistics because they are most
+                    heavily correlated to a successful offense in the NBA.
+                </li>
+                <li>
+                    Effective FG% adjusts field goal percentage to account for
+                    the fact that three-point field goals count for three points
+                    while field goals only count for two points.
+                </li>
+                <li>
+                    Offensive Rebound % is the percentage of available offensive
+                    rebounds a player or team obtains while on the floor.
+                </li>
+                <li>
+                    Turnover % is the percentage of plays that end in a player
+                    or team's turnover.
+                </li>
+                <li>
+                    Free Throw % is the percentage of free throw attempts that a
+                    player or team has made.
+                </li>
+            </ul>
+        </div>
+        <div class="pb-2">
+            <h5 class="fw-bold">
+                Defensive Stats
+            </h5>
+            <ul>
+                <li>
+                    This dashboard visualizes the Average Blocks, Steals,
+                    Defensive Rebound %, and Opponents Points Off Turnovers. You
+                    can view the average for each team and filter the graph by
+                    season.
+                </li>
+                <li>
+                    Currently, we can see the averages of these four metrics for
+                    the 2022 season. We chose these metrics for the most
+                    relevant defensive statistics because they are most strongly
+                    correlated to a strong defensive team in the NBA.
+                </li>
+                <li>
+                    Blocks occur when an offensive player attempts a shot, and
+                    the defense player tips the ball, blocking their chance to
+                    score.
+                </li>
+                <li>
+                    Steals are the number of times a defensive player or team
+                    takes the ball from a player on offense, causing a turnover.
+                </li>
+                <li>
+                    Defensive Rebound % is the percentage of available defensive
+                    rebounds a player or team obtains while on the floor.
+                </li>
+                <li>
+                    Opponents Points Off Turnovers is the number of points
+                    scored by an opposing player or team following a turnover.
+                </li>
+            </ul>
+        </div>
+        <div>
+            <h5 class="fw-bold">
+                Offensive vs. Defensive Rating
+            </h5>
+            <ul>
+                <li>
+                    Offensive rating measures a team's points scored per 100
+                    possessions.
+                </li>
+                <li>
+                    Defensive rating is the number of points allowed per 100
+                    possessions by a team.
+                </li>
+                <li>
+                    From the offensive and defensive ratings, we can calculate
+                    the net rating, which measures a team's point differential
+                    per 100 possessions. These ratings can help us understand
+                    the offensive and defensive efficiency of teams compared to
+                    each other. However, these ratings do not determine who the
+                    predicted champion will be since there are several other
+                    statistical factors we accounted for.
+                </li>
+            </ul>
+        </div>
+    </section>
+</section>
 <script type="text/javascript"
-         src="{{ url_for('static', filename='js/defense_tableau.js') }}">
+        src="{{ url_for('static', filename='js/defense_tableau.js') }}">
 </script>
-
 {% endblock body %}
