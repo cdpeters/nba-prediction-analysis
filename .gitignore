@@ -1,6 +1,5 @@
 # Data folder
-data/
-secrets.toml
+notebooks/ETL_and_sqlalchemy/data/
 
 # config and credentials files
 config.py
