@@ -10,7 +10,7 @@
 {% block body %}
 <!-- Banner -->
 <div class="d-flex flex-column justify-content-center px-0 text-center bg-image position-relative"
-     style="background-image: url('{{ url_for('static', filename='images/nba_banner.png') }}');
+     style="background-image: url('{{ url_for('static', filename='images/banners/nba_banner.png') }}');
             height: 250px;
             background-color: var(--bs-info);
             background-size: cover;
@@ -40,7 +40,7 @@
     </div>
 </div>
 <!-- Content -->
-<section class="pt-5 pb-2 prose-w mx-auto">
+<section class="custom-pt pb-2 prose-w mx-auto">
     <section class="d-flex flex-column pb-4">
         <h3 class="pb-1 border-bottom mb-3">
             Overview
@@ -52,7 +52,8 @@
             major professional sports leagues in the United States and Canada.
             It is the premier men's professional basketball league in the
             world.”
-            <br><br>
+        </p>
+        <p>
             Aware of the huge impact this sport has worldwide and the data
             available to us, our final project will focus on learning how
             historical team statistics/data can help us predict the 2022 NBA
@@ -85,42 +86,78 @@
         <h3 class="pb-1 border-bottom mb-3">
             Resources
         </h3>
-        <div class="pb-4">
-            <a class="link-info mb-3"
-               href="https://www.nba.com/stats/teams/traditional/?sort=W_PCT&dir=-1"
-               target="_blank">
-                Official Team Stats for NBA
-            </a>
-        </div>
+        <p>
+            The data for the entire project was web scraped from the following
+            official NBA stats page: <a class="link-info"
+            href="https://www.nba.com/stats/teams/traditional/?sort=W_PCT&dir=-1"
+            target="_blank">Official Team Stats for NBA</a>. We used several of
+            their filters to gather different types of stats for both regular
+            season and playoff games. The stats gathered were on a "per game"
+            basis where applicable.
+        </p>
     </section>
     <section class="d-flex flex-column pb-4">
         <h3 class="pb-1 border-bottom mb-3">
             Design Map and Entity Relationship Diagrams
         </h3>
-        <figure id="fig-infrastructure" class="pt-2 align-self-center">
+        <p>
+            The following diagram shows the overall design of our project:
+        </p>
+        <figure id="fig-infrastructure" class="align-self-center">
             <img src="{{ url_for('static', filename='images/project_infrastructure.png') }}"
-                 class="img-fluid img-border-custom"
+                 class="img-fluid img-border-radius"
                  alt="project infrastructure">
             <figcaption class="pt-2 text-center small">
                 Fig 1. Project infrastructure
             </figcaption>
         </figure>
-        <figure id="fig-erd-season" class="pt-2 align-self-center">
+        <p>
+            The data is collected via web scraping and loaded into a PostgreSQL
+            database. This database feeds into the tableau visualizations,
+            machine learning analysis notebook, and the website itself (see the
+            table in Fig 4. in the <b>Database Tables</b> section below).
+        </p>
+        <p>
+            In the next two figures we share the entity relationship diagrams
+            that represent the design of our database. The first diagram
+            contains the tables related to regular season data:
+        </p>
+        <figure id="fig-erd-season" class="align-self-center">
             <img src="{{ url_for('static', filename='images/erd_season.png') }}"
-                 class="img-fluid img-border-custom"
+                 class="img-fluid img-border-radius"
                  alt="entity relationship diagram for regular season stats">
             <figcaption class="pt-2 text-center small">
                 Fig 2. Entity relationship diagram: regular season stats
             </figcaption>
         </figure>
-        <figure id="fig-erd-playoffs" class="pt-2 align-self-center">
+        <p>
+            Note that the primary key for all of the <i>teams_*</i> tables is
+            the combination of season and team name. Additionally, it should be
+            noted that the <i>season_records</i> table contains data that was
+            common to all of the <i>teams_*</i> tables. We chose to separate
+            this data into its own table to reduce redundancy. The same approach
+            was applied to the team names and season data which each have their
+            own tables.
+        </p>
+        <p>
+            The next diagram contains the tables related to playoff data:
+        </p>
+        <figure id="fig-erd-playoffs" class="align-self-center">
             <img src="{{ url_for('static', filename='images/erd_playoffs.png') }}"
-                 class="img-fluid img-border-custom"
+                 class="img-fluid img-border-radius"
                  alt="entity relationship diagram for playoff stats">
             <figcaption class="pt-2 text-center small">
                 Fig 3. Entity relationship diagram: playoff stats
             </figcaption>
         </figure>
+        <p>
+            For the most part, the design used for the playoff tables is the
+            same as that of the regular season tables. Notice the
+            <i>champions</i> and <i>playoff_teams_long</i> tables; we had plans
+            for these but did not end up using them. These tables are candidates
+            to be cut from the database, reducing redundancy further, since we
+            can build them from queries of other tables if needed.
+        </p>
     </section>
     <section class="d-flex flex-column pb-4">
         <h3 class="pb-1 border-bottom mb-3">
@@ -131,13 +168,21 @@
                 Tableau Visualizations
             </h5>
             <ol>
-                <li>
-                    <b>The Evolution of the NBA:</b> How teams have evolved from
-                    playing a paint-dominant game to players now expected to
-                    stretch the floor. 3-point data using attempted, made, and
-                    percentage of 3-points made
+                <li style="padding-top: 0px;">
+                    <b>The Evolution of the NBA</b>
+                    <ul>
+                        <li>
+                            How teams have evolved from playing a paint-dominant
+                            game to players now expected to stretch the floor.
+                        </li>
+                        <li>
+                            3-point data using attempted, made, and percentage
+                            of 3-points made.
+                        </li>
+                    </ul>
                 </li>
-                <li><b>Offensive Stats:</b>
+                <li>
+                    <b>Offensive Stats</b>
                     <ul>
                         <li>EFG%</li>
                         <li>Free Throws Percentage</li>
@@ -145,7 +190,8 @@
                         <li>Offensive Rebounds</li>
                     </ul>
                 </li>
-                <li><b>Defensive Stats:</b>
+                <li>
+                    <b>Defensive Stats</b>
                     <ul>
                         <li>Blocks</li>
                         <li>Steals</li>
@@ -153,17 +199,19 @@
                         <li>Defensive Rating</li>
                     </ul>
                 </li>
-                <li><b>Comparing Past Champions to Current Season:</b>
+                <li>
+                    <b>Comparing Past Champions to Current Season</b>
                     <ul>
                         <li>Offensive vs. Defensive Rating</li>
                         <li>Assists vs Turnovers</li>
                         <li>Effective vs True Shooting Percentages</li>
                     </ul>
                 </li>
-                <li><b>Results from our Machine Learning Model:</b>
+                <li>
+                    <b>Results from our Machine Learning Model</b>
                     <ul>
-                        <li>Stats on Predicted Champion</li>
-                        <li>Feature Importance</li>
+                        <li>Stats on predicted champion based on feature
+                        importance</li>
                     </ul>
                 </li>
             </ol>
@@ -172,29 +220,31 @@
             <h5 class="fw-bold">
                 Flask App
             </h5>
-            <ol>
-                <li>
+            <ul>
+                <li style="padding-top: 0px;">
                     We have structured a Flask app that will hold our final
-                    dashboard. HTML templates were created with a base file that
-                    has bootstrap and our own additional css file loaded as well
-                    as the structure for any other html file to inherit from
-                    this base file.
+                    dashboards and analysis. HTML templates were created and
+                    extended from a base template file. Bootstrap CSS and our
+                    own CSS file were used for styling. Server side caching was
+                    added for the database query in Fig.4 below.
                 </li>
                 <li>
-                    We have included our Tableau visuals in our Flask app by
-                    writing code to embed visuals directly from Tableau and
-                    produce a cohesive app.
+                    We have included links to our Tableau visuals in our Flask
+                    app as well. Originally, we wrote code to embed the visuals
+                    directly from Tableau. This ended up being too expensive
+                    resource-wise for hosting so we reverted to preview images
+                    and links.
                 </li>
-            </ol>
+            </ul>
         </div>
         <div>
             <h5 class="fw-bold">
                 Machine Learning Model: Logistic Regression
             </h5>
-            <ol>
-                <li>
-                    We used a Logistic Regression Model to best fit for our goal
-                    of predicting a champion.
+            <ul>
+                <li style="padding-top: 0px;">
+                    We used a logistic regression model to achieve our goal of
+                    predicting a champion.
                     <ul>
                         <li>
                             <b>Predicted Champion: Memphis Grizzlies</b>
@@ -206,14 +256,14 @@
                     see which statistics our champion prediction is most heavily
                     dependent on.
                 </li>
-            </ol>
+            </ul>
         </div>
     </section>
-    <section class="d-flex flex-column">
+    <section id="section-db-table" class="d-flex flex-column">
         <h3 class="pb-1 border-bottom mb-3">
             Database Tables
         </h3>
-        <p>
+        <p class="pb-2">
             The following table is retrieved from our PostgreSQL database via
             SQLAlchemy and serves as an example of the types of tables used in
             this project.
@@ -222,25 +272,35 @@
             Additional Notes About Database Tables
         </h5>
         <ul>
-            <li>
+            <li style="padding-top: 0px;">
                 Stat types include:
                 <ul>
-                    <li>traditional (shown here)</li>
-                    <li>advanced</li>
-                    <li>miscellaneous</li>
-                    <li>clutch</li>
+                    <li>
+                        traditional (shown here)
+                    </li>
+                    <li>
+                        advanced
+                    </li>
+                    <li>
+                        miscellaneous
+                    </li>
+                    <li>
+                        clutch
+                    </li>
                 </ul>
             </li>
-            <li>Both regular season and playoff stats were collected</li>
+            <li>
+                Both regular season and playoff stats were collected
+            </li>
             <li>
                 Years range from the 1996-97 season up to the current 2021-22
                 season.
             </li>
         </ul>
         <figure id="table-team-trad-stats-container"
-                class="pt-2 align-self-center">
+                class="align-self-center">
             <div id="table-team-trad-stats"
-                    class="table-responsive table-border-custom overflow-auto">
+                    class="table-responsive table-outer-border overflow-auto">
                 {{ team_trad_table_html|safe }}
             </div>
             <figcaption class="pt-2 text-center small">

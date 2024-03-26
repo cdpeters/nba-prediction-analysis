@@ -13,17 +13,17 @@
 {% block body %}
 <!-- Banner -->
 <div class="d-flex flex-column justify-content-center px-0 text-center bg-image position-relative"
-     style="background-image: url('{{ url_for('static', filename='images/champion_banner.png') }}');
+     style="background-image: url('{{ url_for('static', filename='images/banners/champion_banner.png') }}');
             height: 250px;
             background-color: var(--bs-info);
             background-size: cover;
             background-position: 100% 20%;">
     <div style="background-color: rgba(33, 37, 41, 0.91);">
         <div class="d-flex flex-column justify-content-center align-items-center py-2">
-            <h1 class="pb-1 fw-bold">
+            <h1 class="pb-1 fw-bold px-3">
                 Machine Learning Prediction
             </h1>
-            <h5 style="color: var(--bs-gray-500);">
+            <h5 class="px-3" style="color: var(--bs-gray-500);">
                 <i>Binary Classification Using Logistic Regression</i>
             </h5>
         </div>
@@ -38,250 +38,786 @@
     </div>
 </div>
 <!-- Content -->
-<section class="pt-5 pb-2 prose-w mx-auto">
+<section id="prediction" class="custom-pt pb-5 prose-w mx-auto">
+    <section class="d-flex flex-column pb-4">
+        <p class="disclaimer">
+            The code for the analysis below can be found in the <a
+            class="link-info" target="_blank"
+            href="https://github.com/cdpeters/nba-prediction-analysis/blob/main/notebooks/machine_learning/nba_stats_ml.ipynb">nba_stats_ml.ipynb</a>
+            notebook.
+        </p>
+    </section>
     <section class="d-flex flex-column pb-4">
         <h3 class="pb-1 border-bottom mb-3">
             Formulation
         </h3>
         <p>
             The goal of predicting an NBA champion can be formulated as a binary
-            classification problem where the two classes are <b>champion</b>
-            and <b>non-champion</b>. Using historical NBA data, we know both
-            classes exactly for all past seasons and thus the use of a
-            supervised learning model is a fitting approach for our problem.
-            Because we have formulated champion prediction as a binary
-            classification problem, we chose logistic regression as the
-            appropriate model for the job.
-            <br><br>
-            The data collected during the web scraping process included both
-            regular season and playoff data. Due to the fact that playoff data
-            involves a smaller number of games per team and, crucially, an
-            unequal number of games played per team (based on how far a team
-            goes in the elimination tournament), it was decided to only use
-            regular season data as the input for our model.
+            classification problem where the two classes are <b>champion</b> and
+            <b>non-champion</b>. Using historical NBA data, we know both classes
+            exactly for all past seasons, and thus, the use of a supervised
+            learning model is a fitting approach for our problem. Because we
+            have formulated champion prediction as a binary classification
+            problem, we chose logistic regression as the appropriate model for
+            the job.
+        </p>
+        <p>
+            The data collected during the web scraping process includes both
+            regular season and playoff data. Playoff data involves a smaller
+            number of games per team and, crucially, an unequal number of games
+            per team, depending on how far a team goes in the elimination
+            tournament. Therefore, it was decided to only use regular season
+            data as the input for our model.
         </p>
     </section>
     <section class="d-flex flex-column pb-4">
         <h3 class="pb-1 border-bottom mb-3">
-            Pre-Processing and Exploratory Analysis
+            Data Retrieval
         </h3>
-        <p>
-            Principal Component Analysis was also completed using the full set
-            of stats to investigate the amount of components needed to explain
-            most of the variance in the data. This helped us in identifying the
-            number of components to shoot for by the end of the feature
-            engineering iterative process.
+        <p class="pb-2">
+            The first step in the process is to retrieve the data, a subset of
+            which will be used to fit the model and another used as the target
+            for prediction. To complete this, both a connection to our database
+            and a way to funnel data into a python environment for analysis
+            needs to be established. We chose to use SQLAlchemy to manage these
+            aspects.
         </p>
-        <figure class="pt-2 align-self-center">
-            <img src="{{ url_for('static', filename='images/machine_learning/cumulative_explained_variance_all_features.png') }}"
-                 class="img-fluid img-border-custom chart"
-                 alt="cumulative explained variance for all features">
-            <figcaption class="pt-2 text-center small">
-                Fig 1. Cumulative explained variance
-            </figcaption>
-        </figure>
-        <p>
-            We began pre-processing by filtering out the non-playoff teams and
-            selecting the range of seasons identified in previous sections as
-            representative of the style of the modern game (2016-2021). After a
-            few transformations, all three stats tables (traditional, advanced,
-            and miscellaneous) were merged together into one table containing
-            our complete set of stats ready for exploratory analysis. Note that
-            clutch stats were excluded from our dataset for the same reasons
-            that playoff stats were excluded (low and unequal number of games
-            per team).
-            <br><br>
-            To begin exploring the data, we investigated the relationships
-            between the stats to see the degree of linear dependence in our
-            dataset. The chart below shows a Pearson correlation coefficient
-            heatmap for our dataset:
-        </p>
-        <figure id="correlation-heatmap-all-features"
-                class="pt-2 align-self-center">
-            <img src="{{ url_for('static', filename='images/machine_learning/correlation_heatmap_all_features.png') }}"
-                 class="img-fluid img-border-custom"
-                 alt="correlation heatmap for all stats">
-            <figcaption class="pt-2 text-center small">
-                Fig 2. Correlation coefficient heatmap for all stats
-            </figcaption>
-        </figure>
-        <p>
-            The heat map reveals several statistics that have strong dependence
-            on one or more of the other statistics. As an example, looking at
-            the horizontal rows for effective field goal percentage (EFG%) and
-            true shooting percentage (TS%), the correlation coefficient between
-            them is high and thus their entire row of correlations look very
-            similar. It is important to exclude one of these stats in pairings
-            like this when moving forward, as they essentially represent the
-            same information.
-            <br><br>
-            Below are two charts that take a closer look at maximum and 80th
-            percentile values of correlation coefficient:
-        </p>
-        <figure class="pt-2 align-self-center">
-            <img src="{{ url_for('static', filename='images/machine_learning/max_correlation_coefficients_all_features.png') }}"
-                 class="img-fluid img-border-custom chart"
-                 alt="max correlation coefficients">
-            <figcaption class="pt-2 text-center small">
-                Fig 3. Stats having a maximum correlation coefficient < 0.8
-            </figcaption>
-        </figure>
-        <p>
-            These are the stats with maximum correlations under 0.8. This was
-            used as a first attempt at identifying stat types that are more
-            independent, carrying unique information. It is observed that there
-            are only 16 out of 45 (35%) of stats that have maximum correlations
-            under 0.8. A correlation of 0.8 is still strong and thus not ideal.
-            It was important to explore this further to see if the entire row of
-            correlations for a given stat were also high (we needed a sense of
-            the distribution of correlations per stat). Thus we have the
-            following chart:
-        </p>
-        <figure class="pt-2 align-self-center">
-            <img src="{{ url_for('static', filename='images/machine_learning/percentile_correlation_coefficients_all_features.png') }}"
-                 class="img-fluid img-border-custom chart"
-                 alt="percentile correlation coefficients">
-            <figcaption class="pt-2 text-center small">
-                Fig 4. Stats with 80% of their correlation coefficients < 0.35
-            </figcaption>
-        </figure>
-        <figure class="pt-2 align-self-center">
-            <img src="{{ url_for('static', filename='images/machine_learning/cumulative_explained_variance_selected_features.png') }}"
-                 class="img-fluid img-border-custom chart"
-                 alt="cumulative explained variance for selected features">
-            <figcaption class="pt-2 text-center small">
-                Fig 5. The final selection of stats to be used as features in
-                our model
-            </figcaption>
-        </figure>
-        <p>
-            Here, we're looking at the 80th percentile correlation value for
-            each stat that is filtered to leave only the stats where 80% of
-            their correlations were below 0.35. This gives us a sense per stat
-            of how independent it is from other stats on average. Starting with
-            the important stats revealed by the previous sections, we can now
-            add in stats that on average are independent and thus provide unique
-            information to the model. The following chart shows the heatmap for
-            the final selection of features based on an iterative process of
-            running the machine learning model, viewing the feature importance,
-            and deciding to add or subtract stats from the feature set:
-        </p>
-        <figure class="pt-2 align-self-center">
-            <img src="{{ url_for('static', filename='images/machine_learning/correlation_heatmap_selected_features.png') }}"
-                 class="img-fluid img-border-custom chart"
-                 alt="correlation heatmap for selected features">
-            <figcaption class="pt-2 text-center small">
-                Fig 6. The final selection of stats to be used as features in
-                our model
-            </figcaption>
-        </figure>
-        <figure class="pt-2 align-self-center">
-            <img src="{{ url_for('static', filename='images/machine_learning/max_correlation_coefficients_selected_features.png') }}"
-                 class="img-fluid img-border-custom chart"
-                 alt="correlation heatmap for selected features">
-            <figcaption class="pt-2 text-center small">
-                Fig 7. The final selection of stats to be used as features in
-                our model
-            </figcaption>
-        </figure>
+        <div class="pb-2">
+            <h5 class="fw-bold">
+                SQLAlchemy ORM Classes
+            </h5>
+            <p>
+                Because we are working with an existing database (that we loaded
+                via SQLAlchemy after web scraping), we were able to build the
+                metadata for the ORM mapped classes via database reflection.
+            </p>
+        </div>
+        <div>
+            <h5 class="fw-bold">
+                Retrieve Tables
+            </h5>
+            <p>
+                Next, we constructed a query to return all of the data we
+                intended to use prior to dividing it into the model and target
+                subsets.
+            </p>
+            <p class="mb-0">
+                The query:
+            </p>
+            <ul>
+                <li>
+                    <b>Joins</b>
+                    <ul>
+                        <li>
+                            The regular season traditional, advanced, and
+                            miscellaneous stats tables, as well as the
+                            champion column from the season records table,
+                            were merged via joins.
+                        </li>
+                        <li>
+                            The "on" clause for the joins was the unique
+                            combination of season and team name.
+                        </li>
+                        <li>
+                            Regular season clutch stats were excluded for
+                            the same reasons that playoff stats were
+                            excluded: low and unequal number of games per
+                            team.
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <b>Filters</b>
+                    <ol>
+                        <li>
+                            Restrict the seasons to 2016-2022 to capture the
+                            modern era for the model subset (see the <b>Game
+                            Evolution</b> page for more details) and the
+                            current year for the target subset.
+                        </li>
+                        <li>
+                            Filter out non-playoff teams.
+                        </li>
+                    </ol>
+                </li>
+            </ul>
+            <p>
+                From here, the actual division into subsets occurs, with data
+                from 2016 to 2021 becoming the model DataFrame. The champion
+                column within the model DataFrame will serve as the labels
+                during fitting. The 2022 data becomes the target DataFrame which
+                will be given to the model for final prediction.
+            </p>
+        </div>
     </section>
     <section class="d-flex flex-column pb-4">
-        <h5 class="fw-bold">
-            Results
-        </h5>
-        <p>
-            After running the model and predicting the test dataset, the
-            following confusion matrix shows the performance of our model:
-        </p>
-        <figure class="pt-2 align-self-center">
-            <img src="{{ url_for('static', filename='images/machine_learning/confusion_matrix.png') }}"
-                class="img-fluid img-border-custom chart"
-                alt="confusion matrix">
-            <figcaption class="pt-2 text-center small">
-                Fig 8. Model results: confusion matrix
-            </figcaption>
-        </figure>
-        <p>
-            We can see that we predicted champions correctly at a rate of 50%.
-            This is less than ideal and may be due to a lack of data when
-            limiting the input data to the year 2016, and only reaching a total
-            7 features used. Moving on to the goal of the project, our model
-            predicted the Memphis Grizzlies as having the highest probability of
-            winning the championship in 2022. See below the resulting
-            probabilities for all playoff teams.
-        </p>
-        <figure class="pt-2 align-self-center">
-            <div class="table-responsive table-border-custom"
-                style="height: 400px; overflow: auto;">
-                {{ proba_est_table_html|safe }}
-            </div>
-            <figcaption class="pt-2 text-center small">
-                Fig 9. Probability estimates table
-            </figcaption>
-        </figure>
-    </section>
-    <section class="d-flex flex-column pb-4">
-        <h5 class="fw-bold">
-            Feature Importance
-        </h5>
-        <p>
-            It was important in developing an iterative process to refine our
-            model to have some sense of the most important features at the end
-            of each run. Feature importance helped us achieve this. We used the
-            coefficients from the logistic regression model as our measure and
-            we created a relative scale based on the stat with the largest
-            coefficient (the most important stat). Below is the visual
-            showcasing the results for our final iteration using the final
-            feature set:
-        </p>
-        <figure class="pt-2 align-self-center">
-            <div class="table-responsive table-border-custom" style="width: 300px;">
-                {{ feat_imp_table_html|safe }}
-            </div>
-            <figcaption class="pt-2 text-center small">
-                Fig 10. Relative feature importance table
-            </figcaption>
-        </figure>
-        <figure class="pt-2 align-self-center">
-            <img src="{{ url_for('static', filename='images/machine_learning/feature_importance.png') }}"
-                class="img-fluid img-border-custom chart"
-                alt="feature importance">
-            <figcaption class="pt-2 text-center small">
-                Fig 11. Relative feature importance
-            </figcaption>
-        </figure>
-        <p>
-            We can see here that assist to turnover ratio is the most important
-            to predicting our champions. Other stats that proved to be strong
-            indicators of champion likely teams were defensive and offensive
-            rating as well as blocks and steals.
-        </p>
-    </section>
-</section>
-<!-- Tableau Viz -->
-<section class="tableau-center pt-5">
-    <div class='tableauPlaceholder' id='viz1708374242915' style='position: relative'><noscript><a href='#'><img alt='Predicted Champion ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;NB&#47;NBATeamStats_16516195895630&#47;MemphisGrizzlies_1&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='NBATeamStats_16516195895630&#47;MemphisGrizzlies_1' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;NB&#47;NBATeamStats_16516195895630&#47;MemphisGrizzlies_1&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1708374242915');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
-</section>
-<section class="pb-5 prose-w mx-auto">
-    <section class="d-flex flex-column">
         <h3 class="pb-1 border-bottom mb-3">
-            Analysis
+            Pre-Processing and Feature Selection
         </h3>
-        <h5 class="fw-bold">
-            Predicted Champion: Memphis Grizzlies
-        </h5>
+        <p class="pb-2">
+            Now that the data has been retrieved, we must address any
+            pre-processing actions that are needed and then evaluate the quality
+            of our feature set. This evaluation involves a few different
+            exploratory analyses that will help guide the final choice of
+            features for the model.
+        </p>
+        <div class="pb-2">
+            <h5 class="fw-bold">
+                Pre-Processing
+            </h5>
+            <p class="mb-0">
+                Three pre-processing actions were performed on the data:
+            </p>
+            <ol>
+                <li>
+                    <b>Features DataFrame and label encoding</b>
+                    <ul>
+                        <li>
+                            Features columns are isolated from the season,
+                            team name, and champion column thus forming the
+                            feature DataFrame.
+                        </li>
+                        <li>
+                            The champion column, which contains boolean
+                            values, is encoded as integers (0 for
+                            non-champion, 1 for champion).
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <b>Train test split</b>
+                    <ul>
+                        <li>
+                            Split the data into training and test datasets.
+                            Because there is a class imbalance with many more
+                            non-champions than champions, the split is
+                            stratified so that the distribution of data among
+                            the two classes is approximately the same in each
+                            dataset.
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <b>Normalization</b>
+                    <ul>
+                        <li>
+                            First, the parameters of a scaler are fit via
+                            the training dataset. The test set is not
+                            involved in fitting these parameters in order to
+                            avoid data leakage. Next, both the training and
+                            test datasets are transformed using this scaler.
+                        </li>
+                        <li>
+                            Note that scaling happens twice in our process.
+                            Initially, we scale with the full feature set
+                            during the feature selection phase; see the
+                            <b>Analysis: All Features</b> section below.
+                            Later, scaling is redone, but this time only
+                            with the final feature set that is used in our
+                            model.
+                        </li>
+                        <li>
+                            Also note that the scaling operation actually
+                            takes place as the first step in the two
+                            analysis sections below but is mentioned here
+                            because it is technically a pre-processing step.
+                        </li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+        <div class="d-flex flex-column pb-2">
+            <h5 class="fw-bold">
+                Analysis: All Features
+            </h5>
+            <p>
+                Analysis for feature selection begins with the full feature set.
+                We primarily focused on looking at the possible redundancy in
+                information that our features represent via a few different
+                analyses.
+            </p>
+            <p>
+                First, to get an idea about the number of features we would need
+                to explain the variance in our dataset, we performed Principal
+                Component Analysis (PCA) and plotted the Cumulative Explained
+                Variance (CVE) of these components:
+            </p>
+            <figure class="align-self-center">
+                <img src="{{ url_for('static', filename='images/machine_learning/cumulative_explained_variance_all_features.png') }}"
+                     class="img-fluid img-border-radius fig-prediction"
+                     alt="cumulative explained variance for all features">
+                <figcaption class="pt-2 text-center small">
+                    Fig 1. Cumulative explained variance
+                </figcaption>
+            </figure>
+            <p>
+                As seen in Fig. 1, 11 principal components explain approximately
+                90% of the variance and 14 components explain approximately 95%.
+                These percentages were chosen as they are common percentages to
+                shoot for. Our conclusion is that somewhere in the range of
+                11-14 features would be ideal for capturing most of the variance
+                of our dataset.
+            </p>
+            <p class="disclaimer">
+                <b>Disclaimer:</b> This is actually a misuse of PCA as PCA is a
+                dimensionality reduction technique not a feature selection
+                technique. See the <b>Future Work</b> section for further
+                explanation and our plans to address this.
+            </p>
+            <p>
+                Next, we investigated the relationships between stats to see the
+                degree of multicollinearity in our dataset. The chart below
+                shows a Pearson correlation coefficient heatmap for our
+                features:
+            </p>
+            <figure id="fig-correlation-heatmap-all-features"
+                    class="align-self-center">
+                <img src="{{ url_for('static', filename='images/machine_learning/correlation_heatmap_all_features.png') }}"
+                     class="img-fluid img-border-radius"
+                     alt="correlation heatmap for all stats">
+                <figcaption class="pt-2 text-center small">
+                    Fig 2. Correlation coefficient heatmap for all stats
+                </figcaption>
+            </figure>
+            <p>
+                The heatmap reveals several stats that have strong collinearity
+                with one or more of the other stats. For example, looking at the
+                square representing the correlation between Effective Field Goal
+                percentage (EFG%) and True Shooting percentage (TS%) we see that
+                it is dark green indicating high collinearity.
+            </p>
+            <p>
+                The high collinearity is further demonstrated when viewing the
+                entire horizontal rows for EFG% and TS% which show a similar
+                color pattern when comparing column by column. This pattern
+                tells us that these two stats essentially have the same
+                relations to each of the other stats. It is important to exclude
+                one of these stats in pairings like this as they essentially
+                represent the same information and thus are redundant.
+            </p>
+            <p>
+                Moving on, the next two graphs take a closer look at correlation
+                coefficients from two different angles. The first angle shows a
+                subset of stats that do not have any high correlations with any
+                other stats. In other words, its maximum coefficient is less
+                than a "high correlation" threshold, as seen here:
+            </p>
+            <figure class="align-self-center">
+                <img src="{{ url_for('static', filename='images/machine_learning/max_correlation_coefficients_all_features.png') }}"
+                     class="img-fluid img-border-radius fig-prediction"
+                     alt="max correlation coefficients">
+                <figcaption class="pt-2 text-center small">
+                    Fig 3. Stats having a maximum correlation coefficient < 0.8
+                </figcaption>
+            </figure>
+            <p>
+                We observe that there are only 17 out of 45 (~38%) stats that
+                have a maximum coefficient under 0.8. A correlation of 0.8 is
+                still strong, therefore, stats with maximums near this number
+                are not necessarily ideal. However, this does give us a place to
+                start for feature selection.
+            </p>
+            <p>
+                Exploring further, we approach from another angle where we try
+                to get a sense of the distribution of coefficients per stat.
+                Here we view a subset where for each stat there could be some
+                high correlations but most of its correlations are below a "low
+                correlation" threshold as seen here:
+            </p>
+            <figure class="align-self-center">
+                <img src="{{ url_for('static', filename='images/machine_learning/percentile_correlation_coefficients_all_features.png') }}"
+                     class="img-fluid img-border-radius fig-prediction"
+                     alt="percentile correlation coefficients">
+                <figcaption class="pt-2 text-center small">
+                    Fig 4. Stats with 80% of their correlation coefficients < 0.35
+                </figcaption>
+            </figure>
+            <p>
+                The 80th percentile is used here to represent "most" of the
+                values in the distribution of coefficients for a given stat.
+                Filtering is applied leaving only stats that have their 80th
+                percentile value below 0.35, a value used to represent low
+                correlation. The graph above shows that 18 out of 45 (40%) stats
+                have mostly low coefficients. From the perspective of
+                multicollinearity, this could be a good group of stats to draw
+                our selection from as they are mostly linearly independent from
+                the other stats.
+            </p>
+            <p class="disclaimer">
+                <b>Disclaimer:</b> Due to time constraints, we had to limit our
+                feature selection analysis to the data gathered and presented
+                above leaving it somewhat incomplete. See the <b>Future Work</b>
+                section for further explanation and our plans to address this.
+            </p>
+        </div>
+        <div class="pb-2">
+            <h5 class="fw-bold">
+                Selection
+            </h5>
+            <p>
+                The actual selection of features for the model played out as an
+                iterative process. The iteration included choosing features,
+                training the model, evaluating performance on the test dataset
+                and then back to choosing features. Note that the model was
+                re-fit from scratch in each iteration since the number of
+                features and the specific features themselves were being
+                changed.
+            </p>
+            <p class="mb-0">
+                Here is the list of features we settled on:
+            </p>
+            <ul>
+                <li>
+                    <b>3P%</b> - 3 Point Percentage
+                </li>
+                <li>
+                    <b>DREB</b> - Defensive Rebounds
+                </li>
+                <li>
+                    <b>STL</b> - Steals
+                </li>
+                <li>
+                    <b>BLK</b> - Blocks
+                </li>
+                <li>
+                    <b>OFFRTG</b> - Offensive Rating
+                </li>
+                <li>
+                    <b>DEFRTG</b> - Defensive Rating
+                </li>
+                <li>
+                    <b>AST/TO</b> - Assist To Turnover Ratio
+                </li>
+            </ul>
+            <p>
+                Note that we only selected 7 features instead of the 11-14 that
+                we were aiming for based on the PCA. We were not able to get
+                good model performance for a larger feature set size within the
+                time constraints of the project.
+            </p>
+        </div>
+        <div class="d-flex flex-column">
+            <h5 class="fw-bold">
+                Analysis: Selected Features
+            </h5>
+            <p>
+                The following section covers some of the same analyses from
+                above but restricted to just the final selected features. The
+                idea is to verify that the features for the model have low
+                multicollinearity. The first graph shown is an updated CEV plot:
+            </p>
+            <figure class="align-self-center">
+                <img src="{{ url_for('static', filename='images/machine_learning/cumulative_explained_variance_selected_features.png') }}"
+                     class="img-fluid img-border-radius fig-prediction"
+                     alt="cumulative explained variance for selected features">
+                <figcaption class="pt-2 text-center small">
+                    Fig 5. The final selection of stats to be used as features in
+                    our model
+                </figcaption>
+            </figure>
+            <p>
+                Observing that there is no flat section in the line graph tells
+                us that there is low redundancy in the feature set we chose. It
+                is important to understand the distinction here. This result
+                does not imply that the selected features explain the variance
+                of the original dataset with low redundancy. Instead, it
+                suggests that they explain the variance of a subset of the
+                original dataset, namely the subset defined by these features,
+                with low redundancy. Still, this is the result that we want from
+                the feature selection phase.
+            </p>
+            <p>
+                Mirroring the previous analysis section, we take a look at the
+                pairwise correlation coefficients in the following graph:
+            </p>
+            <figure class="align-self-center">
+                <img src="{{ url_for('static', filename='images/machine_learning/correlation_heatmap_selected_features.png') }}"
+                     class="img-fluid img-border-radius fig-prediction"
+                     alt="correlation heatmap for selected features">
+                <figcaption class="pt-2 text-center small">
+                    Fig 6. The final selection of stats to be used as features in
+                    our model
+                </figcaption>
+            </figure>
+            <p>
+                Before addressing what is seen in the heatmap above we also
+                include a maximum correlation coefficient graph for the selected
+                features:
+            </p>
+            <figure class="align-self-center">
+                <img src="{{ url_for('static', filename='images/machine_learning/max_correlation_coefficients_selected_features.png') }}"
+                     class="img-fluid img-border-radius fig-prediction"
+                     alt="correlation heatmap for selected features">
+                <figcaption class="pt-2 text-center small">
+                    Fig 7. The final selection of stats to be used as features in
+                    our model
+                </figcaption>
+            </figure>
+            <p>
+                The heatmap shows mostly light colors and low coefficient values
+                indicating that our stats have low dependence on each other.
+                This is further confirmed by the bar chart in Fig. 7 which shows
+                that the highest coefficient value is just over 0.6. Again, this
+                is the result we are looking for to ensure that our features
+                are, for the most part, representing unique information. This
+                concludes the pre-processing and feature selection section.
+            </p>
+        </div>
+    </section>
+    <section class="d-flex flex-column pb-4">
+        <h3 class="pb-1 border-bottom mb-3">
+            Machine Learning
+        </h3>
+        <p class="pb-2">
+            As mentioned in the formulation, we employed a logistic regression
+            classifier as our machine learning model. This was then used to
+            predict team outcomes in the context of our binary classification
+            problem: champion vs. non-champion. Below is a discussion of the
+            results.
+        </p>
+        <div class="d-flex flex-column pb-2">
+            <h5 class="fw-bold">
+                Train, Test, and Evaluate
+            </h5>
+            <p>
+                We fit the model using the training data from the test train
+                split restricted to only the selected features. Following this,
+                we evaluate the model on the test set which produces the
+                following confusion matrix:
+            </p>
+            <figure class="align-self-center">
+                <img src="{{ url_for('static', filename='images/machine_learning/confusion_matrix.png') }}"
+                     class="img-fluid img-border-radius fig-prediction"
+                     alt="confusion matrix">
+                <figcaption class="pt-2 text-center small">
+                    Fig 8. Model results: confusion matrix
+                </figcaption>
+            </figure>
+            <p>
+                Using the confusion matrix above, we see that overall we have
+                23/24 correctly predicted outcomes, an accuracy of 95.8%. For
+                the positive class of champion, we compute the additional
+                evaluation metrics shown here:
+            </p>
+            <ul>
+                <li style="padding-top: 0px;">
+                    Precision = 100.0%
+                </li>
+                <li>
+                    Recall = 50.0%
+                </li>
+                <li>
+                    F1 Score = 66.7%
+                </li>
+            </ul>
+            <p>
+                The precision value reveals that none of the non-champions were
+                predicted to be champions which is a good start. However, the
+                recall result tells us that we predicted champions correctly at
+                a rate of only 50%.
+            </p>
+            <p>
+                This is less than ideal, but notice how there is a total of only
+                2 champions in our test set. As mentioned in the pre-processing
+                section under "Train test split", we have an imbalance problem.
+                Evaluating the performance of our model with 22 data points
+                representing the negative class and only 2 data points
+                representing the positive class does not allow us to draw
+                statistically significant conclusions. In other words, our
+                sample size of actual champions is too small in our test set.
+                This is actually part of an overall problem with our dataset not
+                having enough samples of champions when restricted to the just
+                modern era.
+            </p>
+            <p>
+                Due to time constraints, we were unable to remedy this weakness
+                with approaches for imbalanced problems. See the <b>Future
+                Work</b> section for our plans to address this.
+            </p>
+        </div>
+        <div class="d-flex flex-column pb-2">
+            <h5 class="fw-bold">
+                Predict
+            </h5>
+            <p>
+                Moving on to the goal of the project, our model predicted the
+                <b>Memphis Grizzlies</b> as having the highest probability of
+                winning the championship in 2022. See the resulting
+                probabilities for all playoff teams below:
+            </p>
+            <figure id="table-proba-est-container" class="align-self-center">
+                <div class="table-responsive table-outer-border"
+                    style="height: 430px; overflow: auto;">
+                    {{ proba_est_table_html|safe }}
+                </div>
+                <figcaption class="pt-2 text-center small">
+                    Fig 9. Probability estimates table
+                </figcaption>
+            </figure>
+        </div>
+        <div class="d-flex flex-column">
+            <h5 class="fw-bold">
+                Feature Importance
+            </h5>
+            <p>
+                Here we prepare a ranking of features based on the importance of
+                a given feature to our model. We used the coefficients from our
+                logistic regression classifier as our measure and created a
+                relative scale based on the stat with the largest coefficient.
+                The relative importance ranking can be seen in the chart below
+                with the most important feature at the top:
+            </p>
+            <figure class="align-self-center">
+                <img src="{{ url_for('static', filename='images/machine_learning/feature_importance.png') }}"
+                     class="img-fluid img-border-radius fig-prediction"
+                     alt="feature importance">
+                <figcaption class="pt-2 text-center small">
+                    Fig 10. Relative feature importance
+                </figcaption>
+            </figure>
+            <p>
+                We see that steals and blocks form the first tier of stats that
+                are most important to predicting our champion. This is followed
+                by the next tier which includes offensive rating, defensive
+                rebounds, and three point percentage. Also of note, three of the
+                top four most important features were defensive stats.
+            </p>
+        </div>
+    </section>
+    <section class="d-flex flex-column pb-4">
+        <h3 class="pb-1 border-bottom mb-3">
+            Predicted Champion Visualization
+        </h3>
         <p>
-            Our machine learning model predicted that the Memphis Grizzlies
-            will be the 2022 NBA Finals Champions. After we ran our machine
-            learning model, we wanted to see the highest weighted relative
-            importance of each of the stats that were accounted for in
-            predicting the 2022 champion. The top four features were Assist
-            to Turnover Ratio (100), Defensive Rating (86.02), Offensive
-            Rating (50.12), and Blocks (45.9). In the graph above, you can
-            see the seasonal trends over the last few decades for these four
-            features. If we look at the other dashboards in the story, we
-            can see how the Grizzlies compare to other playoff teams in each
-            of the four features.
+            With our champion now predicted, here is a summary visualization of
+            the Grizzlies season stats using the top four stat categories based
+            on feature importance.
+        </p>
+        <p>
+            Preview images are shown here, you can use the arrow buttons to
+            cycle through them. Visit the following link to view the full
+            visualization on the Tableau Public website: <a class="link-info" href="https://public.tableau.com/app/profile/cdpeters1/viz/predicted_nba_champion_stats/MemphisGrizzlies" target="_blank">Predicted Champion Tableau Visualization</a>
+            (the original visualization was created by Lauren Hess and can be
+            found here: <a class="link-info" href="https://public.tableau.com/app/profile/lauren.hess/viz/NBATeamStats_16516195895630/MemphisGrizzlies_1" target="_blank">Original Predicted Champion Visualization</a>).
+        </p>
+        <!-- Tableau preview image carousel -->
+        <div id="carousel-prediction" class="carousel slide carousel-fade carousel-w mb-3 align-self-center" data-bs-theme="dark">
+            <div class="carousel-indicators mb-0">
+                <button type="button" data-bs-target="#carousel-prediction" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carousel-prediction" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carousel-prediction" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                <button type="button" data-bs-target="#carousel-prediction" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                <button type="button" data-bs-target="#carousel-prediction" data-bs-slide-to="4" aria-label="Slide 5"></button>
+            </div>
+            <div class="carousel-inner img-border-radius">
+                <figure class="carousel-item mb-0 active">
+                    <img src="{{ url_for('static', filename='images/tableau_previews/prediction_season_trend.png') }}"
+                        class="d-block w-100"
+                        alt="Prediction: 2022 season trend">
+                </figure>
+                <figure class="carousel-item mb-0">
+                    <img src="{{ url_for('static', filename='images/tableau_previews/prediction_stl.png') }}"
+                        class="d-block w-100"
+                        alt="Prediction: steals graph">
+                </figure>
+                <figure class="carousel-item mb-0">
+                    <img src="{{ url_for('static', filename='images/tableau_previews/prediction_blk.png') }}"
+                        class="d-block w-100"
+                        alt="Prediction: blocks graph">
+                </figure>
+                <figure class="carousel-item mb-0">
+                    <img src="{{ url_for('static', filename='images/tableau_previews/prediction_offrtg.png') }}"
+                        class="d-block w-100"
+                        alt="Prediction: offensive rating graph">
+                </figure>
+                <figure class="carousel-item mb-0">
+                    <img src="{{ url_for('static', filename='images/tableau_previews/prediction_dreb.png') }}"
+                        class="d-block w-100"
+                        alt="Prediction: defensive rebounds graph">
+                </figure>
+            </div>
+            <button class="carousel-control-prev ps-2 justify-content-start" type="button" data-bs-target="#carousel-prediction" data-bs-slide="prev">
+                <span aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        fill="var(--bs-dark)"
+                        class="bi bi-arrow-left-circle-fill carousel-control-icon"
+                        viewBox="0 0 16 16">
+                        <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0m3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z"/>
+                    </svg>
+                </span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next pe-2 justify-content-end" type="button" data-bs-target="#carousel-prediction" data-bs-slide="next">
+                <span aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        fill="var(--bs-dark)"
+                        class="bi bi-arrow-right-circle-fill carousel-control-icon"
+                        viewBox="0 0 16 16">
+                        <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z"/>
+                    </svg>
+                </span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+        <p>
+            In the graph above, you can see the seasonal trends over the last
+            few decades for the four most important features. If we look at the
+            other dashboards on the other pages of our website, we can see how
+            the Grizzlies compare to other playoff teams in each of the four
+            features.
+        </p>
+    </section>
+    <section class="d-flex flex-column pb-4">
+        <h3 class="pb-1 border-bottom mb-3">
+            Future Work
+        </h3>
+        <p class="pb-2">
+            The following section details ideas for improving the results of our
+            project. First we start by identifying the weaknesses in our
+            approach in the <b>Motivations</b> section. This is followed by the
+            <b>Plans</b> section where we discuss new approaches we would like
+            to try in a second pass at creating the supervised learning model.
+        </p>
+        <div class="d-flex flex-column pb-2">
+            <h5 class="fw-bold">
+                Motivations
+            </h5>
+            <ol>
+                <li style="padding-top: 0px;">
+                    <b>Misusing PCA in the feature selection process to find the
+                    ideal number of features to use in the model.</b>
+                    <ul>
+                        <li>
+                            As mentioned in one of the disclaimers above, PCA is
+                            a dimension reduction technique not a feature
+                            selection technique. PCA creates new "principal"
+                            components to be used in the model, it is not meant
+                            to aid in selecting from the original set of
+                            features.
+                        </li>
+                        <li>
+                            A resulting CEV plot illustrates the variance
+                            captured by these principal components, not the
+                            original features. Therefore, we cannot infer the
+                            ideal number of original features from a CEV plot
+                            since there is no direct correspondence between
+                            principal components and original features.
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <b>Visualizing correlation coefficient distributions via bar
+                    charts, as is done here, is limiting.</b>
+                    <ul>
+                        <li>
+                            The chart essentially only shows one aspect of the
+                            distribution at a time.
+                        </li>
+                        <li>
+                            In the maximum correlation view, we see stats that
+                            don't have a high maximum correlation but we learn
+                            nothing about where the rest of their coefficients
+                            lie.
+                        </li>
+                        <li>
+                            In the percentile correlation view, we see stats
+                            that have mostly low correlations but possible high
+                            correlations are not revealed.
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <b>The feature selection process as a whole is
+                    incomplete.</b>
+                    <ul>
+                        <li>
+                            Not all of the selected features have justification
+                            for being selected. For example, offensive rating
+                            and defensive rebounds do not show up in Fig. 3 or
+                            Fig. 4. This is primarily due to time constraints.
+                        </li>
+                        <li>
+                            Feature importance is addressed as a post-processing
+                            step (after the model is fit) but can be looked at
+                            in some capacity prior to model fitting.
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <b>The distribution of data points in the two target classes
+                    is imbalanced.</b>
+                    <ul>
+                        <li>
+                            majority class (non-champion): 90 data points.
+                        </li>
+                        <li>
+                            minority class (champion): 6 data points.
+                        </li>
+                        <li>
+                            The imbalance ratio is 15:1.
+                        </li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+        <div class="d-flex flex-column">
+            <h5 class="fw-bold">
+                Plans
+            </h5>
+            <ul>
+                <li style="padding-top: 0px;">
+                    <b>Pre-Processing</b>
+                    <ul>
+                        <li>
+                            Use resampling techniques to deal with the imbalance
+                            and limited nature of the dataset.
+                        </li>
+                        <li>
+                            Apply validation, particularly k-fold
+                            cross-validation in order to maximize the amount of
+                            data used in training.
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <b>Feature Selection</b>
+                    <ul>
+                        <li>
+                            Modify heatmap to include the champion column and
+                            use the Point-Biserial correlation coefficient to
+                            measure correlation between the stats (a continuous
+                            variable) and the champion column (a binary
+                            variable).
+                        </li>
+                        <li>
+                            Visualize correlation coefficient distributions for
+                            each feature using a box plot or histogram.
+                        </li>
+                        <li>
+                            Look into wrapper methods, such as Recursive Feature
+                            Elimination (RFE), as a means of integrating feature
+                            selection in the model training process.
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <b>ML Model</b>
+                    <ul>
+                        <li>
+                            From the model side, look into ensemble methods as
+                            an approach to handle class imbalance.
+                        </li>
+                        <li>
+                            Attempt some sort of systematic hyperparameter
+                            tuning.
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <p>
+            This concludes the discussion of our machine learning project and
+            results. Thank you for reading!
         </p>
     </section>
 </section>
