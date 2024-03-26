@@ -7,45 +7,42 @@
 
 <!--------------------------------- BODY -------------------------------------->
 {% block body %}
-<section class="py-5 prose-w mx-auto">
-    <h3 class="text-center">
-        Glossary
-    </h3>
+<section id="glossary" class="custom-pt pb-5 prose-w mx-auto">
     <section class="d-flex flex-column pb-4">
-        <h4 class="pb-2 border-bottom">
+        <h3 class="pb-1 border-bottom mb-3">
             Stats Common to All Tables
-        </h4>
-        <ul class="no-bullets">
+        </h3>
+        <ul>
             <li><b style="color: var(--bs-info);">GP</b><b style="padding-left: 16px;"><i>Games Played</i></b>
-                <ul class="no-bullets">
+                <ul>
                     <li>The number of games played</li>
                 </ul>
             </li>
             <li><b style="color: var(--bs-info);">W</b><b style="padding-left: 16px;"><i>Wins</i></b>
-                <ul class="no-bullets">
+                <ul>
                     <li>The number of games won by a player or team</li>
                 </ul>
             </li>
 
             <li><b style="color: var(--bs-info);">L</b><b style="padding-left: 16px;"><i>Losses</i></b>
-                <ul class="no-bullets">
+                <ul>
                     <li>The number of games lost by a player or team</li>
                 </ul>
             </li>
-            <li><b style="color: var(--bs-info);">MIN</b><b style="padding-left: 16px;"><i>Minutes Played</i></b>
-                <ul class="no-bullets">
+            <li style="padding-bottom: 0px;"><b style="color: var(--bs-info);">MIN</b><b style="padding-left: 16px;"><i>Minutes Played</i></b>
+                <ul>
                     <li>The number of minutes played by a player or team</li>
                 </ul>
             </li>
         </ul>
     </section>
     <section class="d-flex flex-column pb-4">
-        <h4 class="pb-2 border-bottom">
+        <h3 class="pb-1 border-bottom mb-3">
             Traditional and Clutch Stats
-        </h4>
-        <ul class="no-bullets">
+        </h3>
+        <ul>
             <li><b style="color: var(--bs-info);">WIN%</b><b style="padding-left: 16px;"><i>Win Percentage</i></b>
-                <ul class="no-bullets">
+                <ul>
                     <li>
                         The percentage of games played that a player or team has
                         won
@@ -53,12 +50,12 @@
                 </ul>
             </li>
             <li><b style="color: var(--bs-info);">PTS</b><b style="padding-left: 16px;"><i>Points</i></b>
-                <ul class="no-bullets">
+                <ul>
                     <li>The number of points scored</li>
                 </ul>
             </li>
             <li><b style="color: var(--bs-info);">FGM</b><b style="padding-left: 16px;"><i>Field Goals Made</i></b>
-                <ul class="no-bullets">
+                <ul>
                     <li>
                         The number of field goals that a player or team has
                         made. This includes both 2 pointers and 3 pointers
@@ -66,7 +63,7 @@
                 </ul>
             </li>
             <li><b style="color: var(--bs-info);">FGA</b><b style="padding-left: 16px;"><i>Field Goals Attempted</i></b>
-                <ul class="no-bullets">
+                <ul>
                     <li>
                         The number of field goals that a player or team has
                         attempted. This includes both 2 pointers and 3 pointers
@@ -74,7 +71,7 @@
                 </ul>
             </li>
             <li><b style="color: var(--bs-info);">FG%</b><b style="padding-left: 16px;"><i>Field Goal Percentage</i></b>
-                <ul class="no-bullets">
+                <ul>
                     <li>
                         The percentage of field goal attempts that a player
                         makes
@@ -82,7 +79,7 @@
                 </ul>
             </li>
             <li><b style="color: var(--bs-info);">3PM</b><b style="padding-left: 16px;"><i>3 Point Field Goals Made</i></b>
-                <ul class="no-bullets">
+                <ul>
                     <li>
                         The number of 3 point field goals that a player or team
                         has made
@@ -90,7 +87,7 @@
                 </ul>
             </li>
             <li><b style="color: var(--bs-info);">3PA</b><b style="padding-left: 16px;"><i>3 Point Field Goals Attempted</i></b>
-                <ul class="no-bullets">
+                <ul>
                     <li>
                         The number of 3 point field goals that a player or team
                         has attempted
@@ -98,7 +95,7 @@
                 </ul>
             </li>
             <li><b style="color: var(--bs-info);">3P%</b><b style="padding-left: 16px;"><i>3 Point Field Goal Percentage</i></b>
-                <ul class="no-bullets">
+                <ul>
                     <li>
                         The percentage of 3 point field goal attempts that a
                         player makes
@@ -106,14 +103,14 @@
                 </ul>
             </li>
             <li><b style="color: var(--bs-info);">FTM</b><b style="padding-left: 16px;"><i>Free Throws Made</i></b>
-                <ul class="no-bullets">
+                <ul>
                     <li>
                         The number of free throws that a player or team has made
                     </li>
                 </ul>
             </li>
             <li><b style="color: var(--bs-info);">FTA</b><b style="padding-left: 16px;"><i>Free Throws Attempted</i></b>
-                <ul class="no-bullets">
+                <ul>
                     <li>
                         The number of free throws that a player or team has
                         attempted
@@ -121,7 +118,7 @@
                 </ul>
             </li>
             <li><b style="color: var(--bs-info);">FT%</b><b style="padding-left: 16px;"><i>Free Throw Percentage</i></b>
-                <ul class="no-bullets">
+                <ul>
                     <li>
                         The percentage of free throw attempts that a player or
                         team has made
@@ -129,7 +126,7 @@
                 </ul>
             </li>
             <li><b style="color: var(--bs-info);">OREB</b><b style="padding-left: 16px;"><i>Offensive Rebounds</i></b>
-                <ul class="no-bullets">
+                <ul>
                     <li>
                         The number of rebounds a player or team has collected
                         while they were on offense
@@ -137,7 +134,7 @@
                 </ul>
             </li>
             <li><b style="color: var(--bs-info);">DREB</b><b style="padding-left: 16px;"><i>Defensive Rebounds</i></b>
-                <ul class="no-bullets">
+                <ul>
                     <li>
                         The number of rebounds a player or team has collected
                         while they were on defense
@@ -145,7 +142,7 @@
                 </ul>
             </li>
             <li><b style="color: var(--bs-info);">REB</b><b style="padding-left: 16px;"><i>Rebounds</i></b>
-                <ul class="no-bullets">
+                <ul>
                     <li>
                         A rebound occurs when a player recovers the ball after a
                         missed shot. This statistic is the number of total
@@ -155,7 +152,7 @@
                 </ul>
             </li>
             <li><b style="color: var(--bs-info);">AST</b><b style="padding-left: 16px;"><i>Assists</i></b>
-                <ul class="no-bullets">
+                <ul>
                     <li>
                         The number of assists -- passes that lead directly to a
                         made basket -- by a player
@@ -163,7 +160,7 @@
                 </ul>
             </li>
             <li><b style="color: var(--bs-info);">TOV</b><b style="padding-left: 16px;"><i>Turnovers</i></b>
-                <ul class="no-bullets">
+                <ul>
                     <li>
                         A turnover occurs when the player or team on offense
                         loses the ball to the defense
@@ -171,7 +168,7 @@
                 </ul>
             </li>
             <li><b style="color: var(--bs-info);">STL</b><b style="padding-left: 16px;"><i>Steals</i></b>
-                <ul class="no-bullets">
+                <ul>
                     <li>
                         Number of times a defensive player or team takes the
                         ball from a player on offense, causing a turnover
@@ -179,7 +176,7 @@
                 </ul>
             </li>
             <li><b style="color: var(--bs-info);">BLK</b><b style="padding-left: 16px;"><i>Blocks</i></b>
-                <ul class="no-bullets">
+                <ul>
                     <li>
                         A block occurs when an offensive player attempts a shot,
                         and the defense player tips the ball, blocking their
@@ -188,7 +185,7 @@
                 </ul>
             </li>
             <li><b style="color: var(--bs-info);">BLKA</b><b style="padding-left: 16px;"><i>Blocks Against</i></b>
-                <ul class="no-bullets">
+                <ul>
                     <li>
                         The number of shots attempted by a player or team that
                         are blocked by a defender
@@ -196,22 +193,22 @@
                 </ul>
             </li>
             <li><b style="color: var(--bs-info);">PF</b><b style="padding-left: 16px;"><i>Personal Fouls</i></b>
-                <ul class="no-bullets">
+                <ul>
                     <li>
                         The number of personal fouls a player or team committed
                     </li>
                 </ul>
             </li>
             <li><b style="color: var(--bs-info);">PFD</b><b style="padding-left: 16px;"><i>Personal Fouls Drawn</i></b>
-                <ul class="no-bullets">
+                <ul>
                     <li>
                         The number of personal fouls that are drawn by a player
                         or team
                     </li>
                 </ul>
             </li>
-            <li><b style="color: var(--bs-info);">+/-</b><b style="padding-left: 16px;"><i>Plus-Minus</i></b>
-                <ul class="no-bullets">
+            <li style="padding-bottom: 0px;"><b style="color: var(--bs-info);">+/-</b><b style="padding-left: 16px;"><i>Plus-Minus</i></b>
+                <ul>
                     <li>
                         The point differential when a player or team is on the
                         floor
@@ -221,12 +218,12 @@
         </ul>
     </section>
     <section class="d-flex flex-column pb-4">
-        <h4 class="pb-2 border-bottom">
+        <h3 class="pb-1 border-bottom mb-3">
             Advanced Stats
-        </h4>
-        <ul class="no-bullets">
+        </h3>
+        <ul>
             <li><b style="color: var(--bs-info);">OFFRTG</b><b style="padding-left: 16px;"><i>Offensive Rating</i></b>
-                <ul class="no-bullets">
+                <ul>
                     <li>
                         Measures a team's points scored per 100 possessions. On
                         a player level this statistic is team points scored per
@@ -235,7 +232,7 @@
                 </ul>
             </li>
             <li><b style="color: var(--bs-info);">DEFRTG</b><b style="padding-left: 16px;"><i>Defensive Rating</i></b>
-                <ul class="no-bullets">
+                <ul>
                     <li>
                         The number of points allowed per 100 possessions by a
                         team. For a player, it is the number of points per 100
@@ -245,7 +242,7 @@
                 </ul>
             </li>
             <li><b style="color: var(--bs-info);">NETRTG</b><b style="padding-left: 16px;"><i>Net Rating</i></b>
-                <ul class="no-bullets">
+                <ul>
                     <li>
                         Measures a team's point differential per 100
                         possessions. On player level this statistic is the
@@ -255,7 +252,7 @@
                 </ul>
             </li>
             <li><b style="color: var(--bs-info);">AST%</b><b style="padding-left: 16px;"><i>Assist Percentage</i></b>
-                <ul class="no-bullets">
+                <ul>
                     <li>
                         The percentage of teammate field goals a player assisted
                         on while they were on the floor
@@ -263,7 +260,7 @@
                 </ul>
             </li>
             <li><b style="color: var(--bs-info);">AST/TO</b><b style="padding-left: 16px;"><i>Assist To Turnover Ratio</i></b>
-                <ul class="no-bullets">
+                <ul>
                     <li>
                         The number of assists for a player or team compared to
                         the number of turnovers they have committed
@@ -271,7 +268,7 @@
                 </ul>
             </li>
             <li><b style="color: var(--bs-info);">ASTRATIO</b><b style="padding-left: 16px;"><i>Assist Ratio</i></b>
-                <ul class="no-bullets">
+                <ul>
                     <li>
                         Assist Ratio is the number of assists a player averages
                         per 100 possessions used
@@ -279,7 +276,7 @@
                 </ul>
             </li>
             <li><b style="color: var(--bs-info);">OREB%</b><b style="padding-left: 16px;"><i>Offensive Rebound Percentage</i></b>
-                <ul class="no-bullets">
+                <ul>
                     <li>
                         The percentage of available offensive rebounds a player
                         or team obtains while on the floor
@@ -287,7 +284,7 @@
                 </ul>
             </li>
             <li><b style="color: var(--bs-info);">DREB%</b><b style="padding-left: 16px;"><i>Defensive Rebound Percentage</i></b>
-                <ul class="no-bullets">
+                <ul>
                     <li>
                         The percentage of available defensive rebounds a player
                         or team obtains while on the floor.
@@ -295,7 +292,7 @@
                 </ul>
             </li>
             <li><b style="color: var(--bs-info);">REB%</b><b style="padding-left: 16px;"><i>Rebounding Percentage</i></b>
-                <ul class="no-bullets">
+                <ul>
                     <li>
                         The percentage of available rebounds a player or team
                         grabbed while on the floor
@@ -303,7 +300,7 @@
                 </ul>
             </li>
             <li><b style="color: var(--bs-info);">TOV%</b><b style="padding-left: 16px;"><i>Turnover Percentage</i></b>
-                <ul class="no-bullets">
+                <ul>
                     <li>
                         Percentage of plays that end in a player or team's
                         turnover
@@ -311,7 +308,7 @@
                 </ul>
             </li>
             <li><b style="color: var(--bs-info);">EFG%</b><b style="padding-left: 16px;"><i>Effective Field Goal Percentage</i></b>
-                <ul class="no-bullets">
+                <ul>
                     <li>
                         Measures field goal percentage adjusting for made
                         3-point field goals being 1.5 times more valuable than
@@ -320,7 +317,7 @@
                 </ul>
             </li>
             <li><b style="color: var(--bs-info);">TS%</b><b style="padding-left: 16px;"><i>True Shooting Percentage</i></b>
-                <ul class="no-bullets">
+                <ul>
                     <li>
                         A shooting percentage that factors in the value of
                         three-point field goals and free throws in addition to
@@ -329,7 +326,7 @@
                 </ul>
             </li>
             <li><b style="color: var(--bs-info);">PACE</b><b style="padding-left: 16px;"><i>Pace</i></b>
-                <ul class="no-bullets">
+                <ul>
                     <li>
                         The number of possessions per 48 minutes for a team or
                         player.
@@ -337,7 +334,7 @@
                 </ul>
             </li>
             <li><b style="color: var(--bs-info);">PIE</b><b style="padding-left: 16px;"><i>Player Impact Estimate</i></b>
-                <ul class="no-bullets">
+                <ul>
                     <li>
                         Measures a player's overall statistical contribution
                         against the total statistics in games they play in. PIE
@@ -346,8 +343,8 @@
                     </li>
                 </ul>
             </li>
-            <li><b style="color: var(--bs-info);">POSS</b><b style="padding-left: 16px;"><i>Possessions</i></b>
-                <ul class="no-bullets">
+            <li style="padding-bottom: 0px;"><b style="color: var(--bs-info);">POSS</b><b style="padding-left: 16px;"><i>Possessions</i></b>
+                <ul>
                     <li>
                         The number of possessions played by a player or team.
                         Please note: an Offensive Rebound does not create
@@ -359,12 +356,12 @@
         </ul>
     </section>
     <section>
-        <h4 class="pb-2 border-bottom">
-            Misc Stats
-        </h4>
-        <ul class="no-bullets">
+        <h3 class="pb-1 border-bottom mb-3">
+            Miscellaneous Stats
+        </h3>
+        <ul>
             <li><b style="color: var(--bs-info);">PTSOFF TO</b><b style="padding-left: 16px;"><i>Points Off Turnovers</i></b>
-                <ul class="no-bullets">
+                <ul>
                     <li>
                         The number of points scored by a player or team
                         following an opponent's turnover
@@ -372,7 +369,7 @@
                 </ul>
             </li>
             <li><b style="color: var(--bs-info);">2NDPTS</b><b style="padding-left: 16px;"><i>Second Chance Points</i></b>
-                <ul class="no-bullets">
+                <ul>
                     <li>
                         The percentage of isolation plays where a player or team
                         shoots free throws as the result of a shooting foul
@@ -380,7 +377,7 @@
                 </ul>
             </li>
             <li><b style="color: var(--bs-info);">FBPS</b><b style="padding-left: 16px;"><i>Fast Break Points</i></b>
-                <ul class="no-bullets">
+                <ul>
                     <li>
                         The number of points scored by a player or team while on
                         a fast break
@@ -388,7 +385,7 @@
                 </ul>
             </li>
             <li><b style="color: var(--bs-info);">PITP</b><b style="padding-left: 16px;"><i>Points In The Paint</i></b>
-                <ul class="no-bullets">
+                <ul>
                     <li>
                         The number of points scored by a player or team in the
                         paint
@@ -396,7 +393,7 @@
                 </ul>
             </li>
             <li><b style="color: var(--bs-info);">OPP PTSOFF TO</b><b style="padding-left: 16px;"><i>Opponent Points Off Turnovers</i></b>
-                <ul class="no-bullets">
+                <ul>
                     <li>
                         The number of points scored by an opposing player or
                         team following a turnover
@@ -404,7 +401,7 @@
                 </ul>
             </li>
             <li><b style="color: var(--bs-info);">OPP2ND PTS</b><b style="padding-left: 16px;"><i>Opponent Second Chance Points</i></b>
-                <ul class="no-bullets">
+                <ul>
                     <li>
                         The number of points an opposing player or team scores
                         on a possession when the opposing team rebounds the ball
@@ -413,16 +410,16 @@
                 </ul>
             </li>
             <li><b style="color: var(--bs-info);">OPPFBPS</b><b style="padding-left: 16px;"><i>Opponent Fast Break Points</i></b>
-                <ul class="no-bullets">
+                <ul>
                     <li>
                         The number of points scored by an opposing player or
                         team while on a fast break
                     </li>
                 </ul>
             </li>
-            <li><b style="color: var(--bs-info);">OPPPITP</b><b style="padding-left: 16px;"><i>Opponents Points In The Paint</i></b>
-                <ul class="no-bullets">
-                    <li>
+            <li style="padding-bottom: 0px;"><b style="color: var(--bs-info);">OPPPITP</b><b style="padding-left: 16px;"><i>Opponents Points In The Paint</i></b>
+                <ul>
+                    <li class="pb-0">
                         The number of points scored by an opposing player or
                         team in the paint
                     </li>
