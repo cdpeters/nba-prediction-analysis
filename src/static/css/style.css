@@ -1,109 +1,16 @@
-.main-mt {
+:root {
+    --carousel-control-opacity: 0.4;
+}
+
+body {
+    color: var(--bs-gray-100);
+}
+
+main {
     margin-top: 50px;
- }
-
-.table {
-    border-collapse: separate;
-    border-spacing: 0;
 }
 
-table.sticky-header thead th {
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
-    border-bottom: 2px solid var(--bs-white);
-}
-
-.table-border-custom {
-    border: 3px solid var(--bs-gray-700);
-    border-radius: 8px;
-}
-
-#table-team-trad-stats {
-    height: 280px;
-}
-
-#fig-infrastructure,
-#fig-erd-season,
-#fig-erd-playoffs,
-#table-team-trad-stats-container,
-#correlation-heatmap-all-features,
-.chart {
-    width: 100%;
-}
-
-#fig-infrastructure {
-    max-width: 580px;
-}
-
-.chart {
-    max-width: 520px;
-}
-
-.img-border-custom {
-    border-radius: 8px;
-}
-
-.nav-link-color-custom {
-    color: var(--bs-gray-500);
-}
-
-.nav-link-color-custom:hover, .nav-link-color-custom:focus {
-    color: var(--bs-white);
-}
-
-nav {
-    box-sizing: content-box;
-    border-bottom: 1px solid var(--bs-info);
-    height: 50px;
-}
-
-#github-logo {
-    height: 20px;
-    width: 20px;
-}
-
-.no-bullets {
-   list-style-type: none;
-   padding-top: 8px;
-}
-
-.no-bullets > li {
-    padding-bottom: 24px;
-}
-
-.prose-w, .tableau-placeholder {
-   width: 280px;
-}
-
-.tableau-viz {
-    display: none;
-}
-
-.tableau-placeholder {
-    display: flex;
-    flex-direction: column;
-}
-
-#navbar-button {
-    box-sizing: content-box;
-    border: none;
-}
-
-#navbar-button:focus {
-    box-shadow: none;
-}
-
-#navbar-button:hover {
-    /* border: var(--bs-border-width) solid var(--bs-gray-500); */
-    box-shadow: 0 0 0 0.2rem var(--bs-gray-500);
-}
-
-.navbar-toggler-icon {
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28173, 181, 189, 1.0%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-}
-
-/* Scrollbar styles */
+/*---------------------------  Scrollbar styles  -----------------------------*/
 ::-webkit-scrollbar {
     width: .4rem;
     height: .4rem;
@@ -117,7 +24,222 @@ nav {
     background-color: var(--bs-gray-600);
 }
 
-/* Properties based on viewport width */
+/*-----------------------------  Navbar styles  ------------------------------*/
+nav {
+    box-sizing: content-box;
+    border-bottom: 1px solid var(--bs-info);
+    height: 50px;
+    font-size: 16px;
+}
+
+nav li {
+    padding-top: 0px;
+}
+
+nav ul > li {
+    list-style-type: none;
+}
+
+.nav-brand-link {
+    color: var(--bs-heading-color);
+    text-decoration: none;
+}
+
+.nav-link-color-custom {
+    color: var(--bs-gray-500);
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28173, 181, 189, 1.0%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+nav ul > li:first-child {
+    padding-top: 0px;
+}
+
+.nav-brand-link:hover {
+    color: var(--bs-heading-color);
+}
+
+.nav-link-color-custom:hover, .nav-link-color-custom:focus {
+    color: var(--bs-gray-100);
+}
+
+.navbar-nav .nav-link.active, .navbar-nav .nav-link.show {
+    color: var(--bs-gray-100);
+}
+
+#github-logo {
+    height: 20px;
+    width: 20px;
+}
+
+#navbar-button {
+    box-sizing: content-box;
+    border: none;
+    margin-right: 12px;
+}
+
+#navbar-button:focus {
+    box-shadow: none;
+}
+
+#navbar-button:hover {
+    /* border: var(--bs-border-width) solid var(--bs-gray-500); */
+    box-shadow: 0 0 0 0.2rem var(--bs-gray-500);
+}
+
+/*----------------------------  Table styles  --------------------------------*/
+.table {
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.table-outer-border {
+    border: 3px solid var(--bs-gray-700);
+    border-radius: 8px;
+}
+
+table.sticky-header thead th {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    border-bottom: 2px solid var(--bs-white);
+}
+
+#table-team-trad-stats {
+    height: 280px;
+}
+
+#section-db-table {
+    padding-bottom: 24px;
+}
+
+#table-team-trad-stats-container,
+#table-proba-est-container {
+    width: 100%;
+}
+
+/*----------------------------  Figure styles  -------------------------------*/
+.img-border-radius {
+    border-radius: 8px;
+}
+
+.fig-prediction {
+    max-width: 520px;
+}
+
+.fig-prediction,
+#fig-infrastructure,
+#fig-erd-season,
+#fig-erd-playoffs,
+#fig-correlation-heatmap-all-features {
+    width: 100%;
+}
+
+#fig-infrastructure {
+    max-width: 580px;
+}
+
+/*--------------------  Tableau image preview carousel  ----------------------*/
+.carousel-w {
+    width: 100%;
+}
+
+.carousel-control-icon {
+    --width: 24px;
+    width: var(--width);
+    border-radius: calc(var(--width) / 2);
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    opacity: var(--carousel-control-opacity);
+}
+
+.carousel-indicators [data-bs-target] {
+    height: 2px;
+    width: 24px;
+    border-bottom: 5px solid transparent;
+    opacity: 0.2;
+}
+
+.carousel-indicators .active {
+    opacity: 1;
+}
+
+.carousel-control-prev:focus,
+.carousel-control-next:focus {
+    opacity: var(--carousel-control-opacity);
+}
+
+.carousel-control-prev:focus:hover,
+.carousel-control-next:focus:hover {
+    opacity: 0.9;
+}
+
+[data-bs-theme=dark] .carousel .carousel-indicators [data-bs-target],
+[data-bs-theme=dark].carousel .carousel-indicators [data-bs-target] {
+    background-color: var(--bs-dark);
+}
+
+/*----------------------------  Miscellaneous  -------------------------------*/
+li {
+    padding-top: 10px;
+}
+
+ul > li {
+    list-style-type: disc;
+}
+
+.prose-w {
+    width: 280px;
+}
+
+.card-max-w {
+    max-width: 290px;
+}
+
+.disclaimer {
+    color: var(--bs-gray-400);
+    border-left: 3px solid var(--bs-info);
+    background-color: var(--bs-gray-800);
+    padding: 6px 8px;
+    border-radius: 8px;
+}
+
+.custom-pt {
+    padding-top: 36px;
+}
+
+.card-content-w {
+    width: 280px;
+}
+
+ol > li:first-child, ul > li:first-child {
+    padding-top: 4px;
+}
+
+#card-container {
+    padding-bottom: 64px;
+}
+
+#glossary ul {
+    padding-top: 8px;
+}
+
+#glossary ul > li {
+    list-style-type: none;
+    padding-top: 0px;
+    padding-bottom: 24px;
+}
+
+#people ul > li {
+    list-style-type: none;
+    padding-top: 0px;
+}
+
+/*-------------------------  Collapsed navbar styles  ------------------------*/
 @media (max-width: 991px) {
     nav > h5 {
         height: 100%;
@@ -137,49 +259,125 @@ nav {
     }
 }
 
+/*--------------------------  XXS: width >= 375px  ---------------------------*/
 @media (min-width: 375px) {
-    .prose-w, .tableau-placeholder {
+    /*--------  Miscellaneous  ----------------------*/
+    .prose-w {
         width: 320px;
     }
 }
 
+/*---------------------------  XS: width >= 425px  ---------------------------*/
 @media (min-width: 425px) {
-    .prose-w, .tableau-placeholder {
+    /*--------  Table styles  -----------------------*/
+    #section-db-table {
+        padding-bottom: 0px;
+    }
+
+    /*--------  Figure styles  ----------------------*/
+    #fig-correlation-heatmap-all-features {
+        width: 390px;
+    }
+
+    /*--------  Tableau image preview carousel  -----*/
+    .carousel-w {
+        width: 390px;
+    }
+
+    /*--------  Miscellaneous  ----------------------*/
+    .prose-w {
         width: 360px;
     }
 }
 
+/*---------------------------  SM: width >= 576px  ---------------------------*/
 @media (min-width: 576px) {
-    .prose-w, .tableau-placeholder {
+    body {
+        font-size: 18px;
+    }
+
+    /*--------  Table styles  -----------------------*/
+    #table-proba-est-container {
+        width: auto;
+    }
+
+    /*--------  Figure styles  ----------------------*/
+    #fig-correlation-heatmap-all-features {
+        width: 520px;
+    }
+
+    /*--------  Tableau image preview carousel  -----*/
+    .carousel-w {
+        width: 520px;
+    }
+
+    /* .carousel-control-icon {
+        --width: 24px;
+        width: var(--width);
+        border-radius: calc(var(--width) / 2);
+    } */
+
+    .carousel-indicators [data-bs-target] {
+        height: 3px;
+    }
+
+    /*--------  Miscellaneous  ----------------------*/
+    .prose-w {
         width: 480px;
     }
 }
 
+/*---------------------------  MD: width >= 768px  ---------------------------*/
 @media (min-width: 768px) {
+    /*--------  Table styles  -----------------------*/
+    #table-team-trad-stats-container {
+        width: 690px;
+    }
+
+    /*--------  Figure styles  ----------------------*/
+    #fig-erd-season,
+    #fig-erd-playoffs,
+    #fig-correlation-heatmap-all-features {
+        width: 690px;
+    }
+
+    /*--------  Tableau image preview carousel  -----*/
+    .carousel-w {
+        width: 690px;
+    }
+
+    .carousel-control-icon {
+        --width: 28px;
+        width: var(--width);
+        border-radius: calc(var(--width) / 2);
+    }
+
+    .carousel-indicators [data-bs-target] {
+        width: 30px;
+    }
+
+    /*--------  Miscellaneous  ----------------------*/
     .prose-w {
         width: 620px;
     }
-
-    #fig-erd-season {
-        width: 660px;
-    }
-
-    #fig-erd-playoffs, .tableau-placeholder {
-        width: 660px;
-    }
-
-    #table-team-trad-stats-container {
-        width: 660px;
-    }
-
-    #correlation-heatmap-all-features {
-        width: 690px;
-    }
 }
 
+/*---------------------------  LG: width >= 992px  ---------------------------*/
 @media (min-width: 992px) {
-    .prose-w {
-        width: 690px;
+    /*--------  Navbar styles  ----------------------*/
+    .nav-margin {
+        padding-left: 2px;
+        padding-right: 2px;
+    }
+
+    .nav-anchor {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .nav-brand-mb {
+        margin-bottom: 0px;
     }
 
     #navbarSupportedContent {
@@ -200,48 +398,12 @@ nav {
         height: 100%;
     }
 
-    .nav-margin {
-        padding-left: 2px;
-        padding-right: 2px;
-    }
-
-    .nav-anchor {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .nav-brand-mb {
-        margin-bottom: 0px;
-    }
-
-    #fig-erd-season {
-        width: 800px;
-    }
-
-    #fig-erd-playoffs {
-        width: 800px;
-    }
-
+    /*--------  Table styles  -----------------------*/
     #table-team-trad-stats-container {
-        width: 800px;
+        width: 900px;
     }
 
-    #correlation-heatmap-all-features {
-        width: 860px;
-    }
-
-    .tableau-viz {
-        display: block;
-        width: 885px;
-    }
-
-    .tableau-placeholder {
-        display: none;
-    }
-}
-
-@media (min-width: 1200px) {
+    /*--------  Figure styles  ----------------------*/
     #fig-erd-season {
         width: 810px;
     }
@@ -250,34 +412,96 @@ nav {
         width: 900px;
     }
 
+    #fig-correlation-heatmap-all-features {
+        width: 860px;
+    }
+
+    /*--------  Tableau image preview carousel  -----*/
+    .carousel-w {
+        width: 800px;
+    }
+
+    .carousel-control-icon {
+        --width: 32px;
+        width: var(--width);
+        border-radius: calc(var(--width) / 2);
+    }
+
+    .carousel-indicators [data-bs-target] {
+        height: 3px;
+    }
+
+    /*--------  Miscellaneous  ----------------------*/
+    .prose-w {
+        width: 690px;
+    }
+
+    .card-grid {
+        width: 900px;
+    }
+
+    #card-container {
+        padding-bottom: 0px;
+    }
+}
+
+/*--------------------------  XL: width >= 1200px  ---------------------------*/
+@media (min-width: 1200px) {
+    /*--------  Navbar styles  ----------------------*/
+    nav {
+        font-size: 18px;
+    }
+
+    .nav-margin {
+        padding-left: 4px;
+        padding-right: 4px;
+    }
+
+    /*--------  Table styles  -----------------------*/
     #table-team-trad-stats-container {
         width: 950px;
     }
 
-    #correlation-heatmap-all-features {
+    /*--------  Figure styles  ----------------------*/
+    #fig-correlation-heatmap-all-features {
         width: 860px;
     }
 
-    .tableau-viz {
-        width: 1070px;
+    /*--------  Tableau image preview carousel  -----*/
+    .carousel-w {
+        width: 860px;
     }
 }
 
+/*-------------------------  XXL: width >= 1400px  ---------------------------*/
 @media (min-width: 1400px) {
-    .prose-w {
-        width: 730px;
-    }
-
+    /*--------  Table styles  -----------------------*/
     #table-team-trad-stats-container {
         width: 1100px;
     }
 
-    .tableau-viz {
-        width: 1270px;
+    /*--------  Tableau image preview carousel  -----*/
+    .carousel-w {
+        width: 950px;
+    }
+
+    .carousel-control-icon {
+        --width: 34px;
+        width: var(--width);
+        border-radius: calc(var(--width) / 2);
+    }
+
+    .carousel-indicators [data-bs-target] {
+        height: 4px;
+    }
+
+    /*--------  Miscellaneous  ----------------------*/
+    .prose-w {
+        width: 730px;
     }
 }
 
-/* Properties based on viewport height */
+/*------------------  Mobile device landscape mode styles --------------------*/
 @media(min-height: 500px) {
     #table-team-trad-stats {
         height: 460px;
