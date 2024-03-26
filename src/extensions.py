@@ -7,6 +7,7 @@ from sqlalchemy.orm import DeclarativeBase
 class Base(DeclarativeBase):
     pass
 
+
 # Initialize the Flask-SQLAlchemy extension.
 db = SQLAlchemy(model_class=Base)
 # Initialize the Flask-Caching extension. Default cache timeout is set to 2 hours.

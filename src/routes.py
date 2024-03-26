@@ -56,7 +56,9 @@ def create_router(db: SQLAlchemy, models: Models) -> Blueprint:
     def prediction():
         """Render page with machine learning analysis and final champion prediction."""
         DATA_DIR = Path.cwd() / "data"
-        proba_est_table_html = get_probability_estimates_table_html(path=DATA_DIR / "probability_estimates.csv")
+        proba_est_table_html = get_probability_estimates_table_html(
+            path=DATA_DIR / "probability_estimates.csv"
+        )
         return render_template(
             "prediction.html",
             proba_est_table_html=proba_est_table_html,
