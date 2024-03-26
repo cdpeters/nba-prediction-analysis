@@ -1,8 +1,7 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy.orm import DeclarativeBase
 
 from database import get_db_uri
+from extensions import cache, db
 from models import Models
 from routes import create_router
 
@@ -10,16 +9,9 @@ from routes import create_router
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = get_db_uri()
 
-
-# Initialize Flask-SQLAlchemy extension.
-class Base(DeclarativeBase):
-    pass
-
-
-db = SQLAlchemy(model_class=Base)
-
-# Configure the extension (connect the extension to the Flask app).
+# Initialize the app with the extensions.
 db.init_app(app)
+cache.init_app(app)
 
 # Gather table metadata via reflection in order to construct ORM models.
 with app.app_context():

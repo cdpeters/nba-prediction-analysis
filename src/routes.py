@@ -4,7 +4,6 @@ from flask import Blueprint, render_template
 from flask_sqlalchemy import SQLAlchemy
 
 from database import (
-    get_feature_importance_table_html,
     get_probability_estimates_table_html,
     get_teams_traditional_table_html,
 )
@@ -35,7 +34,7 @@ def create_router(db: SQLAlchemy, models: Models) -> Blueprint:
     @router.route("/")
     def index():
         """Render landing page with the overview of the project."""
-        team_trad_table_html = get_teams_traditional_table_html(db, models)
+        team_trad_table_html = get_teams_traditional_table_html(db=db, models=models)
         return render_template("index.html", team_trad_table_html=team_trad_table_html)
 
     @router.route("/game-evolution")
@@ -57,16 +56,10 @@ def create_router(db: SQLAlchemy, models: Models) -> Blueprint:
     def prediction():
         """Render page with machine learning analysis and final champion prediction."""
         DATA_DIR = Path.cwd() / "data"
-        proba_est_table_html = get_probability_estimates_table_html(
-            DATA_DIR / "probability_estimates.csv"
-        )
-        feat_imp_table_html = get_feature_importance_table_html(
-            DATA_DIR / "feature_importance.csv"
-        )
+        proba_est_table_html = get_probability_estimates_table_html(path=DATA_DIR / "probability_estimates.csv")
         return render_template(
             "prediction.html",
             proba_est_table_html=proba_est_table_html,
-            feat_imp_table_html=feat_imp_table_html,
         )
 
     @router.route("/people")

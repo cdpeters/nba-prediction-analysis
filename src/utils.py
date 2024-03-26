@@ -187,7 +187,7 @@ def align_table_columns_horizontally(
     str
         Updated table html string.
     """
-    parser = HTMLParser(table_html)
+    parser = HTMLParser(html=table_html)
     # Find all table rows including the header row(s).
     table_rows = parser.css("tr")
 
@@ -272,7 +272,7 @@ def convert_frame_to_html(df: DataFrame, **to_html_kwargs: Any) -> str:
     if not isinstance(index, bool):
         raise TypeError("`index` must be of type `bool`.")
 
-    dtype_indices = get_full_table_dtype_indices(df, index=index)
+    dtype_indices = get_full_table_dtype_indices(df=df, index=index)
 
     updated_table_html = align_table_columns_horizontally(
         table_html=table_html, dtype_indices=dtype_indices

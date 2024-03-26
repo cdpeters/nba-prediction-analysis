@@ -6,12 +6,13 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import and_
 from sqlalchemy.orm import aliased
 
+from extensions import cache
 from models import Models
 from utils import convert_frame_to_html
 
 
 def get_db_uri() -> str:
-    """Build database uri from environment variables.
+    """Build database URI from environment variables.
 
     Returns
     -------
@@ -27,12 +28,10 @@ def get_db_uri() -> str:
     user = os.environ.get("PGUSER")
     pwd = os.environ.get("PGPASSWORD")
 
-    # Build database URI.
-    db_uri = f"postgresql://{user}:{pwd}@{host}:{port}/{db}"
-
-    return db_uri
+    return f"postgresql://{user}:{pwd}@{host}:{port}/{db}"
 
 
+@cache.cached(key_prefix="get_teams_traditional_table_html")
 def get_teams_traditional_table_html(db: SQLAlchemy, models: Models) -> str:
     """Retrieve the teams traditional stat table from the database as html.
 
@@ -115,33 +114,4 @@ def get_probability_estimates_table_html(path: Path) -> str:
             "mb-0",
         ],
         index=False,
-    )
-
-
-def get_feature_importance_table_html(path: Path) -> str:
-    """Create the html for the feature importance table from a csv.
-
-    Parameters
-    ----------
-    path : Path
-        Path to csv file with feature importance data.
-
-    Returns
-    -------
-    str
-        Table html string.
-    """
-    feature_importance = pd.read_csv(path, index_col=0)
-
-    return convert_frame_to_html(
-        df=feature_importance,
-        border=0,
-        classes=[
-            "table",
-            "table-dark",
-            "table-striped",
-            "table-borderless",
-            "sticky-header",
-            "mb-0",
-        ],
     )
