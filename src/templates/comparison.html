@@ -7,16 +7,85 @@
 
 <!--------------------------------- BODY -------------------------------------->
 {% block body %}
-<!-- Tableau Viz -->
-<section class="tableau-center pt-5">
-    <div class='tableauPlaceholder' id='viz1708374127140' style='position: relative'><noscript><a href='#'><img alt='PAST CHAMPIONS VS. CURRENT PLAYOFF TEAMS ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;PA&#47;PASTCHAMPIONSVS_CURRENTPLAYOFFTEAMS&#47;PASTCHAMPIONSVS_CURRENTSEASON&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='PASTCHAMPIONSVS_CURRENTPLAYOFFTEAMS&#47;PASTCHAMPIONSVS_CURRENTSEASON' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;PA&#47;PASTCHAMPIONSVS_CURRENTPLAYOFFTEAMS&#47;PASTCHAMPIONSVS_CURRENTSEASON&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1708374127140');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
-</section>
-<section class="py-5 prose-w mx-auto">
+<section class="custom-pt pb-5 prose-w mx-auto">
+    <section class="d-flex flex-column pb-4">
+        <h3 class="pb-1 border-bottom mb-3">
+            Comparison Visualization
+        </h3>
+        <p>
+            One further aspect we explored was how the current playoff field
+            stacks up against previous champions in some key areas. Ideally,
+            this exercise will reveal which current playoff teams have put
+            together champion caliber seasons. Pairing this analysis with the
+            results of the game evolution analysis could identify the teams that
+            have what it takes to win it all in 2022.
+        </p>
+        <p>
+            Below is a Tableau visualization that compares our champions and
+            champion hopefuls. The stat categories involved are offensive and
+            defensive ratings, assist and turnover percentages, and effective
+            field goal and true shooting percentages.
+        </p>
+        <p>
+            Preview images are shown here, you can use the arrow buttons to
+            cycle through them. Visit the following link to view the full
+            visualization on the Tableau Public website: <a class="link-info" href="https://public.tableau.com/app/profile/cdpeters1/viz/PASTCHAMPIONSVS_CURRENTPLAYOFFTEAMS_17094038932450/PASTCHAMPIONSVS_CURRENTSEASON" target="_blank">Comparison Tableau Visualization</a>
+            (the original visualization was created by Pascale Geday and can be
+            found here: <a class="link-info" href="https://public.tableau.com/app/profile/pascale.geday/viz/PASTCHAMPIONSVS_CURRENTPLAYOFFTEAMS/PASTCHAMPIONSVS_CURRENTSEASON" target="_blank">Original Comparison Visualization</a>).
+        </p>
+        <!-- Tableau preview image carousel -->
+        <div id="carousel-comparison" class="carousel slide carousel-fade carousel-w mb-3 align-self-center" data-bs-theme="dark">
+            <div class="carousel-indicators mb-0">
+                <button type="button" data-bs-target="#carousel-comparison" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carousel-comparison" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carousel-comparison" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner img-border-radius">
+                <figure class="carousel-item mb-0 active">
+                    <img src="{{ url_for('static', filename='images/tableau_previews/comparison_off_vs_def_rating.png') }}"
+                        class="d-block w-100"
+                        alt="Comparison: offensive vs. defensive ratings dashboard">
+                </figure>
+                <figure class="carousel-item mb-0">
+                    <img src="{{ url_for('static', filename='images/tableau_previews/comparison_assist%_vs_turnover%.png') }}"
+                        class="d-block w-100"
+                        alt="Comparison: assist % vs. turnover % dashboard">
+                </figure>
+                <figure class="carousel-item mb-0">
+                    <img src="{{ url_for('static', filename='images/tableau_previews/comparison_efg%_vs_ts%.png') }}"
+                        class="d-block w-100"
+                        alt="Comparison: effective field goal % vs. true shooting % dashboard">
+                </figure>
+            </div>
+            <button class="carousel-control-prev ps-2 justify-content-start" type="button" data-bs-target="#carousel-comparison" data-bs-slide="prev">
+                <span aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        fill="var(--bs-dark)"
+                        class="bi bi-arrow-left-circle-fill carousel-control-icon"
+                        viewBox="0 0 16 16">
+                        <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0m3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z"/>
+                    </svg>
+                </span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next pe-2 justify-content-end" type="button" data-bs-target="#carousel-comparison" data-bs-slide="next">
+                <span aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        fill="var(--bs-dark)"
+                        class="bi bi-arrow-right-circle-fill carousel-control-icon"
+                        viewBox="0 0 16 16">
+                        <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z"/>
+                    </svg>
+                </span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </section>
     <section class="d-flex flex-column">
         <h3 class="pb-1 border-bottom mb-3">
             Analysis
         </h3>
-        <p>
+        <p class="pb-2">
             Past Champions vs. Current Playoff Teams compares the regular season
             stats of historical NBA champions and how they compare to the
             regular season stats of the teams currently playing in the 2022
@@ -27,7 +96,7 @@
                 Offensive vs. Defensive Rating
             </h5>
             <ul>
-                <li>
+                <li style="padding-top: 0px;">
                     Past champions have historically grouped between the 1st and
                     3rd quadrants.
                 </li>
@@ -46,7 +115,7 @@
                 Assist% vs. Turnover%
             </h5>
             <ul>
-                <li>
+                <li style="padding-top: 0px;">
                     Past champions have historically grouped between the 1st and
                     3rd quadrants.
                 </li>
@@ -65,7 +134,7 @@
                 Effective Field Goal% vs. True Shooting%
             </h5>
             <ul>
-                <li>
+                <li style="padding-top: 0px;">
                     Past champions have historically grouped between the 1st and
                     3rd quadrants in a linear fashion with more recent teams in
                     the first quadrant.

@@ -7,28 +7,84 @@
 
 <!--------------------------------- BODY -------------------------------------->
 {% block body %}
-<!-- Tableau Viz -->
-<section class="pt-5 d-flex flex-column align-items-center">
-    <div class="tableau-viz">
-        <div class='tableauPlaceholder' id='viz1708373438562' style='position: relative'><noscript><a href='#'><img alt='GAME EVOLUTION ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;GA&#47;GAMEEVOLUTION&#47;GAMEEVOLUTION&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='GAMEEVOLUTION&#47;GAMEEVOLUTION' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;GA&#47;GAMEEVOLUTION&#47;GAMEEVOLUTION&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1708373438562');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);</script>
-    </div>
-    <div class="tableau-placeholder">
-        <figure class="align-self-center">
-            <img src="{{ url_for('static', filename='images/tableau_previews/game_evolution.png') }}"
-                 class="img-fluid img-border-custom"
-                 alt="entity relationship diagram for playoff stats">
-            <figcaption class="pt-2 text-center small">
-                Fig 1. Tableau preview: game evolution
-            </figcaption>
-        </figure>
-    </div>
-</section>
-<section class="py-5 prose-w mx-auto">
+<section class="custom-pt pb-5 prose-w mx-auto">
+    <section class="d-flex flex-column pb-4">
+        <h3 class="pb-1 border-bottom mb-3">
+            Game Evolution Visualization
+        </h3>
+        <p>
+            It is important to recognize that the style of the sport has gone
+            through many different eras. As the style of the game has changed,
+            so too has the style of champion.
+        </p>
+        <p>
+            Below is a link to a Tableau visualization that aims to identify
+            what seasons constitute the modern era based on data gathered for
+            different stat categories. The idea is to narrow the dataset to just
+            the years that represent the modern game and to use this data to
+            train our machine learning model. The hope is that this will allow
+            our model to learn the qualities of a modern NBA champion.
+        </p>
+        <p>
+            Preview images are shown here, you can use the arrow buttons to
+            cycle through them. Visit the following link to view the full
+            visualization on the Tableau Public website: <a class="link-info" href="https://public.tableau.com/app/profile/cdpeters1/viz/GAMEEVOLUTION_17093731900040/GAMEEVOLUTION" target="_blank">Game Evolution Tableau Visualization</a>
+            (the original visualization was created by Pascale Geday and can be
+            found here: <a class="link-info" href="https://public.tableau.com/app/profile/pascale.geday/viz/GAMEEVOLUTION/GAMEEVOLUTION" target="_blank">Original Game Evolution Visualization</a>).
+        </p>
+        <!-- Tableau preview image carousel -->
+        <div id="carousel-game-evolution" class="carousel slide carousel-fade carousel-w mb-3 align-self-center" data-bs-theme="dark">
+            <div class="carousel-indicators mb-0">
+                <button type="button" data-bs-target="#carousel-game-evolution" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carousel-game-evolution" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carousel-game-evolution" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner img-border-radius">
+                <figure class="carousel-item mb-0 active">
+                    <img src="{{ url_for('static', filename='images/tableau_previews/game_evolution_3pt.png') }}"
+                         class="d-block w-100"
+                         alt="Game evolution: 3 point shot Dashboard">
+                </figure>
+                <figure class="carousel-item mb-0">
+                    <img src="{{ url_for('static', filename='images/tableau_previews/game_evolution_defensive.png') }}"
+                         class="d-block w-100"
+                         alt="Game evolution: defensive stats dashboard">
+                </figure>
+                <figure class="carousel-item mb-0">
+                    <img src="{{ url_for('static', filename='images/tableau_previews/game_evolution_offensive.png') }}"
+                         class="d-block w-100"
+                         alt="Game evolution: offensive stats dashboard">
+                </figure>
+            </div>
+            <button class="carousel-control-prev ps-2 justify-content-start" type="button" data-bs-target="#carousel-game-evolution" data-bs-slide="prev">
+                <span aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                         fill="var(--bs-dark)"
+                         class="bi bi-arrow-left-circle-fill carousel-control-icon"
+                         viewBox="0 0 16 16">
+                        <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0m3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z"/>
+                    </svg>
+                </span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next pe-2 justify-content-end" type="button" data-bs-target="#carousel-game-evolution" data-bs-slide="next">
+                <span aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                         fill="var(--bs-dark)"
+                         class="bi bi-arrow-right-circle-fill carousel-control-icon"
+                         viewBox="0 0 16 16">
+                        <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z"/>
+                    </svg>
+                </span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </section>
     <section class="d-flex flex-column">
         <h3 class="pb-1 border-bottom mb-3">
             Analysis
         </h3>
-        <p>
+        <p class="pb-2">
             The Evolution of the NBA game has come a long way since 1997 (where
             our data dates back). We have seen a slow and steady change in how
             the style of the game is played.
@@ -38,7 +94,7 @@
                 3 Point Shots
             </h5>
             <ul>
-                <li>
+                <li style="padding-top: 0px;">
                     The first two visuals show an evolution of how teams have
                     evolved from playing a paint-dominant game to players now
                     expected to stretch the floor.
@@ -61,7 +117,7 @@
                 Defensive Stats
             </h5>
             <ul>
-                <li>
+                <li style="padding-top: 0px;">
                     The Defensive Stats visual shows historical trends for
                     average Blocks, Steals, Defensive Rebounds, and Defensive
                     Rating.
@@ -89,7 +145,7 @@
                 Offensive Stats
             </h5>
             <ul>
-                <li>
+                <li style="padding-top: 0px;">
                     The Offensive Stats visual shows historical trends for
                     average Effective Field Goal%, Free Throw Percentage, Points
                     Off Turnovers, and Offensive Rebounds.
@@ -115,7 +171,4 @@
         </div>
     </section>
 </section>
-<script type="text/javascript"
-         src="{{ url_for('static', filename='js/game_evolution_tableau.js') }}">
-</script>
 {% endblock body %}
