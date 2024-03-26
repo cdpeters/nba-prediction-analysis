@@ -1,3 +1,6 @@
+# Tableau profile links
+tableau_profiles.toml
+
 # Data folder
 notebooks/ETL_and_sqlalchemy/data/
 
