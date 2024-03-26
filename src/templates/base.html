@@ -13,12 +13,12 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     {% block head %}{% endblock head %}
 </head>
-<body class="bg-dark text-white">
+<body class="bg-dark">
     <div class="d-flex flex-column vh-100">
         <!-- Navbar -->
         {% block header %}{% endblock header %}
         <!-- Content Body -->
-        <main class="container-fluid px-0 overflow-auto main-mt">
+        <main class="container-fluid px-0 overflow-auto">
             {% block body %}{% endblock body %}
         </main>
     </div>
@@ -27,8 +27,5 @@
             integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
             crossorigin="anonymous">
     </script>
-    <!-- Our Javascript -->
-    <!-- <script type="text/javascript" src="{{ url_for('static', filename='js/logic.js') }}">
-    </script> -->
 </body>
 </html>
