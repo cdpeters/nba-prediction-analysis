@@ -1,6 +1,7 @@
 from pathlib import Path
 
 from flask import Blueprint, render_template
+from flask.wrappers import Response
 from flask_sqlalchemy import SQLAlchemy
 
 from database import (
@@ -73,5 +74,23 @@ def create_router(db: SQLAlchemy, models: Models) -> Blueprint:
     def glossary():
         """Render glossary for stat type abbreviations."""
         return render_template("glossary.html")
+
+    @router.after_request
+    def add_cache_control(response: Response) -> Response:
+        """Add cache control header to response object to allow client side caching.
+
+        Parameters
+        ----------
+        response : Response
+            The response to the incoming request.
+
+        Returns
+        -------
+        Response
+            Modified response with cache control header set.
+        """
+        # Set the cache control header with the max-age set to 1 day or 86,400 seconds.
+        response.headers["Cache-Control"] = "public, max-age=86400"
+        return response
 
     return router
