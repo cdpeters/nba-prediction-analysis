@@ -212,7 +212,12 @@ ul > li {
     padding-top: 36px;
 }
 
-.card-content-w {
+.card-px {
+    padding-left: 36px;
+    padding-right: 36px;
+}
+
+.row-cols-1>* {
     width: 280px;
 }
 
@@ -440,6 +445,10 @@ ol > li:first-child, ul > li:first-child {
         width: 900px;
     }
 
+    .row-cols-lg-3>* {
+        width: 280px;
+    }
+
     #card-container {
         padding-bottom: 0px;
     }
@@ -475,6 +484,22 @@ ol > li:first-child, ul > li:first-child {
 
 /*-------------------------  XXL: width >= 1400px  ---------------------------*/
 @media (min-width: 1400px) {
+    body, nav {
+        font-size: 20px;
+    }
+
+    h3 {
+        font-size: 2rem;
+    }
+
+    h4 {
+        font-size: 1.75rem;
+    }
+
+    h5 {
+        font-size: 1.5rem;
+    }
+
     /*--------  Table styles  -----------------------*/
     #table-team-trad-stats-container {
         width: 1100px;
@@ -497,7 +522,11 @@ ol > li:first-child, ul > li:first-child {
 
     /*--------  Miscellaneous  ----------------------*/
     .prose-w {
-        width: 730px;
+        width: 760px;
+    }
+
+    .row-cols-lg-3>* {
+        width: 300px;
     }
 }
 

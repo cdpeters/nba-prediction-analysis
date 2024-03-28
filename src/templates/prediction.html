@@ -3,10 +3,6 @@
 <!--------------------------------- HEAD -------------------------------------->
 {% block head %}
 <title>Prediction</title>
-<!-- <script type="module"
-        src="https://public.tableau.com/javascripts/api/tableau.embedding.3.latest.min.js">
-</script> -->
-<!-- <link rel="stylesheet" href="style.css"> -->
 {% endblock head %}
 
 <!--------------------------------- BODY -------------------------------------->
@@ -247,7 +243,7 @@
                      class="img-fluid img-border-radius fig-prediction"
                      alt="cumulative explained variance for all features">
                 <figcaption class="pt-2 text-center small">
-                    Fig 1. Cumulative explained variance
+                    Fig 1. Cumulative explained variance: all features
                 </figcaption>
             </figure>
             <p>
@@ -274,9 +270,9 @@
                     class="align-self-center">
                 <img src="{{ url_for('static', filename='images/machine_learning/correlation_heatmap_all_features.png') }}"
                      class="img-fluid img-border-radius"
-                     alt="correlation heatmap for all stats">
+                     alt="correlation heatmap for all features">
                 <figcaption class="pt-2 text-center small">
-                    Fig 2. Correlation coefficient heatmap for all stats
+                    Fig 2. Correlation coefficient heatmap: all features
                 </figcaption>
             </figure>
             <p>
@@ -297,15 +293,16 @@
             </p>
             <p>
                 Moving on, the next two graphs take a closer look at correlation
-                coefficients from two different angles. The first angle shows a
-                subset of stats that do not have any high correlations with any
-                other stats. In other words, its maximum coefficient is less
-                than a "high correlation" threshold, as seen here:
+                coefficient magnitudes from two different angles. The first
+                angle shows a subset of stats that do not have any high
+                correlations with any other stats. In other words, its maximum
+                coefficient is less than a "high correlation" threshold, as seen
+                here:
             </p>
             <figure class="align-self-center">
                 <img src="{{ url_for('static', filename='images/machine_learning/max_correlation_coefficients_all_features.png') }}"
                      class="img-fluid img-border-radius fig-prediction"
-                     alt="max correlation coefficients">
+                     alt="max correlation coefficients < 0.8 all features">
                 <figcaption class="pt-2 text-center small">
                     Fig 3. Stats having a maximum correlation coefficient < 0.8
                 </figcaption>
@@ -327,9 +324,10 @@
             <figure class="align-self-center">
                 <img src="{{ url_for('static', filename='images/machine_learning/percentile_correlation_coefficients_all_features.png') }}"
                      class="img-fluid img-border-radius fig-prediction"
-                     alt="percentile correlation coefficients">
+                     alt="80th percentile correlation coefficients < 0.35 all features">
                 <figcaption class="pt-2 text-center small">
-                    Fig 4. Stats with 80% of their correlation coefficients < 0.35
+                    Fig 4. Stats with 80% of their correlation coefficients <
+                    0.35
                 </figcaption>
             </figure>
             <p>
@@ -411,8 +409,7 @@
                      class="img-fluid img-border-radius fig-prediction"
                      alt="cumulative explained variance for selected features">
                 <figcaption class="pt-2 text-center small">
-                    Fig 5. The final selection of stats to be used as features in
-                    our model
+                    Fig 5. Cumulative explained variance: selected features
                 </figcaption>
             </figure>
             <p>
@@ -435,8 +432,7 @@
                      class="img-fluid img-border-radius fig-prediction"
                      alt="correlation heatmap for selected features">
                 <figcaption class="pt-2 text-center small">
-                    Fig 6. The final selection of stats to be used as features in
-                    our model
+                    Fig 6. Correlation coefficient heatmap: selected features
                 </figcaption>
             </figure>
             <p>
@@ -447,10 +443,10 @@
             <figure class="align-self-center">
                 <img src="{{ url_for('static', filename='images/machine_learning/max_correlation_coefficients_selected_features.png') }}"
                      class="img-fluid img-border-radius fig-prediction"
-                     alt="correlation heatmap for selected features">
+                     alt="Maximum correlation coefficients of the selected features">
                 <figcaption class="pt-2 text-center small">
-                    Fig 7. The final selection of stats to be used as features in
-                    our model
+                    Fig 7. Maximum correlation coefficients of the selected
+                    features
                 </figcaption>
             </figure>
             <p>
@@ -570,7 +566,7 @@
             <figure class="align-self-center">
                 <img src="{{ url_for('static', filename='images/machine_learning/feature_importance.png') }}"
                      class="img-fluid img-border-radius fig-prediction"
-                     alt="feature importance">
+                     alt="relative feature importance">
                 <figcaption class="pt-2 text-center small">
                     Fig 10. Relative feature importance
                 </figcaption>
@@ -667,7 +663,7 @@
             features.
         </p>
     </section>
-    <section class="d-flex flex-column pb-4">
+    <section class="d-flex flex-column">
         <h3 class="pb-1 border-bottom mb-3">
             Future Work
         </h3>
