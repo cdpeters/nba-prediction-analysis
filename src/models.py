@@ -1,4 +1,4 @@
-from flask_sqlalchemy import SQLAlchemy
+from flask_sqlalchemy.extension import SQLAlchemy
 
 
 # A container class `Models` is created for ease of use (the ability to pass all models

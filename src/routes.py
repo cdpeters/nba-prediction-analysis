@@ -2,7 +2,7 @@ from pathlib import Path
 
 from flask import Blueprint, render_template
 from flask.wrappers import Response
-from flask_sqlalchemy import SQLAlchemy
+from flask_sqlalchemy.extension import SQLAlchemy
 
 from database import (
     get_probability_estimates_table_html,
