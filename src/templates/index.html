@@ -53,10 +53,10 @@
             world.”
         </p>
         <p>
-            Aware of the huge impact this sport has worldwide and the data
+            Aware of the huge impact this sport has worldwide and given the data
             available to us, our final project will focus on learning how
             historical team statistics/data can help us predict the 2022 NBA
-            champion using machine learning models. Additionally, we will
+            champion using a machine learning model. Additionally, we will
             analyze important team statistics to help us come to a consensus
             about why our machine learning predicted certain teams as being the
             most probable choice for NBA Champion.
@@ -181,29 +181,31 @@
                     </ul>
                 </li>
                 <li>
-                    <b>Offensive Stats</b>
-                    <ul>
-                        <li>EFG%</li>
-                        <li>Free Throws Percentage</li>
-                        <li>Points off turnovers</li>
-                        <li>Offensive Rebounds</li>
-                    </ul>
-                </li>
-                <li>
                     <b>Defensive Stats</b>
                     <ul>
                         <li>Blocks</li>
                         <li>Steals</li>
-                        <li>Defensive Rebounds</li>
+                        <li>Defensive Rebound Percentage</li>
+                        <li>Opponent Points Off Turnovers</li>
                         <li>Defensive Rating</li>
+                    </ul>
+                </li>
+                <li>
+                    <b>Offensive Stats</b>
+                    <ul>
+                        <li>Effective Field Goal Percentage</li>
+                        <li>Free Throw Percentage</li>
+                        <li>Points Off Turnovers</li>
+                        <li>Offensive Rebound Percentage</li>
+                        <li>Offensive Rating</li>
                     </ul>
                 </li>
                 <li>
                     <b>Comparing Past Champions to Current Season</b>
                     <ul>
                         <li>Offensive vs. Defensive Rating</li>
-                        <li>Assists vs Turnovers</li>
-                        <li>Effective vs True Shooting Percentages</li>
+                        <li>Assist vs Turnover Percentages</li>
+                        <li>Effective Field Goal vs True Shooting Percentages</li>
                     </ul>
                 </li>
                 <li>
@@ -229,11 +231,10 @@
                     caching is allowed for as well.
                 </li>
                 <li>
-                    We have included links to our Tableau visuals in our Flask
-                    app as well. Originally, we wrote code to embed the visuals
-                    directly from Tableau. This ended up being too expensive
-                    resource-wise for hosting so we reverted to preview images
-                    and links.
+                    We have included links to our Tableau visuals in the app.
+                    Originally, we wrote code to embed the visuals directly from
+                    Tableau. This ended up being too expensive resource-wise for
+                    hosting so we reverted to preview images and links.
                 </li>
             </ul>
         </div>
@@ -264,9 +265,10 @@
             Database Tables
         </h3>
         <p class="pb-2">
-            The following table is retrieved from our PostgreSQL database via
-            SQLAlchemy and serves as an example of the types of tables used in
-            this project.
+            The following table is retrieved directly from our PostgreSQL
+            database via SQLAlchemy. It is included here merely as an example of
+            the types of tables used in the project and is therefore limited to
+            just two seasons of data.
         </p>
         <h5 class="fw-bold">
             Additional Notes About Database Tables

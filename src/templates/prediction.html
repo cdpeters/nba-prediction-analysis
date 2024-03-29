@@ -197,26 +197,31 @@
                     <b>Normalization</b>
                     <ul>
                         <li>
-                            First, the parameters of a scaler are fit via
-                            the training dataset. The test set is not
-                            involved in fitting these parameters in order to
-                            avoid data leakage. Next, both the training and
-                            test datasets are transformed using this scaler.
+                            First, the parameters of a scaler are fit via the
+                            training dataset. The test set is not involved in
+                            fitting these parameters in order to avoid data
+                            leakage. Next, the training set is transformed using
+                            this scaler.
                         </li>
                         <li>
-                            Note that scaling happens twice in our process.
-                            Initially, we scale with the full feature set
-                            during the feature selection phase; see the
-                            <b>Analysis: All Features</b> section below.
-                            Later, scaling is redone, but this time only
-                            with the final feature set that is used in our
-                            model.
+                            Scaling happens twice in our process and thus
+                            requires two separate scalers. Initially, we scale
+                            using the full feature set during the feature
+                            selection phase. Later, scaling is redone, but this
+                            time only with the final feature set that is used in
+                            our model.
                         </li>
                         <li>
-                            Also note that the scaling operation actually
-                            takes place as the first step in the two
-                            analysis sections below but is mentioned here
-                            because it is technically a pre-processing step.
+                            Note that the scaling operation actually takes
+                            place as the first step in the two analysis sections
+                            below but is mentioned here because it is
+                            technically a pre-processing step.
+                        </li>
+                        <li>
+                            The test set and target set are eventually
+                            transformed via the scaler that was fit using the
+                            final feature set. This occurs in the beginning of
+                            the <b>Machine Learning</b> section.
                         </li>
                     </ul>
                 </li>
@@ -476,7 +481,7 @@
                 Train, Test, and Evaluate
             </h5>
             <p>
-                We fit the model using the training data from the test train
+                We fit the model using the training data from the train test
                 split restricted to only the selected features. Following this,
                 we evaluate the model on the test set which produces the
                 following confusion matrix:
@@ -490,7 +495,7 @@
                 </figcaption>
             </figure>
             <p>
-                Using the confusion matrix above, we see that overall we have
+                From the confusion matrix above, we see that overall we have
                 23/24 correctly predicted outcomes, an accuracy of 95.8%. For
                 the positive class of champion, we compute the additional
                 evaluation metrics shown here:
@@ -590,7 +595,7 @@
             on feature importance.
         </p>
         <p>
-            Preview images are shown here, you can use the arrow buttons to
+            Preview images are shown here. You can use the arrow buttons to
             cycle through them. Visit the following link to view the full
             visualization on the Tableau Public website: <a class="link-info" href="https://public.tableau.com/app/profile/cdpeters1/viz/predicted_nba_champion_stats/MemphisGrizzlies" target="_blank">Predicted Champion Tableau Visualization</a>
             (the original visualization was created by Lauren Hess and can be
@@ -669,8 +674,8 @@
         </h3>
         <p class="pb-2">
             The following section details ideas for improving the results of our
-            project. First we start by identifying the weaknesses in our
-            approach in the <b>Motivations</b> section. This is followed by the
+            project. We start by identifying the weaknesses in our approach in
+            the <b>Motivations</b> section. This is followed by the
             <b>Plans</b> section where we discuss new approaches we would like
             to try in a second pass at creating the supervised learning model.
         </p>
@@ -733,9 +738,10 @@
                             Fig. 4. This is primarily due to time constraints.
                         </li>
                         <li>
-                            Feature importance is addressed as a post-processing
-                            step (after the model is fit) but can be looked at
-                            in some capacity prior to model fitting.
+                            The idea of feature importance is addressed as a
+                            post-processing step (after the model is fit) but
+                            can be looked at in some capacity prior to model
+                            fitting.
                         </li>
                     </ul>
                 </li>
