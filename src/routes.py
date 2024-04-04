@@ -33,28 +33,28 @@ def create_router(db: SQLAlchemy, models: Models) -> Blueprint:
     router = Blueprint("router", __name__)
 
     @router.route("/")
-    def index():
+    def index() -> str:
         """Render landing page with the overview of the project."""
         team_trad_table_html = get_teams_traditional_table_html(db=db, models=models)
         return render_template("index.html", team_trad_table_html=team_trad_table_html)
 
     @router.route("/game-evolution")
-    def game_evolution():
+    def game_evolution() -> str:
         """Render page containing analysis of the modern game."""
         return render_template("game_evolution.html")
 
     @router.route("/defense-offense")
-    def defense_offense():
+    def defense_offense() -> str:
         """Render overview of offensive/defensive stats for current teams."""
         return render_template("defense_offense.html")
 
     @router.route("/comparison")
-    def comparison():
+    def comparison() -> str:
         """Render page with current playoff teams vs. past champions comparisons."""
         return render_template("comparison.html")
 
     @router.route("/prediction")
-    def prediction():
+    def prediction() -> str:
         """Render page with machine learning analysis and final champion prediction."""
         DATA_DIR = Path.cwd() / "data"
         proba_est_table_html = get_probability_estimates_table_html(
@@ -66,12 +66,12 @@ def create_router(db: SQLAlchemy, models: Models) -> Blueprint:
         )
 
     @router.route("/people")
-    def people():
+    def people() -> str:
         """Render developer team information."""
         return render_template("people.html")
 
     @router.route("/glossary")
-    def glossary():
+    def glossary() -> str:
         """Render glossary for stat type abbreviations."""
         return render_template("glossary.html")
 
