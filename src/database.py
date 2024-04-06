@@ -3,7 +3,6 @@ from pathlib import Path
 
 import pandas as pd
 from flask_sqlalchemy.extension import SQLAlchemy
-from sqlalchemy import and_, between
 from sqlalchemy.orm import aliased
 
 from extensions import cache
@@ -58,9 +57,9 @@ def get_teams_traditional_table_html(db: SQLAlchemy, models: Models) -> str:
         db.select(sr, tt)
         .join(
             target=tt,
-            onclause=and_(sr.SEASON == tt.SEASON, sr.TEAM == tt.TEAM),
+            onclause=(sr.SEASON == tt.SEASON) & (sr.TEAM == tt.TEAM),
         )
-        .where(between(sr.SEASON, 2021, 2022))
+        .filter((sr.SEASON >= 2021) & (sr.SEASON <= 2022))
     )
 
     # Execute the query statement.
